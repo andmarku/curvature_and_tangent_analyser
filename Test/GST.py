@@ -1,21 +1,48 @@
 import numpy as np
-import scipy.stats as stats
+from GST0 import calculateGST0
+from scipy.ndimage import gaussian_filter
+from scipy.ndimage import gaussian_filter1d
 
-def weight(x, y, z, window_size):
+''' Uniform weights matrix '''
+def getWeights(window_size):
+    return np.ones((window_size, window_size, window_size)) / window_size ** 3
 
-    sp.stats.norm(loc = 0, scale = window_size/2)
+''' Mirrors indices over matrix borders '''
+def getMirror(matrix, indices):
 
-def calculateGST(Ix=0, Iy=0, Iz=0, intensity=np.zeros((2,2,2)), window_size=3):
+    mirror = np.zeros(len(indices), dtype='int')
 
-    GST = np.zeros(intensity.shape + (3,3))
+    for dim, index in enumerate(indices):
 
-    window = np.zeros((window_size, window_size, window_size))
+        mirror[dim] = index
 
-    # z is changing first, the y and then x at the end.
-    for (x, y, z), i in np.ndenumerate(intensity):
-        for (dx, dy, dz), w in np.ndenumerate(window):
+        if index < 0:
+            mirror[dim] = -mirror[dim]
+        elif index > matrix.shape[dim] - 1:
+            mirror[dim] = 2*(matrix.shape[dim] - 1) - mirror[dim]
 
-            print((x + dx, y + dy, z + dz))
+    return matrix[tuple(mirror)]
+
+''' Calculates the gradient structure tensor '''
+def calculateGST(partials, window_size):
+
+    GST = np.zeros(partials.shape + (3,))
+    weights = getWeights(window_size)
+
+    for (x, y, z, i, j), g in np.ndenumerate(GST):
+        for (dx, dy, dz), w in np.ndenumerate(weights):
+            S1 = getMirror(partials[:,:,:,i], (x+dx, y+dy, z+dz))
+            S2 = getMirror(partials[:,:,:,j], (x+dx, y+dy, z+dz))
+            GST[x,y,z,i,j] = GST[x,y,z,i,j] + w * S1 * S2
+
+    return GST
 
 if __name__ == '__main__':
-    calculateGST()
+    random_array = np.random.rand(10, 10, 10, 3)
+    GST = calculateGST(random_array, 3)
+
+    print("GST:", GST[0,0,0,:,:])
+
+    GST0 = calculateGST0(random_array, 3)
+
+    print("GST0:", GST0[0,0,0,:,:])
