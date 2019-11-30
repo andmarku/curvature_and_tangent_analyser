@@ -62,7 +62,7 @@ if __name__ == '__main__':
         x_coord[i,j,k] = vecs[0, index]
         y_coord[i,j,k] = vecs[1, index]
         z_coord[i,j,k] = vecs[2, index]
-
+    '''
     data = np.zeros((200*200*200, 3))
 
     x_coord = x_coord.flatten()
@@ -91,6 +91,7 @@ if __name__ == '__main__':
     globe.plot.globe_map(density=True, figsize=(7, 7), cmap="rainbow")
     globe.plot.globe_map(density=False, figsize=(7, 7))
     plt.show()
+    '''
 
     #import pdb; pdb.set_trace()
 
