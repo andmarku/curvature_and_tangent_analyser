@@ -20,6 +20,8 @@ def readVTK(filename = 'input.vtk'):
     data = reader.GetOutput()
     dim = data.GetDimensions()
 
+    import pdb; pdb.set_trace()
+
     dataset = VN.vtk_to_numpy(data.GetPointData().GetArray(0))
     dataset = dataset.reshape(dim, order='F')
 
