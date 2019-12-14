@@ -13,19 +13,16 @@ def writeNow(input, filename):
     data.AddArray(array)
     data.Update()
 
-
-
     points = vtk.vtkStructuredPoints()
     points.SetDimensions(dimensions)
     points.SetFieldData(data)
 
     writer = vtkStructuredPointsWriter()
-
+    writer.SetFileTypeToBinary()
     writer.SetFileName(filename)
-
     writer.SetInputData(points)
 
-    import pdb; pdb.set_trace()
+    #import pdb; pdb.set_trace()
 
     writer.Write()
 
