@@ -5,12 +5,12 @@ import python_eigenVectorCalculator as orig
 import cython_eigenFunction as new
 
 def mycode(args):
-    for j in range(1,100):
+    for j in range(1,10000):
         y = orig.calculateTangent(args)
     return y
 
 def myCythonCode(args):
-    for j in range(1,2):
+    for j in range(1,10000):
         y = new.calculateTangent(args)
     return y
 

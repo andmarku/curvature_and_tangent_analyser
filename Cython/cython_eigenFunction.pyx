@@ -15,44 +15,49 @@ from libc.math cimport pow
 # check for integer division
 
 # @cython.boundscheck(False) # turn of bounds-checking for entire function
-cpdef double calculateTangent(np.ndarray[long, ndim=2] arg):
-#cpdef np.ndarray[double, ndim=1] calculateTangent(np.ndarray[long, ndim=2] arg):
+cpdef np.ndarray[double, ndim=1] calculateTangent(np.ndarray[long, ndim=2] arg):
+    if(not np.any(arg)):
+        return arg[0][:]
+
     # casting
-    # cdef double[3][3] arg_as_c_arrays = {
-    #    {<double> arg[0][0], <double> arg[0][2], <double> arg[0][2]} ,
-    #    {<double> arg[1][0], <double> arg[1][2], <double> arg[1][2]} ,
-    #    {<double> arg[2][0], <double> arg[2][2], <double> arg[2][2]}
-    # };
+    cdef double[9] arg_as_array = [
+       <double> arg[0][0], <double> arg[0][2], <double> arg[0][2] ,
+       <double> arg[1][0], <double> arg[1][2], <double> arg[1][2] ,
+       <double> arg[2][0], <double> arg[2][2], <double> arg[2][2]]
 
-    cdef double[9] arg_as_array = {1,2,3,4,5,6,7,8,9}
-    # {<double> arg[0][0], <double> arg[0][1], <double> arg[0][2],
-    #    <double> arg[1][0], <double> arg[1][1], <double> arg[1][2],
-    #    <double> arg[2][0], <double> arg[2][1], <double> arg[2][2]}
-
-    # if(not np.any(arg_as_array)):
-    #     return {<double>0,<double>0,<double>0}
     cdef double smallestEgValue = calculateEigenValue(arg_as_array)
+    # print(smallestEgValue)
+
     cdef double x = arg_as_array[0] - smallestEgValue
     cdef double y = arg_as_array[0] - smallestEgValue
     cdef double z = arg_as_array[0] - smallestEgValue
-    cdef double[3] sendIn = {1,2,3}
-    tangent = calcEgVecByCrossProduct( sendIn )
-    #tangent = tangent * smallestEgValue
-    return 1 #smallestEgValue
-    # return tangent
+    cdef double[3] sendIn = [x,y,z]
+    cdef np.ndarray[double, ndim=1] tangent = calcEgVecByCrossProduct(sendIn)
+    tangent[0] = tangent[0] * smallestEgValue
+    tangent[1] = tangent[1] * smallestEgValue
+    tangent[2] = tangent[2] * smallestEgValue
+    # print(tangent)
+
+    return tangent
+
+cdef np.ndarray[double, ndim=1] calcCross(double[3] v1, double[3] v2, np.ndarray[double, ndim=1] egVec):
+    egVec[0] = v1[1] * v2[2] - v1[2] * v2[1]
+    egVec[1] = v1[2] * v2[0] - v1[0] * v2[2]
+    egVec[2] = v1[0] * v2[1] - v1[1] * v2[0]
+    return egVec
+
+cdef double calcDot(double[3] v1, double[3] v2):
+    cdef double prod = v1[0] * v2[0] + v1[1] * v2[1] + v1[2] * v2[2]
+    return prod
 
 # @cython.boundscheck(False) # turn of bounds-checking for entire function
-cdef double calcEgVecByCrossProduct(double[9] arg):
-    # cdef double[3] v1 = {arg[0], arg[1], arg[2]}
-    # cdef double[3] v2 = {arg[3], arg[4], arg[5]}
-    # cdef double[3] v3 = {arg[6], arg[7], arg[8]}
-
-    cdef double[3] v1 = {1, 2, 4}
-    cdef double[3] v2 = {2, 3, 2}
-    cdef double[3] v3 = {4, 2, 3}
+cdef np.ndarray[double, ndim=1] calcEgVecByCrossProduct(double[9] arg):
+    cdef double[3] v1 = [arg[0], arg[1], arg[2]]
+    cdef double[3] v2 = [arg[3], arg[4], arg[5]]
+    cdef double[3] v3 = [arg[6], arg[7], arg[8]]
 
     # initialize return type
-    cdef np.ndarray[double, ndim=1] egVec
+    cdef np.ndarray[double, ndim=1] egVec = np.zeros([3])
 
     # case 1 (most likely): two indep. columns, eigenvalue multiplicitiy: 1
     #   -> the column space has rank 2
@@ -61,19 +66,19 @@ cdef double calcEgVecByCrossProduct(double[9] arg):
     # implementation:
     #   take cross product of two random vectors. if it is zero, I'll try the next
     #   pair, and potentially the third. return the first (normalized) nonzero vector
-    cdef np.ndarray[double, ndim=1] cross1 = np.cross(v1,v2)
+    cdef np.ndarray[double, ndim=1] cross1 = calcCross(v1,v2,egVec)
     if(np.any(cross1)):
         if(cross1.dot(cross1) > 0.0001):
             egVec = cross1/sqrt(cross1.dot(cross1))
             return egVec
 
-    cdef np.ndarray[double, ndim=1] cross2 = np.cross(v1, v3)
+    cdef np.ndarray[double, ndim=1] cross2 = calcCross(v1, v3,egVec)
     if(np.any(cross2)):
         if(cross2.dot(cross2) > 0.0001):
             egVec = cross2/sqrt(cross2.dot(cross2))
             return egVec
 
-    cdef np.ndarray[double, ndim=1] cross3 = np.cross(v2,v3)
+    cdef np.ndarray[double, ndim=1] cross3 = calcCross(v2,v3,egVec)
     if(np.any(cross3)):
         if(cross3.dot(cross3) > 0.0001):
             egVec = cross3/sqrt(cross3.dot(cross3))
@@ -102,56 +107,56 @@ cdef double calcEgVecByCrossProduct(double[9] arg):
     cdef double y
     cdef double z
     cdef double[3] v
-    if(np.any(v1)):
-        v = v1
-        x = v[0]
-        y = v[1]
-        z = v[2]
-        #first rotation
-        y = y * 0.86 - x/2
-        z = y/2 + x * 0.86
-        # second rotation
-        x = x * 0.86 - y/2
-        y = x/2 + y * 0.86
-        egVec = np.cross(v, np.array([x,y,z]))
-        if(egVec.dot(egVec) > 0.0001):
-            return egVec/sqrt(egVec.dot(egVec))
-
-    if(np.any(v2)):
-        v = v2
-        x = v[0]
-        y = v[1]
-        z = v[2]
-        #first rotation
-        y = y * 0.86 - x/2
-        z = y/2 + x * 0.86
-        # second rotation
-        x = x * 0.86 - y/2
-        y = x/2 + y * 0.86
-        egVec = np.cross(v, np.array([x,y,z]))
-        if(egVec.dot(egVec) > 0.0001):
-            return egVec/sqrt(egVec.dot(egVec))
-
-    if(np.any(v3)):
-        v = v3
-        x = v[0]
-        y = v[1]
-        z = v[2]
-        #first rotation
-        y = y * 0.86 - x/2
-        z = y/2 + x * 0.86
-        # second rotation
-        x = x * 0.86 - y/2
-        y = x/2 + y * 0.86
-        egVec = np.cross(v, np.array([x,y,z]))
-        if(egVec.dot(egVec) > 0.0001):
-            return egVec/sqrt(egVec.dot(egVec))
+    # if(np.any(v1)):
+    #     v = v1
+    #     x = v[0]
+    #     y = v[1]
+    #     z = v[2]
+    #     #first rotation
+    #     y = y * 0.86 - x/2
+    #     z = y/2 + x * 0.86
+    #     # second rotation
+    #     x = x * 0.86 - y/2
+    #     y = x/2 + y * 0.86
+    #     egVec = calcCross(v, np.array([x,y,z]),egVec)
+    #     if(egVec.dot(egVec) > 0.0001):
+    #         return egVec/sqrt(egVec.dot(egVec))
+    #
+    # if(np.any(v2)):
+    #     v = v2
+    #     x = v[0]
+    #     y = v[1]
+    #     z = v[2]
+    #     #first rotation
+    #     y = y * 0.86 - x/2
+    #     z = y/2 + x * 0.86
+    #     # second rotation
+    #     x = x * 0.86 - y/2
+    #     y = x/2 + y * 0.86
+    #     egVec = calcCross(v, np.array([x,y,z]),egVec)
+    #     if(egVec.dot(egVec) > 0.0001):
+    #         return egVec/sqrt(egVec.dot(egVec))
+    #
+    # if(np.any(v3)):
+    #     v = v3
+    #     x = v[0]
+    #     y = v[1]
+    #     z = v[2]
+    #     #first rotation
+    #     y = y * 0.86 - x/2
+    #     z = y/2 + x * 0.86
+    #     # second rotation
+    #     x = x * 0.86 - y/2
+    #     y = x/2 + y * 0.86
+    #     egVec = calcCross(v, np.array([x,y,z]),egVec)
+    #     if(egVec.dot(egVec) > 0.0001):
+    #         return egVec/sqrt(egVec.dot(egVec))
 
     # case 3 (least likely): all values are zero, eigenvalue multiplicitiy: 3
     #   -> any nonzero normalized vector will do
     # idea:
     # return [1, 0, 0]
-    egVec = {1, 0 ,0}
+    egVec[0] = 1
     return egVec
 
 

@@ -3,8 +3,12 @@ import math
 import time
 from scipy.linalg import null_space
 from numpy import linalg as LA
+import multiprocessing as mp
+from multiprocessing.pool import ThreadPool
 
 def calculateTangent(arg):
+    if(not np.any(arg)):
+        return np.array([0,0,0])
     smallestEgValue = calculateEigenValue(arg)
     tangent = calcEgVecByCrossProduct( arg - smallestEgValue*np.identity(3))
     tangent = tangent * smallestEgValue
@@ -20,15 +24,18 @@ def calcEgVecByCrossProduct(arg):
     #   pair, and potentially the third. return the first (normalized) nonzero vector
     cross1 = np.cross(arg[:,0], arg[:,1])
     if(np.any(cross1)):
-        return cross1/np.sqrt(cross1.dot(cross1))
+        if(cross1.dot(cross1) > 0.0001):
+            return cross1/np.sqrt(cross1.dot(cross1))
 
     cross2 = np.cross(arg[:,0], arg[:,2])
     if(np.any(cross2)):
-        return cross2/np.sqrt(cross2.dot(cross2))
+        if(cross2.dot(cross2) > 0.0001):
+            return cross2/np.sqrt(cross2.dot(cross2))
 
     cross3 = np.cross(arg[:,1], arg[:,2])
     if(np.any(cross3)):
-        return cross3/np.sqrt(cross3.dot(cross3))
+        if(cross3.dot(cross3) > 0.0001):
+            return cross3/np.sqrt(cross3.dot(cross3))
 
     # case 2: one independent columns =  eigenvalue multiplicitiy: 2
     #   -> all columns are either null or on the same line with at least one
@@ -60,7 +67,8 @@ def calcEgVecByCrossProduct(arg):
         x = x*0.86 - y/2
         y = x/2 + y*0.86
         egVec = np.cross(arg[:,0], np.array([x,y,z]))
-        return egVec/np.sqrt(egVec.dot(egVec))
+        if(egVec.dot(egVec) > 0.0001):
+            return egVec/np.sqrt(egVec.dot(egVec))
 
     if(np.any(arg[:,1])):
         x = arg[0,1]
@@ -73,7 +81,8 @@ def calcEgVecByCrossProduct(arg):
         x = x*0.86 - y/2
         y = x/2 + y*0.86
         egVec = np.cross(arg[:,1], np.array([x,y,z]))
-        return egVec/np.sqrt(egVec.dot(egVec))
+        if(egVec.dot(egVec) > 0.0001):
+            return egVec/np.sqrt(egVec.dot(egVec))
 
     if(np.any(arg[:,2])):
         x = arg[0,2]
@@ -86,7 +95,8 @@ def calcEgVecByCrossProduct(arg):
         x = x*0.86 - y/2
         y = x/2 + y*0.86
         egVec = np.cross(arg[:,2], np.array([x,y,z]))
-        return egVec/np.sqrt(egVec.dot(egVec))
+        if(egVec.dot(egVec) > 0.0001):
+            return egVec/np.sqrt(egVec.dot(egVec))
 
 
     # case 3 (least likely): all values are zero, eigenvalue multiplicitiy: 3
@@ -144,26 +154,13 @@ def calculateEigenValue(arg):
 
     R = ( 2 * np.power(a,3) - 9*a*b + 27*c ) / 54
     qSqrt =  math.sqrt( np.power( Q , 3 ) )
+
+    if(qSqrt*qSqrt < 0.0001):
+        return 0
+
     arccosTerm = math.acos( R / qSqrt )
 
     # compute smallest eigenvalue
     egValue = -2 * math.sqrt(Q) * math.cos( arccosTerm/3 ) - a / 3
 
-    return c
-
-def measureTime(a, arg):
-    start = time.clock()
-    for value in range(1,200*200):
-        a(arg)
-        #u,v =a(arg)
-        #u_min = min(u)
-    elapsed = time.clock()
-    elapsed = elapsed - start
-    print("Time spent in (function name) is: " + str(elapsed))
-
-
-# comment: my fcn can be simplified more, but probably not enough to bother,
-# unless it's something dramatic
-myMatrix = np.array([[2, 5, -1], [5, 2, 1], [-1, 1, 0]])
-measureTime(calculateTangent, myMatrix)
-measureTime( LA.eig, myMatrix)
+    return egValue
