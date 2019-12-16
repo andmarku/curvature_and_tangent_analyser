@@ -20,7 +20,7 @@ def readVTK(filename = 'input.vtk'):
     data = reader.GetOutput()
     dim = data.GetDimensions()
 
-    import pdb; pdb.set_trace()
+    #import pdb; pdb.set_trace()
 
     dataset = VN.vtk_to_numpy(data.GetPointData().GetArray(0))
     dataset = dataset.reshape(dim, order='F')
@@ -59,12 +59,12 @@ if __name__ == '__main__':
 
     for (i, j, k), m in np.ndenumerate(GST[:,:,:,0,0]):
         #eigs, vecs = sp.eig(GST[i,j,k,:,:])
-        eigs, vecs = np.linalg.eig(GST[i,j,k,:,:])
+        eigs, vecs = np.linalg.eigh(GST[i,j,k,:,:])
         index = np.argmin(abs(eigs))
         x_coord[i,j,k] = vecs[0, index]
         y_coord[i,j,k] = vecs[1, index]
         z_coord[i,j,k] = vecs[2, index]
-    '''
+
     data = np.zeros((200*200*200, 3))
 
     x_coord = x_coord.flatten()
@@ -93,7 +93,7 @@ if __name__ == '__main__':
     globe.plot.globe_map(density=True, figsize=(7, 7), cmap="rainbow")
     globe.plot.globe_map(density=False, figsize=(7, 7))
     plt.show()
-    '''
+
 
     #import pdb; pdb.set_trace()
 
