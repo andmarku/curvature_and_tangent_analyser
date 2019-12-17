@@ -13,9 +13,14 @@ def knutssonMapping(eigenvector):
     knutMap = np.outer(eigenvector,eigenvector)/np.linalg.norm(eigenvector)
     return knutMap.flatten()
 
-# if __name__ == '__main__':
-#     # input: eigenvector from GST
-#     eigenvector = np.random.rand(3,1)
-#     print(eigenvector)
-#     print(knutssonMapping(eigenvector, True))
-#     print(knutssonMapping(eigenvector, True).shape)
+def knutssonMapper(allEigenvectors):
+    dim = allEigenvectors.shape
+    allKnutsson = np.zeros((dim[0],dim[1],dim[2],9))
+
+    # for each DM take the dot product between the 3 derivatives and the tangent
+    for x in range(dim[0]):
+        for y in range(dim[1]):
+            for z in range(dim[2]):
+                allKnutsson[x,y,z,:] = knutssonMapping(allEigenvectors[x,y,z,:])
+
+    return allKnutsson
