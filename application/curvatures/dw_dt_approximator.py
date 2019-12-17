@@ -1,7 +1,9 @@
-def dmDotTangents(tensor_knutVecs, tensor_tangents):
-    tensor_DM = dm.approximateAlong_XYZ(tensor_knutVecs)
+import numpy as np
 
-    dim = knutVecs.shape
+def dmDotTangents(tensor_knutVecs, tensor_tangents):
+    tensor_DM = approximateAlong_XYZ(tensor_knutVecs)
+
+    dim = tensor_knutVecs.shape
     dmAlongTangent = np.zeros((dim[0],dim[1],dim[2],9))
 
     # for each DM take the dot product between the 3 derivatives and the tangent

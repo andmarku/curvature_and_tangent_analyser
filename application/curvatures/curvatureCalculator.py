@@ -11,7 +11,7 @@ def calcCurvatureForAllVoxels(tensor_dmAlongTangent):
     for x in range(dim[0]):
         for y in range(dim[1]):
             for z in range(dim[2]):
-                tensor_curvatures[x,y,z] = calcCurvature(dmAlongTangent[x,y,z,:])
+                tensor_curvatures[x,y,z] = calcCurvature(tensor_dmAlongTangent[x,y,z,:])
 
     return tensor_curvatures
 

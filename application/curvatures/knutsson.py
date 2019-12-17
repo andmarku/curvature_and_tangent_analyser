@@ -21,6 +21,9 @@ def knutssonMapper(allEigenvectors):
     for x in range(dim[0]):
         for y in range(dim[1]):
             for z in range(dim[2]):
-                allKnutsson[x,y,z,:] = knutssonMapping(allEigenvectors[x,y,z,:])
+                if(not np.any(allEigenvectors[x,y,z,:])):
+                    allKnutsson[x,y,z,:] = np.zeros(9)
+                else:
+                    allKnutsson[x,y,z,:] = knutssonMapping(allEigenvectors[x,y,z,:])
 
     return allKnutsson
