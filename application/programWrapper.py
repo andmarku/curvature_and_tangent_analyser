@@ -1,6 +1,5 @@
 import numpy as np
 import scipy.linalg as sp
-from physt import special
 
 import sys
 sys.path.append('./curvatures')
