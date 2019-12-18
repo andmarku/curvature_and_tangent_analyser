@@ -17,7 +17,7 @@ def knutssonMapper(allEigenvectors):
     dim = allEigenvectors.shape
     allKnutsson = np.zeros((dim[0],dim[1],dim[2],9))
 
-    # for each DM take the dot product between the 3 derivatives and the tangent
+    # add all knutsson vectors to matrix, and if eigenvector i zero, add zero vector
     for x in range(dim[0]):
         for y in range(dim[1]):
             for z in range(dim[2]):
