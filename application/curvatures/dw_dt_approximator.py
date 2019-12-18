@@ -16,7 +16,7 @@ def dmDotTangents(tensor_knutVecs, tensor_tangents):
     return dmAlongTangent
 
 def approximateAlong_XYZ(knutVecs):
-    '''Numerical differentiation of knutsson for every voxel.
+    '''Numerical spacial differentiation of knutsson for every voxel.
 
     Parameters
     ---------
@@ -25,27 +25,29 @@ def approximateAlong_XYZ(knutVecs):
     Returns
     -------
     vector of floats
-        tensor_DM :  dimensions N x M x L x 3 x 9.
+        tensor_DM : dimensions N x M x L x 3 x 9.
+                    N, M, L are the 3 dimensional space coordinates.
+                    3 x 9 are the dimension of the local DM matrix.
 
     '''
     dim = knutVecs.shape
     tensor_DM = np.zeros((dim[0],dim[1],dim[2],3,9))
 
-    # derive along x
+    # derive along x-space
     for y in range(dim[1]):
         for z in range(dim[2]):
             # for each element in the transformed vector
             for i in range(9):
                 tensor_DM[:,y,z,0,i] = centralDifferenceVector(knutVecs[:,y,z,i])
 
-    # derive along y
+    # derive along y-space
     for x in range(dim[0]):
         for z in range(dim[2]):
             # for each element in the transformed vector
             for i in range(9):
                 tensor_DM[x,:,z,1,i] = centralDifferenceVector(knutVecs[x,:,z,i])
 
-    # derive along z
+    # derive along z-space
     for x in range(dim[1]):
         for y in range(dim[2]):
             # for each element in the transformed vector
