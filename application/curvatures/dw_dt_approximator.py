@@ -15,8 +15,19 @@ def dmDotTangents(tensor_knutVecs, tensor_tangents):
 
     return dmAlongTangent
 
-# assumes knutVecs are N x M x L x 9
 def approximateAlong_XYZ(knutVecs):
+    '''Numerical differentiation of knutsson for every voxel.
+
+    Parameters
+    ---------
+    knutVecs : knutsson for every voxel, assumes knutVecs are N x M x L x 9.
+
+    Returns
+    -------
+    vector of floats
+        tensor_DM :  dimensions N x M x L x 3 x 9.
+
+    '''
     dim = knutVecs.shape
     tensor_DM = np.zeros((dim[0],dim[1],dim[2],3,9))
 
@@ -44,6 +55,18 @@ def approximateAlong_XYZ(knutVecs):
     return tensor_DM
 
 def centralDifferenceVector(myVec):
+    '''Central difference formula for n x 1 vectors.
+
+    Parameters
+    ---------
+    myVec : n times 1 vector
+
+    Returns
+    -------
+    vector of floats
+        calculatedElements : calculatedElements[i] = (myVec[i+1] - myVec[i - 1])/2
+
+    '''
     calculatedElements = np.zeros((myVec.size))
 
     # special case for first element: the second minus the first
