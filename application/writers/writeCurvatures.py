@@ -13,14 +13,16 @@ from vtk.util import numpy_support
 '''
 def writeCurvatures(matrix, filename):
 
-    dim = matrix.shape
+    dims = matrix.shape
 
-    array = numpy_support.numpy_to_vtk(matrix.ravel(), deep=True, array_type=vtk.VTK_FLOAT)
-    array.SetName("curvatures")
+    flat = matrix.ravel(order='F')
+
+    vtkarray = numpy_support.numpy_to_vtk(flat, deep=True, array_type=vtk.VTK_FLOAT)
+    vtkarray.SetName("curvatures")
 
     points = vtk.vtkStructuredPoints()
-    points.SetDimensions(dim)
-    points.GetPointData().AddArray(array)
+    points.SetDimensions(dims)
+    points.GetPointData().AddArray(vtkarray)
 
     writer = vtk.vtkStructuredPointsWriter()
     writer.SetFileTypeToBinary()

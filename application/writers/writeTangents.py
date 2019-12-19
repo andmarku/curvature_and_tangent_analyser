@@ -12,43 +12,21 @@ from vtk.util import numpy_support
     Can be read using a vtkStructuredPointsReader at a later stage.
 '''
 def writeTangents(matrix, filename):
+    
+    dims = matrix.shape
 
-    dim = (matrix.shape[0], matrix.shape[1], matrix.shape[2])
+    flat = matrix.ravel(order='F')
 
-    flat = matrix.reshape(-1, matrix.shape[-1])
+    vtkarray = numpy_support.numpy_to_vtk(flat, False, vtk.VTK_FLOAT)
+    vtkarray.SetNumberOfComponents(3)
+    vtkarray.SetName("tangents")
 
-    array = numpy_support.numpy_to_vtk(flat, deep=True, array_type=vtk.VTK_FLOAT)
-    array.SetName("tangents")
-
-    points = vtk.vtkStructuredPoints()
-    points.SetDimensions(dim)
-    points.GetPointData().AddArray(array)
+    imagedata = vtk.vtkImageData()
+    imagedata.SetDimensions((dims[0], dims[1], dims[2]))
+    imagedata.GetPointData().SetVectors(vtkarray)
 
     writer = vtk.vtkStructuredPointsWriter()
-    writer.SetFileTypeToBinary()
     writer.SetFileName(filename)
-    writer.SetInputData(points)
+    writer.SetInputData(idata)
+    writer.SetFileTypeToBinary()
     writer.Write()
-
-# Test function
-if __name__ == "__main__":
-
-    A = numpy.random.rand(5,5,5,3)
-
-    writeTangents(A, "tangentstest.vtk")
-
-    reader = vtk.vtkStructuredPointsReader()
-    reader.SetFileName("tangentstest.vtk")
-    reader.ReadAllVectorsOn()
-    reader.ReadAllScalarsOn()
-    reader.Update()
-
-    data = reader.GetOutput()
-    dim = data.GetDimensions()
-
-    actualdimensions = (dim[0], dim[1], dim[2], 3)
-
-    dataset = numpy_support.vtk_to_numpy(data.GetPointData().GetArray(0))
-    dataset = dataset.reshape(actualdimensions, order='F')
-
-    print("dataset:", dataset)
