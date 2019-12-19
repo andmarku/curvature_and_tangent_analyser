@@ -23,4 +23,4 @@ def program(filename):
     tensor_curvatures = curvatures(tensor_tangents)
     print("finished calculating curvatures")
 
-    analyze(tensor_tangents, tensors_curvatures)
+    analyze(tensor_tangents, tensor_curvatures)
