@@ -1,6 +1,17 @@
 import numpy as np
 
 def dmDotTangents(tensor_knutVecs, tensor_tangents):
+    '''
+
+    Parameters
+    ---------
+
+
+    Returns
+    -------
+    vector of floats
+
+    '''
     tensor_DM = approximateAlong_XYZ(tensor_knutVecs)
 
     dim = tensor_knutVecs.shape
@@ -28,7 +39,6 @@ def approximateAlong_XYZ(knutVecs):
         tensor_DM : dimensions N x M x L x 3 x 9.
                     N, M, L are the 3 dimensional space coordinates.
                     3 x 9 are the dimension of the local DM matrix.
-
     '''
     dim = knutVecs.shape
     tensor_DM = np.zeros((dim[0],dim[1],dim[2],3,9))

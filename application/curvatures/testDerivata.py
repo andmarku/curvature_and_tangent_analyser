@@ -1,5 +1,5 @@
 import numpy as np
-from dw_dt_approximator import centralDifferenceVector
+# from dw_dt_approximator import centralDifferenceVector
 from scipy.ndimage import gaussian_filter1d
 
 
@@ -89,7 +89,9 @@ if __name__ == '__main__':
     # print(knutsonVec.shape)
     # oldDiff = approximateAlong_XYZ(knutsonVec)
     # newDiff = convolution(knutsonVec)
-    newDiff = multiDiffW(knutsonVec)
+    # newDiff = multiDiffW(knutsonVec)
+    test = np.array([1,2,3])
+    print(test.dot(test))
     # print(centralDifferenceVector(squaredData))
     # print(multiDiffW(knutsonVec)[0,0,0,0,:])
     # import pdb; pdb.set_trace()
