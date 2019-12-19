@@ -48,8 +48,8 @@ def approximateAlong_XYZ(knutVecs):
                 tensor_DM[x,:,z,1,i] = centralDifferenceVector(knutVecs[x,:,z,i])
 
     # derive along z-space
-    for x in range(dim[1]):
-        for y in range(dim[2]):
+    for x in range(dim[0]):
+        for y in range(dim[1]):
             # for each element in the transformed vector
             for i in range(9):
                 tensor_DM[x,y,:,2,i] = centralDifferenceVector(knutVecs[x,y,:,i])
@@ -67,7 +67,7 @@ def centralDifferenceVector(myVec):
     -------
     vector of floats
         calculatedElements : calculatedElements[i] = (myVec[i+1] - myVec[i - 1])/2
-        except for the two boundary cases, myVec[0] and myVec[end], where 
+        except for the two boundary cases, myVec[0] and myVec[end], where
         calculatedElements[0] = myVec[1] - myVec[0] and where
         calculatedElements[end] = myVec[end] - myVec[end-1]
     '''
