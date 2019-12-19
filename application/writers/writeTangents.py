@@ -11,7 +11,7 @@ from vtk.util import numpy_support
     Writes to file the tangents as a vtkStructuredPoints object.
     Can be read using a vtkStructuredPointsReader at a later stage.
 '''
-def writeTangents(matrix, filename):
+def write(matrix, filename):
     
     dims = matrix.shape
 
@@ -30,3 +30,23 @@ def writeTangents(matrix, filename):
     writer.SetInputData(idata)
     writer.SetFileTypeToBinary()
     writer.Write()
+
+''' Returns to the user matrix saved in vtk-file.
+
+    filename: string of the filename including extension 'vtk'.
+
+    Returns a matrix on the form (N1, N2, N3, 3) which was described
+    in the vtk-file.
+'''
+def read(filename):
+
+    reader = vtk.vtkStructuredPointsReader()
+    reader.ReadAllScalarsOn()
+
+    output = reader.GetOutput()
+    dims = output.GetDimensions()
+
+    matrix = numpy_support.vtk_to_numpy(output.GetPointData().GetArray(0))
+    matrix = matrix.reshape((dims[0], dims[1], dims[2], 3), order='F')
+
+    return matrix
