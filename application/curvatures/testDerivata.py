@@ -1,5 +1,7 @@
 import numpy as np
 from dw_dt_approximator import centralDifferenceVector
+from scipy.ndimage import gaussian_filter1d
+
 
 def approximateAlong_XYZ(knutVecs):
     '''Numerical spacial differentiation of knutsson for every voxel.
@@ -50,21 +52,39 @@ def voxelDiff(knutVecs):
     for z in range(dim[2]):
         for y in range(dim[1]):
             for x in range(dim[0]):
+                # currentKnutVec =knutsonVec[x,y,z,:]
                 # Loop for elements in knutsson vector
                 for elementInKnut in range(9):
-                    tensor_DM[x,y,z,0,elementInKnut] = centralDifferenceVector(knutVecs[:,y,z,elementInKnut])
-                    tensor_DM[x,y,z,1,elementInKnut] = centralDifferenceVector(knutVecs[x,:,z,elementInKnut])
-                    tensor_DM[x,y,z,2,elementInKnut] = centralDifferenceVector(knutVecs[x,y,:,elementInKnut])
+                    tensor_DM[:,y,z,0,elementInKnut] = centralDifferenceVector(knutVecs[:,y,z,elementInKnut])
+                    tensor_DM[x,:,z,1,elementInKnut] = centralDifferenceVector(knutVecs[x,:,z,elementInKnut])
+                    tensor_DM[x,y,:,2,elementInKnut] = centralDifferenceVector(knutVecs[x,y,:,elementInKnut])
 
     return tensor_DM
 
 
+def convolution(knutVecs, sig = 10):
+    dim = knutVecs.shape
+    tensor_DM = np.zeros((dim[0],dim[1],dim[2],3,9))
+
+    for elementInKnut in range(9):
+        tensor_DM[:,:,:,0,elementInKnut] = gaussian_filter1d(knutVecs[:,:,:,elementInKnut], sigma=sig, order = 1, axis = 0, mode='constant', truncate = 1)
+        tensor_DM[:,:,:,1,elementInKnut] = gaussian_filter1d(knutVecs[:,:,:,elementInKnut], sigma=sig, order = 1, axis = 1, mode='constant', truncate = 1)
+        tensor_DM[:,:,:,2,elementInKnut] = gaussian_filter1d(knutVecs[:,:,:,elementInKnut], sigma=sig, order = 1, axis = 2, mode='constant', truncate = 1)
+
+    return tensor_DM
+
 if __name__ == '__main__':
-    knutsonVec = np.random.rand(2,2,2,9)
+    knutsonVec = np.random.rand(3,3,3,9)
     # print(knutsonVec.shape)
     oldDiff = approximateAlong_XYZ(knutsonVec)
-    newDiff = voxelDiff(knutsonVec)
+    newDiff = convolution(knutsonVec)
+    import pdb; pdb.set_trace()
     # print(oldDiff.shape)
     # print(newDiff.shape)
     print(oldDiff == newDiff)
-    
+    # print(knutsonVec)
+    # print(knutsonVec[1,1,:,1])
+    # print(knutsonVec[1,1,1,:])
+    # print(centralDifferenceVector(knutsonVec[1,1,1,:]))
+    # for idx, value in np.ndenumerate(knutsonVec):
+    #     print('index: ',idx, 'value: ', value, 'knut in x: ', knutsonVec[:,idx[1], idx[2],:])
