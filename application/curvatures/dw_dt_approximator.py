@@ -61,13 +61,15 @@ def centralDifferenceVector(myVec):
 
     Parameters
     ---------
-    myVec : n times 1 vector
+    myVec : n x 1 vector
 
     Returns
     -------
     vector of floats
         calculatedElements : calculatedElements[i] = (myVec[i+1] - myVec[i - 1])/2
-
+        except for the two boundary cases, myVec[0] and myVec[end], where 
+        calculatedElements[0] = myVec[1] - myVec[0] and where
+        calculatedElements[end] = myVec[end] - myVec[end-1]
     '''
     calculatedElements = np.zeros((myVec.size))
 
