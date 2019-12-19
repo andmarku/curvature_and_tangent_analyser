@@ -9,20 +9,16 @@ def writeNow(input, filename):
 
     array = VN.numpy_to_vtk(input.ravel(), deep=True, array_type=vtk.VTK_FLOAT)
 
-    data = vtk.vtkPointData()
-    data.AddArray(array)
-    data.Update()
-
     points = vtk.vtkStructuredPoints()
     points.SetDimensions(dimensions)
-    points.SetFieldData(data)
+    points.GetPointData().AddArray(array)
 
     writer = vtkStructuredPointsWriter()
     writer.SetFileTypeToBinary()
     writer.SetFileName(filename)
     writer.SetInputData(points)
 
-    #import pdb; pdb.set_trace()
+    import pdb; pdb.set_trace()
 
     writer.Write()
 
@@ -30,9 +26,7 @@ def writeNow(input, filename):
 
     #data.SetDimensions(dimensions)
 
-    #stream.WritePoints(data)
-
-    print(data)
+    #stream.Wri
 
     #import pdb; pdb.set_trace()
 
@@ -52,7 +46,7 @@ def writeTest(input, filename):
     points = vtk.vtkStructuredPoints()
     points.SetDimensions(dimensions)
     points.SetFieldData(data)
-
+ 
     writer = vtkStructuredPointsWriter()
 
     writer.SetFileName(filename)
@@ -93,10 +87,10 @@ if __name__ == '__main__':
     A = np.random.rand(3,3,3)
 
     writeNow(A, 'curvature.vtk')
-    '''
-    B = np.random.rand(10,10,10,3)
+    
+    #B = np.random.rand(10,10,10,3)
 
-    C = importTest('tangent.vtk')
+    C = importTest('curvature.vtk')
 
     import pdb; pdb.set_trace()
-    '''
+    
