@@ -12,6 +12,8 @@ from vtkReader import readVTK
 from tangentsWrapper import tangents
 from curvatureWrapper import curvatures
 from analysisWrapper import analyze
+from writeCurvatures import write as curvwrite
+from writeTangents import write as tangwrite
 
 def program(filename):
     d, x, y, z = readVTK(filename)
