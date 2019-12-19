@@ -62,26 +62,40 @@ def voxelDiff(knutVecs):
     return tensor_DM
 
 
-def convolution(knutVecs, sig = 10):
+def convolution(knutVecs, sig = 1000):
     dim = knutVecs.shape
     tensor_DM = np.zeros((dim[0],dim[1],dim[2],3,9))
 
     for elementInKnut in range(9):
-        tensor_DM[:,:,:,0,elementInKnut] = gaussian_filter1d(knutVecs[:,:,:,elementInKnut], sigma=sig, order = 1, axis = 0, mode='constant', truncate = 1)
-        tensor_DM[:,:,:,1,elementInKnut] = gaussian_filter1d(knutVecs[:,:,:,elementInKnut], sigma=sig, order = 1, axis = 1, mode='constant', truncate = 1)
-        tensor_DM[:,:,:,2,elementInKnut] = gaussian_filter1d(knutVecs[:,:,:,elementInKnut], sigma=sig, order = 1, axis = 2, mode='constant', truncate = 1)
+        tensor_DM[:,:,:,0,elementInKnut] = gaussian_filter1d(knutVecs[:,:,:,elementInKnut], sigma=sig, order = 1, axis = 0, mode='mirror', truncate = 0.001)
+        tensor_DM[:,:,:,1,elementInKnut] = gaussian_filter1d(knutVecs[:,:,:,elementInKnut], sigma=sig, order = 1, axis = 1, mode='mirror', truncate = 0.001)
+        tensor_DM[:,:,:,2,elementInKnut] = gaussian_filter1d(knutVecs[:,:,:,elementInKnut], sigma=sig, order = 1, axis = 2, mode='mirror', truncate = 0.001)
+
+    return tensor_DM
+
+def multiDiffW(knutVecs):
+    dim = knutVecs.shape
+    tensor_DM = np.zeros((dim[0],dim[1],dim[2],3,9))
+
+    for elementInKnut in range(9):
+        tensor_DM[:,:,:,0,elementInKnut] = np.gradient(knutVecs[:,:,:,elementInKnut], axis = 0)
+        tensor_DM[:,:,:,1,elementInKnut] = np.gradient(knutVecs[:,:,:,elementInKnut], axis = 1)
+        tensor_DM[:,:,:,2,elementInKnut] = np.gradient(knutVecs[:,:,:,elementInKnut], axis = 2)
 
     return tensor_DM
 
 if __name__ == '__main__':
-    knutsonVec = np.random.rand(3,3,3,9)
+    knutsonVec = np.random.rand(200,200,200,9)
     # print(knutsonVec.shape)
-    oldDiff = approximateAlong_XYZ(knutsonVec)
-    newDiff = convolution(knutsonVec)
-    import pdb; pdb.set_trace()
-    # print(oldDiff.shape)
+    # oldDiff = approximateAlong_XYZ(knutsonVec)
+    # newDiff = convolution(knutsonVec)
+    newDiff = multiDiffW(knutsonVec)
+    # print(centralDifferenceVector(squaredData))
+    # print(multiDiffW(knutsonVec)[0,0,0,0,:])
+    # import pdb; pdb.set_trace()
+    # print(oldDiff[0,0,0,0,:])
     # print(newDiff.shape)
-    print(oldDiff == newDiff)
+    # print(oldDiff == newDiff)
     # print(knutsonVec)
     # print(knutsonVec[1,1,:,1])
     # print(knutsonVec[1,1,1,:])

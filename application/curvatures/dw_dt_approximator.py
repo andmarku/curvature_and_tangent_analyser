@@ -33,57 +33,9 @@ def approximateAlong_XYZ(knutVecs):
     dim = knutVecs.shape
     tensor_DM = np.zeros((dim[0],dim[1],dim[2],3,9))
 
-    # derive along x-space
-    for y in range(dim[1]):
-        for z in range(dim[2]):
-            # for each element in the transformed vector
-            for i in range(9):
-                tensor_DM[:,y,z,0,i] = centralDifferenceVector(knutVecs[:,y,z,i])
-
-    # derive along y-space
-    for x in range(dim[0]):
-        for z in range(dim[2]):
-            # for each element in the transformed vector
-            for i in range(9):
-                tensor_DM[x,:,z,1,i] = centralDifferenceVector(knutVecs[x,:,z,i])
-
-    # derive along z-space
-    for x in range(dim[0]):
-        for y in range(dim[1]):
-            # for each element in the transformed vector
-            for i in range(9):
-                tensor_DM[x,y,:,2,i] = centralDifferenceVector(knutVecs[x,y,:,i])
+    for elementInKnut in range(9):
+        tensor_DM[:,:,:,0,elementInKnut] = np.gradient(knutVecs[:,:,:,elementInKnut], axis = 0)
+        tensor_DM[:,:,:,1,elementInKnut] = np.gradient(knutVecs[:,:,:,elementInKnut], axis = 1)
+        tensor_DM[:,:,:,2,elementInKnut] = np.gradient(knutVecs[:,:,:,elementInKnut], axis = 2)
 
     return tensor_DM
-
-def centralDifferenceVector(myVec):
-    '''Central difference formula for n x 1 vectors.
-
-    Parameters
-    ---------
-    myVec : n x 1 vector
-
-    Returns
-    -------
-    vector of floats
-        calculatedElements : calculatedElements[i] = (myVec[i+1] - myVec[i - 1])/2
-        except for the two boundary cases, myVec[0] and myVec[end], where
-        calculatedElements[0] = myVec[1] - myVec[0] and where
-        calculatedElements[end] = myVec[end] - myVec[end-1]
-    '''
-    calculatedElements = np.zeros((myVec.size))
-
-    # special case for first element: the second minus the first
-    diff = (myVec[1] - myVec[0])
-    calculatedElements[0] = diff
-
-    # central difference for all elements along axis except first and last
-    for i in range(1, (myVec.size -1)):
-        diff  = (myVec[i+1] - myVec[i - 1])/2
-        calculatedElements[i] = diff
-
-    # special case for last element: the last element minus the second to last
-    diff = (myVec[myVec.size -1] - myVec[myVec.size-2])
-    calculatedElements[myVec.size-1] = diff
-
-    return calculatedElements
