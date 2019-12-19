@@ -34,14 +34,37 @@ def approximateAlong_XYZ(knutVecs):
                 tensor_DM[x,:,z,1,i] = centralDifferenceVector(knutVecs[x,:,z,i])
 
     # derive along z-space
-    for x in range(dim[1]):
-        for y in range(dim[2]):
+    for x in range(dim[0]):
+        for y in range(dim[1]):
             # for each element in the transformed vector
             for i in range(9):
                 tensor_DM[x,y,:,2,i] = centralDifferenceVector(knutVecs[x,y,:,i])
 
     return tensor_DM
 
+def voxelDiff(knutVecs):
+    dim = knutVecs.shape
+    tensor_DM = np.zeros((dim[0],dim[1],dim[2],3,9))
+
+    # The first 3 outer loops are spaatial
+    for z in range(dim[2]):
+        for y in range(dim[1]):
+            for x in range(dim[0]):
+                # Loop for elements in knutsson vector
+                for elementInKnut in range(9):
+                    tensor_DM[x,y,z,0,elementInKnut] = centralDifferenceVector(knutVecs[:,y,z,elementInKnut])
+                    tensor_DM[x,y,z,1,elementInKnut] = centralDifferenceVector(knutVecs[x,:,z,elementInKnut])
+                    tensor_DM[x,y,z,2,elementInKnut] = centralDifferenceVector(knutVecs[x,y,:,elementInKnut])
+
+    return tensor_DM
+
+
 if __name__ == '__main__':
-    knutsonVec = np.random.rand(5,5,5,3,9)
-    print(approximateAlong_XYZ(knutsonVec))
+    knutsonVec = np.random.rand(2,2,2,9)
+    # print(knutsonVec.shape)
+    oldDiff = approximateAlong_XYZ(knutsonVec)
+    newDiff = voxelDiff(knutsonVec)
+    # print(oldDiff.shape)
+    # print(newDiff.shape)
+    print(oldDiff == newDiff)
+    
