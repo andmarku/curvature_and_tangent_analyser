@@ -7,11 +7,11 @@ from libc.math cimport sqrt
 from libc.math cimport cos
 from libc.math cimport acos
 from libc.math cimport pow
+from libc.math cimport square
 
 # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 # !!!!!!!!!!!!!!! OBS!!! is my indexing correct? do i pick out rows or columns??????????????????????
 # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
 # check for integer division
 
 # @cython.boundscheck(False) # turn of bounds-checking for entire function
@@ -32,25 +32,15 @@ cpdef np.ndarray[double, ndim=1] calculateTangent(np.ndarray[long, ndim=2] arg):
     cdef double y = arg_as_array[0] - smallestEgValue
     cdef double z = arg_as_array[0] - smallestEgValue
     cdef double[3] sendIn = [x,y,z]
-    cdef np.ndarray[double, ndim=1] tangent = calcEgVecByCrossProduct(sendIn)
-    tangent[0] = tangent[0] * smallestEgValue
-    tangent[1] = tangent[1] * smallestEgValue
-    tangent[2] = tangent[2] * smallestEgValue
-    # print(tangent)
+    cdef double[3] tangent = calcEgVecByCrossProduct(sendIn)
+
+    tangent = normalize1x3Vector(tangent)
 
     return tangent
 
-cdef np.ndarray[double, ndim=1] calcCross(double[3] v1, double[3] v2, np.ndarray[double, ndim=1] egVec):
-    egVec[0] = v1[1] * v2[2] - v1[2] * v2[1]
-    egVec[1] = v1[2] * v2[0] - v1[0] * v2[2]
-    egVec[2] = v1[0] * v2[1] - v1[1] * v2[0]
-    return egVec
-
-cdef double calcDot(double[3] v1, double[3] v2):
-    cdef double prod = v1[0] * v2[0] + v1[1] * v2[1] + v1[2] * v2[2]
-    return prod
-
-# @cython.boundscheck(False) # turn of bounds-checking for entire function
+# function for finding eigenvalues through cross products
+# the method relies on that the input is normal, which is fulfilled for symmetric
+# matrices
 cdef np.ndarray[double, ndim=1] calcEgVecByCrossProduct(double[9] arg):
     cdef double[3] v1 = [arg[0], arg[1], arg[2]]
     cdef double[3] v2 = [arg[3], arg[4], arg[5]]
@@ -66,19 +56,19 @@ cdef np.ndarray[double, ndim=1] calcEgVecByCrossProduct(double[9] arg):
     # implementation:
     #   take cross product of two random vectors. if it is zero, I'll try the next
     #   pair, and potentially the third. return the first (normalized) nonzero vector
-    cdef np.ndarray[double, ndim=1] cross1 = calcCross(v1,v2,egVec)
+    cdef np.ndarray[double, ndim=1] cross1 = calcCross(v1,v2)
     if(np.any(cross1)):
         if(cross1.dot(cross1) > 0.0001):
             egVec = cross1/sqrt(cross1.dot(cross1))
             return egVec
 
-    cdef np.ndarray[double, ndim=1] cross2 = calcCross(v1, v3,egVec)
+    cdef np.ndarray[double, ndim=1] cross2 = calcCross(v1, v3)
     if(np.any(cross2)):
         if(cross2.dot(cross2) > 0.0001):
             egVec = cross2/sqrt(cross2.dot(cross2))
             return egVec
 
-    cdef np.ndarray[double, ndim=1] cross3 = calcCross(v2,v3,egVec)
+    cdef np.ndarray[double, ndim=1] cross3 = calcCross(v2,v3)
     if(np.any(cross3)):
         if(cross3.dot(cross3) > 0.0001):
             egVec = cross3/sqrt(cross3.dot(cross3))
@@ -165,14 +155,12 @@ cdef np.ndarray[double, ndim=1] calcEgVecByCrossProduct(double[9] arg):
 #                                   Decaan/Publications/1999/SCIA99GKNBLVea.pdf
 # @cython.boundscheck(False) # turn of bounds-checking for entire function
 cdef double calculateEigenValue(double[9] my_matrix):
+    # all values are not needed since the matrix is symmetric
     cdef double m_00 = my_matrix[0]
     cdef double m_01 = my_matrix[1]
     cdef double m_02 = my_matrix[2]
-    # cdef double m_10 = my_matrix[3]
     cdef double m_11 = my_matrix[4]
     cdef double m_12 = my_matrix[5]
-    # cdef double m_20 = my_matrix[6]
-    # cdef double m_21 = my_matrix[7]
     cdef double m_22 = my_matrix[8]
 
     # coefficents for characteristic equation
@@ -205,3 +193,30 @@ cdef double calculateEigenValue(double[9] my_matrix):
     cdef double egValue = -2 * sqrt(Q) * cos( arccosTerm/3 ) - a / 3
 
     return egValue
+
+# function for normalizing a 3*1 vector
+cdef double[3] normalize1x3Vector(double[3] vector):
+    cdef double norm = sqrt(pow(vector[0],2) + pow(vector[1],1) + pow(vector[2],2))
+    if(norm == 0):
+      vector[0] = 0
+      vector[1] = 0
+      vector[2] = 0
+      return vector
+
+    vector[0] = vector[0]/norm
+    vector[1] = vector[1]/norm
+    vector[2] = vector[2]/norm
+    return vector
+
+# function for calculating cross product of two 3x1 vectors
+cdef double[3] calcCross(double[3] v1, double[3] v2):
+    cdef double[3] egVec
+    egVec[0] = v1[1] * v2[2] - v1[2] * v2[1]
+    egVec[1] = v1[2] * v2[0] - v1[0] * v2[2]
+    egVec[2] = v1[0] * v2[1] - v1[1] * v2[0]
+    return egVec
+
+# function for calculating dot product between two 3x1 vectors
+cdef double calcDot(double[3] v1, double[3] v2):
+    cdef double prod = v1[0] * v2[0] + v1[1] * v2[1] + v1[2] * v2[2]
+    return prod
