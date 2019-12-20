@@ -3,8 +3,6 @@ import math
 import time
 from scipy.linalg import null_space
 from numpy import linalg as LA
-import multiprocessing as mp
-from multiprocessing.pool import ThreadPool
 
 def calculateTangent(arg):
     if(not np.any(arg)):
