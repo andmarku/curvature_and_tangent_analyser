@@ -15,7 +15,7 @@ from analysisWrapper import analyze
 from writeCurvatures import write as curvwrite
 from writeTangents import write as tangwrite
 
-def program(filename):
+def program(filename, fiber_width):
     d, x, y, z = readVTK(filename)
     print("finished reading in data")
 
@@ -25,4 +25,4 @@ def program(filename):
     tensor_curvatures = curvatures(tensor_tangents)
     print("finished calculating curvatures")
 
-    analyze(tensor_tangents, tensor_curvatures)
+    analyze(tensor_tangents, tensor_curvatures, filename, fiber_width)
