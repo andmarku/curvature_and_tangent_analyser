@@ -5,12 +5,12 @@ import python_eigenVectorCalculator as orig
 import cython_eigenFunction as new
 
 def mycode(args):
-    for j in range(1,10000):
+    for j in range(1,100000):
         y = orig.calculateTangent(args)
     return y
 
 def myCythonCode(args):
-    for j in range(1,10000):
+    for j in range(1,100000):
         y = new.calculateTangent(args)
     return y
 
@@ -47,4 +47,5 @@ def measureTime(arg):
 
 if __name__ == '__main__':
     myMatrix = np.array([[2, 5, -1], [5, 2, 1], [-1, 1, 0]])
+    # new.calculateTangent(myMatrix)
     measureTime(myMatrix)
