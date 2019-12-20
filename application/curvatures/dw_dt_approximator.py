@@ -1,16 +1,18 @@
 import numpy as np
 
 def dmDotTangents(tensor_knutVecs, tensor_tangents):
-    '''
+    ''' Dot product of DM matrix and tangent vectors in each voxel.
 
     Parameters
     ---------
+    tensor_knutVecs : the flattened Knutsson vector in each voxel, N x M x L x 9.
 
+    tensor_tangents : tangent vectors in each voxel N x M x L x 3.
 
     Returns
     -------
     vector of floats
-
+        dmAlongTangent : derivatives of flattened Knuttson vector, N x M x L x 9.
     '''
     tensor_DM = approximateAlong_XYZ(tensor_knutVecs)
 
@@ -18,11 +20,10 @@ def dmDotTangents(tensor_knutVecs, tensor_tangents):
     dmAlongTangent = np.zeros((dim[0],dim[1],dim[2],9))
 
     # for each DM take the dot product between the 3 derivatives and the tangent
-    for x in range(dim[0]):
-        for y in range(dim[1]):
-            for z in range(dim[2]):
-                for i in range(9):
-                    dmAlongTangent[x,y,z,i] = tensor_DM[x,y,z,:,i].dot(tensor_tangents[x,y,z])
+    for idx, _ in np.ndenumerate(tensor_DM[:,:,:,0,0]):
+        voxelDM = tensor_DM[idx[0], idx[1], idx[2], :, :]
+        voxelTangent = tensor_tangents[idx[0], idx[1], idx[2],:]
+        dmAlongTangent[idx[0], idx[1], idx[2],:] = voxelTangent@voxelDM
 
     return dmAlongTangent
 
