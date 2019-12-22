@@ -8,10 +8,8 @@ def calcCurvatureForAllVoxels(tensor_dmAlongTangent):
     tensor_curvatures = np.zeros((dim[0],dim[1],dim[2]))
 
     # for each voxel, calculate the curvature
-    for x in range(dim[0]):
-        for y in range(dim[1]):
-            for z in range(dim[2]):
-                tensor_curvatures[x,y,z] = calcCurvature(tensor_dmAlongTangent[x,y,z,:])
+    for idx, _ in np.ndenumerate(tensor_curvatures):
+        tensor_curvatures[idx[0], idx[1], idx[2]] =  calcCurvature(tensor_dmAlongTangent[idx[0], idx[1], idx[2],:])
 
     return tensor_curvatures
 
