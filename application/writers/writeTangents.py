@@ -12,10 +12,10 @@ from vtk.util import numpy_support
     Can be read using a vtkStructuredPointsReader at a later stage.
 '''
 def write(matrix, filename):
-    
+       
     dims = matrix.shape
 
-    flat = matrix.ravel(order='F')
+    flat = matrix.reshape((dims[0]*dims[1]*dims[2], 3))
 
     vtkarray = numpy_support.numpy_to_vtk(flat, False, vtk.VTK_FLOAT)
     vtkarray.SetNumberOfComponents(3)
@@ -27,7 +27,7 @@ def write(matrix, filename):
 
     writer = vtk.vtkStructuredPointsWriter()
     writer.SetFileName(filename)
-    writer.SetInputData(idata)
+    writer.SetInputData(imagedata)
     writer.SetFileTypeToBinary()
     writer.Write()
 
