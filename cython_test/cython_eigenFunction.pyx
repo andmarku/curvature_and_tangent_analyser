@@ -16,7 +16,7 @@ from libc.math cimport pow
 #
 # @cython.boundscheck(False) # turn off bounds-checking for entire function
 # @cython.wraparound(False)  # turn off negative index wrapping for entire function
-cpdef cnp.ndarray[double, ndim=1] calculateTangent(cnp.ndarray[long, ndim=2] arg):
+cpdef cnp.ndarray[double, ndim=1] calculateTangent(cnp.ndarray arg):
 
     # casting
     cdef double[9] arg_as_array = [
@@ -26,22 +26,17 @@ cpdef cnp.ndarray[double, ndim=1] calculateTangent(cnp.ndarray[long, ndim=2] arg
 
 
     cdef double smallestEgValue = calculateEigenValue(arg_as_array)
-    # print(smallestEgValue)
-    # print(np.asarray(arg_as_array))
-
+    #print(smallestEgValue)
     arg_as_array[0] = arg_as_array[0] - smallestEgValue
     arg_as_array[4] = arg_as_array[4] - smallestEgValue
     arg_as_array[8] = arg_as_array[8] - smallestEgValue
 
-    # print(np.asarray(arg_as_array))
-
     # the not yet normalized eigenvector
     cdef double[3] raw_egVec
     raw_egVec = calcEgVecByCrossProduct(arg_as_array, raw_egVec)
-
+    #print(np.asarray(raw_egVec))
     cdef double[3] egVec = normalizeVector(raw_egVec)
     cdef cnp.ndarray[cnp.double_t, ndim=1] npEgVec = np.asarray(egVec)
-    # print(npEgVec)
     return npEgVec
 
 # function for finding eigenvalues through cross products
@@ -54,35 +49,38 @@ cdef double* calcEgVecByCrossProduct(double[9] arg, double[3] egVec):
     cdef double[3] v2 = [arg[3], arg[4], arg[5]]
     cdef double[3] v3 = [arg[6], arg[7], arg[8]]
 
+    # normalize the vectors to avoid round of troubles and such
+    cdef double[3] normed_v1 = normalizeVector(v1)
+    cdef double[3] normed_v2 = normalizeVector(v2)
+    cdef double[3] normed_v3 = normalizeVector(v3)
+
     # initialize for later use
     cdef double norm_sqrd
 
     # case 1 (most likely): two indep. columns, eigenvalue multiplicitiy: 1
     #   -> the column space has rank 2
     # idea:
-    #   use the two vectors spanning it to find egVector the cross product
+    #   use the two vectors spanning it to find the egVector using the cross product
     # implementation:
     #   take cross product of two random vectors. if it is zero, I'll try the next
     #   pair, and potentially the third. return the first (normalized) nonzero vector
-
-    egVec = calcCross(v1,v2, egVec)
+    egVec = calcCross(normed_v1,normed_v2, egVec)
     norm_sqrd = calcDot(egVec, egVec)
     # make sure that the vector is not zero or only nonzero due to arithmetic faults
-    if(norm_sqrd > 0.001):
+    if(norm_sqrd > 0.01):
       return egVec
 
-    egVec = calcCross(v1, v3, egVec)
+    egVec = calcCross(normed_v1, normed_v3, egVec)
     norm_sqrd = calcDot(egVec, egVec)
     # make sure that the vector is not zero or only nonzero due to arithmetic faults
-    if(norm_sqrd > 0.001):
+    if(norm_sqrd > 0.01):
       return egVec
 
-    egVec = calcCross(v2,v3, egVec)
+    egVec = calcCross(normed_v2,normed_v3, egVec)
     norm_sqrd = calcDot(egVec, egVec)
     # make sure that the vector is not zero or only nonzero due to arithmetic faults
-    if(norm_sqrd > 0.001):
+    if(norm_sqrd > 0.01):
       return egVec
-
 
     # case 2: one independent columns =  eigenvalue multiplicitiy: 2
     #   -> all columns are either null or on the same line with at least one
@@ -106,31 +104,32 @@ cdef double* calcEgVecByCrossProduct(double[9] arg, double[3] egVec):
     cdef double[3] v
     cdef double[3] v_rotated
 
-    norm_sqrd = calcDot(v1, v1)
-    if(norm_sqrd > 0.001):
-        v = v1
+    norm_sqrd = calcDot(normed_v1, normed_v1)
+    if(norm_sqrd > 0.01):
+        v = normed_v1
         v_rotated = rotateVector(v, v_rotated)
         egVec = calcCross(v, v_rotated,egVec)
         norm_sqrd = calcDot(egVec, egVec)
-        if(norm_sqrd > 0.0001):
+        if(norm_sqrd > 0.001):
             return egVec
-
-    norm_sqrd = calcDot(v2, v2)
-    if(norm_sqrd > 0.001):
-        v = v2
+    #print(4)
+    #print(np.asarray(normed_v2))
+    norm_sqrd = calcDot(normed_v2, normed_v2)
+    if(norm_sqrd > 0.01):
+        v = normed_v2
         v_rotated = rotateVector(v, v_rotated)
         egVec = calcCross(v, v_rotated,egVec)
         norm_sqrd = calcDot(egVec, egVec)
-        if(norm_sqrd > 0.0001):
+        if(norm_sqrd > 0.001):
             return egVec
-
-    norm_sqrd = calcDot(v3, v3)
-    if(norm_sqrd > 0.001):
-        v = v3
+    #print(5)
+    norm_sqrd = calcDot(normed_v3, normed_v3)
+    if(norm_sqrd > 0.01):
+        v = normed_v3
         v_rotated = rotateVector(v, v_rotated)
         egVec = calcCross(v, v_rotated,egVec)
         norm_sqrd = calcDot(egVec, egVec)
-        if(norm_sqrd > 0.0001):
+        if(norm_sqrd > 0.001):
             return egVec
 
     # # case 3 (least likely): all values are zero, eigenvalue multiplicitiy: 3
@@ -170,7 +169,8 @@ cdef double calculateEigenValue(double[9] my_matrix):
     cdef double R = ( 2 * pow(a,3) - 9 * a * b + 27 * c ) / 54
     cdef double qSqrt =  sqrt( pow(Q,3) )
 
-    if(qSqrt * qSqrt < 0.0001):
+    if(qSqrt < 0.0001):
+        print("qSqrt was too small")
         return 0
 
     cdef double arccosTerm = acos( R / qSqrt )
