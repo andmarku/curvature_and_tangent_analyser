@@ -3,9 +3,10 @@ import scipy.linalg as sp
 
 def  calculateEigenVectors(GST):
     print("calculating eigenvectors")
-    x_coord = np.zeros((200, 200, 200))
-    y_coord = np.zeros((200, 200, 200))
-    z_coord = np.zeros((200, 200, 200))
+    dims = (GST.shape[0], GST.shape[1], GST.shape[2])
+    x_coord = np.zeros(dims)
+    y_coord = np.zeros(dims)
+    z_coord = np.zeros(dims)
 
     for (i, j, k), m in np.ndenumerate(GST[:,:,:,0,0]):
         if(not np.any(GST[i,j,k,:,:])):
@@ -23,7 +24,7 @@ def  calculateEigenVectors(GST):
 
     print("finished eigenvalues")
 
-    data = np.zeros((200,200,200,3))
+    data = np.zeros((GST.shape[0], GST.shape[1], GST.shape[2], 3))
     data[:,:,:,0] = x_coord
     data[:,:,:,1] = y_coord
     data[:,:,:,2] = z_coord
