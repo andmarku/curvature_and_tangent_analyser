@@ -26,3 +26,10 @@ def program(filename, fiber_width):
     print("finished calculating curvatures")
 
     analyze(tensor_tangents, tensor_curvatures, filename, fiber_width)
+    print("finished analysis")
+
+    tangwrite(tensor_tangents, 'tangents.vtk')
+    print("finished writing tangents to file")
+
+    curvwrite(tensor_curvatures, 'curvatures.vtk')
+    print("finished writing curvatures to file")

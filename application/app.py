@@ -1,4 +1,4 @@
 import programWrapper
 
 if __name__ == '__main__':
-    programWrapper.program('input.vtk', 1)
+    programWrapper.program('helixVTK.vtk', 1)

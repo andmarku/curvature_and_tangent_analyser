@@ -15,7 +15,7 @@ def write(matrix, filename):
        
     dims = matrix.shape
 
-    flat = matrix.reshape((dims[0]*dims[1]*dims[2], 3))
+    flat = matrix.reshape(dims[0]*dims[1]*dims[2], 3, order='F')
 
     vtkarray = numpy_support.numpy_to_vtk(flat, False, vtk.VTK_FLOAT)
     vtkarray.SetNumberOfComponents(3)
