@@ -495,43 +495,40 @@ static PyObject *__pyx_pf_20cython_eigenFunction_calculateTangent(CYTHON_UNUSED 
 <pre class="cython line score-0">&#xA0;<span class="">019</span>:     # create the matrix (M - lambda I)</pre>
 <pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">020</span>:     cdef double smallestEgValue = calculateEigenValue(arg_as_array)</pre>
 <pre class='cython code score-0 '>  __pyx_v_smallestEgValue = __pyx_f_20cython_eigenFunction_calculateEigenValue(__pyx_v_arg_as_array);
-</pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">021</span>:     arg_as_array[0] = arg_as_array[0] - smallestEgValue</pre>
+</pre><pre class="cython line score-0">&#xA0;<span class="">021</span>:     # eigs, vecs = np.linalg.eigh(arg)</pre>
+<pre class="cython line score-0">&#xA0;<span class="">022</span>:     # index = np.argmin(abs(eigs))</pre>
+<pre class="cython line score-0">&#xA0;<span class="">023</span>:     # print(smallestEgValue)</pre>
+<pre class="cython line score-0">&#xA0;<span class="">024</span>:     # print(newCalculateEigenValue(arg_as_array))</pre>
+<pre class="cython line score-0">&#xA0;<span class="">025</span>:     # print(eigs[index])</pre>
+<pre class="cython line score-0">&#xA0;<span class="">026</span>:     # print()</pre>
+<pre class="cython line score-0">&#xA0;<span class="">027</span>: </pre>
+<pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">028</span>:     arg_as_array[0] = arg_as_array[0] - smallestEgValue</pre>
 <pre class='cython code score-0 '>  (__pyx_v_arg_as_array[0]) = ((__pyx_v_arg_as_array[0]) - __pyx_v_smallestEgValue);
-</pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">022</span>:     arg_as_array[4] = arg_as_array[4] - smallestEgValue</pre>
+</pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">029</span>:     arg_as_array[4] = arg_as_array[4] - smallestEgValue</pre>
 <pre class='cython code score-0 '>  (__pyx_v_arg_as_array[4]) = ((__pyx_v_arg_as_array[4]) - __pyx_v_smallestEgValue);
-</pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">023</span>:     arg_as_array[8] = arg_as_array[8] - smallestEgValue</pre>
+</pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">030</span>:     arg_as_array[8] = arg_as_array[8] - smallestEgValue</pre>
 <pre class='cython code score-0 '>  (__pyx_v_arg_as_array[8]) = ((__pyx_v_arg_as_array[8]) - __pyx_v_smallestEgValue);
-</pre><pre class="cython line score-0">&#xA0;<span class="">024</span>: </pre>
-<pre class="cython line score-0">&#xA0;<span class="">025</span>:     # temporary printing</pre>
-<pre class="cython line score-17" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">026</span>:     print("printing eigenvalue " + str(smallestEgValue))</pre>
-<pre class='cython code score-17 '>  __pyx_t_2 = <span class='py_c_api'>PyFloat_FromDouble</span>(__pyx_v_smallestEgValue);<span class='error_goto'> if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 26, __pyx_L1_error)</span>
-  <span class='refnanny'>__Pyx_GOTREF</span>(__pyx_t_2);
-  __pyx_t_1 = <span class='pyx_c_api'>__Pyx_PyObject_CallOneArg</span>(((PyObject *)(&amp;PyString_Type)), __pyx_t_2);<span class='error_goto'> if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 26, __pyx_L1_error)</span>
-  <span class='refnanny'>__Pyx_GOTREF</span>(__pyx_t_1);
-  <span class='pyx_macro_api'>__Pyx_DECREF</span>(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = <span class='py_c_api'>PyNumber_Add</span>(__pyx_kp_s_printing_eigenvalue, __pyx_t_1);<span class='error_goto'> if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 26, __pyx_L1_error)</span>
-  <span class='refnanny'>__Pyx_GOTREF</span>(__pyx_t_2);
-  <span class='pyx_macro_api'>__Pyx_DECREF</span>(__pyx_t_1); __pyx_t_1 = 0;
-  if (<span class='pyx_c_api'>__Pyx_PrintOne</span>(0, __pyx_t_2) &lt; 0) <span class='error_goto'>__PYX_ERR(0, 26, __pyx_L1_error)</span>
-  <span class='pyx_macro_api'>__Pyx_DECREF</span>(__pyx_t_2); __pyx_t_2 = 0;
-</pre><pre class="cython line score-0">&#xA0;<span class="">027</span>: </pre>
-<pre class="cython line score-0">&#xA0;<span class="">028</span>:     # the not yet normalized eigenvector</pre>
-<pre class="cython line score-0">&#xA0;<span class="">029</span>:     cdef double[3] raw_egVec</pre>
-<pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">030</span>:     raw_egVec = calcEgVecByCrossProduct(arg_as_array, raw_egVec)</pre>
-<pre class='cython code score-0 '>  memcpy(&amp;(__pyx_v_raw_egVec[0]), __pyx_f_20cython_eigenFunction_calcEgVecByCrossProduct(__pyx_v_arg_as_array, __pyx_v_raw_egVec), sizeof(__pyx_v_raw_egVec[0]) * (3 - 0));
 </pre><pre class="cython line score-0">&#xA0;<span class="">031</span>: </pre>
-<pre class="cython line score-0">&#xA0;<span class="">032</span>:     # normalize</pre>
-<pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">033</span>:     cdef double[3] egVec = normalizeVector(raw_egVec)</pre>
+<pre class="cython line score-0">&#xA0;<span class="">032</span>:     # temporary printing</pre>
+<pre class="cython line score-0">&#xA0;<span class="">033</span>:     #print("printing eigenvalue " + str(smallestEgValue))</pre>
+<pre class="cython line score-0">&#xA0;<span class="">034</span>: </pre>
+<pre class="cython line score-0">&#xA0;<span class="">035</span>:     # the not yet normalized eigenvector</pre>
+<pre class="cython line score-0">&#xA0;<span class="">036</span>:     cdef double[3] raw_egVec</pre>
+<pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">037</span>:     raw_egVec = calcEgVecByCrossProduct(arg_as_array, raw_egVec)</pre>
+<pre class='cython code score-0 '>  memcpy(&amp;(__pyx_v_raw_egVec[0]), __pyx_f_20cython_eigenFunction_calcEgVecByCrossProduct(__pyx_v_arg_as_array, __pyx_v_raw_egVec), sizeof(__pyx_v_raw_egVec[0]) * (3 - 0));
+</pre><pre class="cython line score-0">&#xA0;<span class="">038</span>: </pre>
+<pre class="cython line score-0">&#xA0;<span class="">039</span>:     # normalize</pre>
+<pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">040</span>:     cdef double[3] egVec = normalizeVector(raw_egVec)</pre>
 <pre class='cython code score-0 '>  memcpy(&amp;(__pyx_v_egVec[0]), __pyx_f_20cython_eigenFunction_normalizeVector(__pyx_v_raw_egVec), sizeof(__pyx_v_egVec[0]) * (3 - 0));
-</pre><pre class="cython line score-0">&#xA0;<span class="">034</span>: </pre>
-<pre class="cython line score-0">&#xA0;<span class="">035</span>:     # cast to numpy array</pre>
-<pre class="cython line score-25" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">036</span>:     cdef cnp.ndarray[cnp.double_t, ndim=1] npEgVec = np.asarray(egVec)</pre>
-<pre class='cython code score-25 '>  <span class='pyx_c_api'>__Pyx_GetModuleGlobalName</span>(__pyx_t_1, __pyx_n_s_np);<span class='error_goto'> if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 36, __pyx_L1_error)</span>
+</pre><pre class="cython line score-0">&#xA0;<span class="">041</span>: </pre>
+<pre class="cython line score-0">&#xA0;<span class="">042</span>:     # cast to numpy array</pre>
+<pre class="cython line score-25" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">043</span>:     cdef cnp.ndarray[cnp.double_t, ndim=1] npEgVec = np.asarray(egVec)</pre>
+<pre class='cython code score-25 '>  <span class='pyx_c_api'>__Pyx_GetModuleGlobalName</span>(__pyx_t_1, __pyx_n_s_np);<span class='error_goto'> if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 43, __pyx_L1_error)</span>
   <span class='refnanny'>__Pyx_GOTREF</span>(__pyx_t_1);
-  __pyx_t_13 = <span class='pyx_c_api'>__Pyx_PyObject_GetAttrStr</span>(__pyx_t_1, __pyx_n_s_asarray);<span class='error_goto'> if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 36, __pyx_L1_error)</span>
+  __pyx_t_13 = <span class='pyx_c_api'>__Pyx_PyObject_GetAttrStr</span>(__pyx_t_1, __pyx_n_s_asarray);<span class='error_goto'> if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 43, __pyx_L1_error)</span>
   <span class='refnanny'>__Pyx_GOTREF</span>(__pyx_t_13);
   <span class='pyx_macro_api'>__Pyx_DECREF</span>(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_carray_to_py_double(__pyx_v_egVec, 3);<span class='error_goto'> if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 36, __pyx_L1_error)</span>
+  __pyx_t_1 = __Pyx_carray_to_py_double(__pyx_v_egVec, 3);<span class='error_goto'> if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 43, __pyx_L1_error)</span>
   <span class='refnanny'>__Pyx_GOTREF</span>(__pyx_t_1);
   __pyx_t_14 = NULL;
   if (CYTHON_UNPACK_METHODS &amp;&amp; unlikely(<span class='py_c_api'>PyMethod_Check</span>(__pyx_t_13))) {
@@ -546,33 +543,33 @@ static PyObject *__pyx_pf_20cython_eigenFunction_calculateTangent(CYTHON_UNUSED 
   __pyx_t_2 = (__pyx_t_14) ? __Pyx_PyObject_Call2Args(__pyx_t_13, __pyx_t_14, __pyx_t_1) : <span class='pyx_c_api'>__Pyx_PyObject_CallOneArg</span>(__pyx_t_13, __pyx_t_1);
   <span class='pyx_macro_api'>__Pyx_XDECREF</span>(__pyx_t_14); __pyx_t_14 = 0;
   <span class='pyx_macro_api'>__Pyx_DECREF</span>(__pyx_t_1); __pyx_t_1 = 0;
-  if (unlikely(!__pyx_t_2)) <span class='error_goto'>__PYX_ERR(0, 36, __pyx_L1_error)</span>
+  if (unlikely(!__pyx_t_2)) <span class='error_goto'>__PYX_ERR(0, 43, __pyx_L1_error)</span>
   <span class='refnanny'>__Pyx_GOTREF</span>(__pyx_t_2);
   <span class='pyx_macro_api'>__Pyx_DECREF</span>(__pyx_t_13); __pyx_t_13 = 0;
-  if (!(likely(((__pyx_t_2) == Py_None) || likely(<span class='pyx_c_api'>__Pyx_TypeTest</span>(__pyx_t_2, __pyx_ptype_5numpy_ndarray))))) <span class='error_goto'>__PYX_ERR(0, 36, __pyx_L1_error)</span>
+  if (!(likely(((__pyx_t_2) == Py_None) || likely(<span class='pyx_c_api'>__Pyx_TypeTest</span>(__pyx_t_2, __pyx_ptype_5numpy_ndarray))))) <span class='error_goto'>__PYX_ERR(0, 43, __pyx_L1_error)</span>
   __pyx_t_15 = ((PyArrayObject *)__pyx_t_2);
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
     if (unlikely(<span class='pyx_c_api'>__Pyx_GetBufferAndValidate</span>(&amp;__pyx_pybuffernd_npEgVec.rcbuffer-&gt;pybuffer, (PyObject*)__pyx_t_15, &amp;__Pyx_TypeInfo_nn___pyx_t_5numpy_double_t, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) {
       __pyx_v_npEgVec = ((PyArrayObject *)Py_None); <span class='pyx_macro_api'>__Pyx_INCREF</span>(Py_None); __pyx_pybuffernd_npEgVec.rcbuffer-&gt;pybuffer.buf = NULL;
-      <span class='error_goto'>__PYX_ERR(0, 36, __pyx_L1_error)</span>
+      <span class='error_goto'>__PYX_ERR(0, 43, __pyx_L1_error)</span>
     } else {__pyx_pybuffernd_npEgVec.diminfo[0].strides = __pyx_pybuffernd_npEgVec.rcbuffer-&gt;pybuffer.strides[0]; __pyx_pybuffernd_npEgVec.diminfo[0].shape = __pyx_pybuffernd_npEgVec.rcbuffer-&gt;pybuffer.shape[0];
     }
   }
   __pyx_t_15 = 0;
   __pyx_v_npEgVec = ((PyArrayObject *)__pyx_t_2);
   __pyx_t_2 = 0;
-</pre><pre class="cython line score-0">&#xA0;<span class="">037</span>: </pre>
-<pre class="cython line score-2" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">038</span>:     return npEgVec</pre>
+</pre><pre class="cython line score-0">&#xA0;<span class="">044</span>: </pre>
+<pre class="cython line score-2" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">045</span>:     return npEgVec</pre>
 <pre class='cython code score-2 '>  <span class='pyx_macro_api'>__Pyx_XDECREF</span>(((PyObject *)__pyx_r));
   <span class='pyx_macro_api'>__Pyx_INCREF</span>(((PyObject *)__pyx_v_npEgVec));
   __pyx_r = ((PyArrayObject *)__pyx_v_npEgVec);
   goto __pyx_L0;
-</pre><pre class="cython line score-0">&#xA0;<span class="">039</span>: </pre>
-<pre class="cython line score-0">&#xA0;<span class="">040</span>: # function for finding eigenvalues through cross products</pre>
-<pre class="cython line score-0">&#xA0;<span class="">041</span>: # the method relies on that the input matrix is normal, which is fulfilled for</pre>
-<pre class="cython line score-0">&#xA0;<span class="">042</span>: # symmetric matrices</pre>
-<pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">043</span>: cdef double* calcEgVecByCrossProduct(double[9] arg, double[3] egVec):</pre>
+</pre><pre class="cython line score-0">&#xA0;<span class="">046</span>: </pre>
+<pre class="cython line score-0">&#xA0;<span class="">047</span>: # function for finding eigenvalues through cross products</pre>
+<pre class="cython line score-0">&#xA0;<span class="">048</span>: # the method relies on that the input matrix is normal, which is fulfilled for</pre>
+<pre class="cython line score-0">&#xA0;<span class="">049</span>: # symmetric matrices</pre>
+<pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">050</span>: cdef double* calcEgVecByCrossProduct(double[9] arg, double[3] egVec):</pre>
 <pre class='cython code score-0 '>static double *__pyx_f_20cython_eigenFunction_calcEgVecByCrossProduct(double *__pyx_v_arg, double *__pyx_v_egVec) {
   double __pyx_v_cutOffConstant;
   double __pyx_v_v1[3];
@@ -591,171 +588,249 @@ static PyObject *__pyx_pf_20cython_eigenFunction_calculateTangent(CYTHON_UNUSED 
   <span class='refnanny'>__Pyx_RefNannyFinishContext</span>();
   return __pyx_r;
 }
-</pre><pre class="cython line score-0">&#xA0;<span class="">044</span>:     # constant to protect from rounding of errors</pre>
-<pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">045</span>:     cdef double cutOffConstant = 0.00001</pre>
-<pre class='cython code score-0 '>  __pyx_v_cutOffConstant = 0.00001;
-</pre><pre class="cython line score-0">&#xA0;<span class="">046</span>: </pre>
-<pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">047</span>:     cdef double[3] v1 = [arg[0], arg[1], arg[2]]</pre>
+</pre><pre class="cython line score-0">&#xA0;<span class="">051</span>:     # constant to protect from rounding of errors</pre>
+<pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">052</span>:     cdef double cutOffConstant = 0</pre>
+<pre class='cython code score-0 '>  __pyx_v_cutOffConstant = 0.0;
+</pre><pre class="cython line score-0">&#xA0;<span class="">053</span>: </pre>
+<pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">054</span>:     cdef double[3] v1 = [arg[0], arg[1], arg[2]]</pre>
 <pre class='cython code score-0 '>  __pyx_t_1[0] = (__pyx_v_arg[0]);
   __pyx_t_1[1] = (__pyx_v_arg[1]);
   __pyx_t_1[2] = (__pyx_v_arg[2]);
   memcpy(&amp;(__pyx_v_v1[0]), __pyx_t_1, sizeof(__pyx_v_v1[0]) * (3));
-</pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">048</span>:     cdef double[3] v2 = [arg[3], arg[4], arg[5]]</pre>
+</pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">055</span>:     cdef double[3] v2 = [arg[3], arg[4], arg[5]]</pre>
 <pre class='cython code score-0 '>  __pyx_t_2[0] = (__pyx_v_arg[3]);
   __pyx_t_2[1] = (__pyx_v_arg[4]);
   __pyx_t_2[2] = (__pyx_v_arg[5]);
   memcpy(&amp;(__pyx_v_v2[0]), __pyx_t_2, sizeof(__pyx_v_v2[0]) * (3));
-</pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">049</span>:     cdef double[3] v3 = [arg[6], arg[7], arg[8]]</pre>
+</pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">056</span>:     cdef double[3] v3 = [arg[6], arg[7], arg[8]]</pre>
 <pre class='cython code score-0 '>  __pyx_t_3[0] = (__pyx_v_arg[6]);
   __pyx_t_3[1] = (__pyx_v_arg[7]);
   __pyx_t_3[2] = (__pyx_v_arg[8]);
   memcpy(&amp;(__pyx_v_v3[0]), __pyx_t_3, sizeof(__pyx_v_v3[0]) * (3));
-</pre><pre class="cython line score-0">&#xA0;<span class="">050</span>: </pre>
-<pre class="cython line score-0">&#xA0;<span class="">051</span>:     # -------- Case 1 (most likely) --------</pre>
-<pre class="cython line score-0">&#xA0;<span class="">052</span>:     #   two indep. columns, geometric multiplicitiy: 1</pre>
-<pre class="cython line score-0">&#xA0;<span class="">053</span>:     #   -&gt; the column space has rank 2</pre>
-<pre class="cython line score-0">&#xA0;<span class="">054</span>:     # idea:</pre>
-<pre class="cython line score-0">&#xA0;<span class="">055</span>:     #   use two of the vectors spanning the column space to find the egVector</pre>
-<pre class="cython line score-0">&#xA0;<span class="">056</span>:     #   by taking the cross product</pre>
-<pre class="cython line score-0">&#xA0;<span class="">057</span>:     # implementation:</pre>
-<pre class="cython line score-0">&#xA0;<span class="">058</span>:     #   take cross product of two random vectors.</pre>
-<pre class="cython line score-0">&#xA0;<span class="">059</span>:     #   If the cross product is zero, they are parallell, which won't work. If so,</pre>
-<pre class="cython line score-0">&#xA0;<span class="">060</span>:     #   try the next pair, and potentially the third.</pre>
-<pre class="cython line score-0">&#xA0;<span class="">061</span>:     #   Then return the first (normalized) nonzero vector</pre>
-<pre class="cython line score-0">&#xA0;<span class="">062</span>: </pre>
-<pre class="cython line score-0">&#xA0;<span class="">063</span>:     # returning any nonzero cross product</pre>
-<pre class="cython line score-0">&#xA0;<span class="">064</span>:     # (also make sure that the vector only nonzero due to arithmetic faults)</pre>
-<pre class="cython line score-0">&#xA0;<span class="">065</span>: </pre>
-<pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">066</span>:     egVec = calcCross(v1,v2, egVec)</pre>
+</pre><pre class="cython line score-0">&#xA0;<span class="">057</span>: </pre>
+<pre class="cython line score-0">&#xA0;<span class="">058</span>:     # -------- Case 1 (most likely) --------</pre>
+<pre class="cython line score-0">&#xA0;<span class="">059</span>:     #   two indep. columns, geometric multiplicitiy: 1</pre>
+<pre class="cython line score-0">&#xA0;<span class="">060</span>:     #   -&gt; the column space has rank 2</pre>
+<pre class="cython line score-0">&#xA0;<span class="">061</span>:     # idea:</pre>
+<pre class="cython line score-0">&#xA0;<span class="">062</span>:     #   use two of the vectors spanning the column space to find the egVector</pre>
+<pre class="cython line score-0">&#xA0;<span class="">063</span>:     #   by taking the cross product</pre>
+<pre class="cython line score-0">&#xA0;<span class="">064</span>:     # implementation:</pre>
+<pre class="cython line score-0">&#xA0;<span class="">065</span>:     #   take cross product of two random vectors.</pre>
+<pre class="cython line score-0">&#xA0;<span class="">066</span>:     #   If the cross product is zero, they are parallell, which won't work. If so,</pre>
+<pre class="cython line score-0">&#xA0;<span class="">067</span>:     #   try the next pair, and potentially the third.</pre>
+<pre class="cython line score-0">&#xA0;<span class="">068</span>:     #   Then return the first (normalized) nonzero vector</pre>
+<pre class="cython line score-0">&#xA0;<span class="">069</span>: </pre>
+<pre class="cython line score-0">&#xA0;<span class="">070</span>:     # returning any nonzero cross product</pre>
+<pre class="cython line score-0">&#xA0;<span class="">071</span>:     # (also make sure that the vector only nonzero due to arithmetic faults)</pre>
+<pre class="cython line score-0">&#xA0;<span class="">072</span>: </pre>
+<pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">073</span>:     egVec = calcCross(v1,v2, egVec)</pre>
 <pre class='cython code score-0 '>  __pyx_v_egVec = __pyx_f_20cython_eigenFunction_calcCross(__pyx_v_v1, __pyx_v_v2, __pyx_v_egVec);
-</pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">067</span>:     if(calcDot(egVec, egVec) &gt; cutOffConstant):</pre>
+</pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">074</span>:     if(calcDot(egVec, egVec) &gt; cutOffConstant):</pre>
 <pre class='cython code score-0 '>  __pyx_t_4 = ((__pyx_f_20cython_eigenFunction_calcDot(__pyx_v_egVec, __pyx_v_egVec) &gt; __pyx_v_cutOffConstant) != 0);
   if (__pyx_t_4) {
 /* … */
   }
-</pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">068</span>:       return egVec</pre>
+</pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">075</span>:       return egVec</pre>
 <pre class='cython code score-0 '>    __pyx_r = __pyx_v_egVec;
     goto __pyx_L0;
-</pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">069</span>:     egVec = calcCross(v1, v3, egVec)</pre>
+</pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">076</span>:     egVec = calcCross(v1, v3, egVec)</pre>
 <pre class='cython code score-0 '>  __pyx_v_egVec = __pyx_f_20cython_eigenFunction_calcCross(__pyx_v_v1, __pyx_v_v3, __pyx_v_egVec);
-</pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">070</span>:     if(calcDot(egVec, egVec) &gt; cutOffConstant):</pre>
+</pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">077</span>:     if(calcDot(egVec, egVec) &gt; cutOffConstant):</pre>
 <pre class='cython code score-0 '>  __pyx_t_4 = ((__pyx_f_20cython_eigenFunction_calcDot(__pyx_v_egVec, __pyx_v_egVec) &gt; __pyx_v_cutOffConstant) != 0);
   if (__pyx_t_4) {
 /* … */
   }
-</pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">071</span>:       return egVec</pre>
+</pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">078</span>:       return egVec</pre>
 <pre class='cython code score-0 '>    __pyx_r = __pyx_v_egVec;
     goto __pyx_L0;
-</pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">072</span>:     egVec = calcCross(v2,v3, egVec)</pre>
+</pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">079</span>:     egVec = calcCross(v2,v3, egVec)</pre>
 <pre class='cython code score-0 '>  __pyx_v_egVec = __pyx_f_20cython_eigenFunction_calcCross(__pyx_v_v2, __pyx_v_v3, __pyx_v_egVec);
-</pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">073</span>:     if(calcDot(egVec, egVec) &gt; cutOffConstant):</pre>
+</pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">080</span>:     if(calcDot(egVec, egVec) &gt; cutOffConstant):</pre>
 <pre class='cython code score-0 '>  __pyx_t_4 = ((__pyx_f_20cython_eigenFunction_calcDot(__pyx_v_egVec, __pyx_v_egVec) &gt; __pyx_v_cutOffConstant) != 0);
   if (__pyx_t_4) {
 /* … */
   }
-</pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">074</span>:       return egVec</pre>
+</pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">081</span>:       return egVec</pre>
 <pre class='cython code score-0 '>    __pyx_r = __pyx_v_egVec;
     goto __pyx_L0;
-</pre><pre class="cython line score-0">&#xA0;<span class="">075</span>: </pre>
-<pre class="cython line score-0">&#xA0;<span class="">076</span>:     # -------- Case 2 --------</pre>
-<pre class="cython line score-0">&#xA0;<span class="">077</span>:     #   one independent columns = geometric multiplicitiy: 2</pre>
-<pre class="cython line score-0">&#xA0;<span class="">078</span>:     #   -&gt; all columns are either zero-vectors or on the same line. At least one</pre>
-<pre class="cython line score-0">&#xA0;<span class="">079</span>:     #   vector is non-zero.</pre>
-<pre class="cython line score-0">&#xA0;<span class="">080</span>:     #   -&gt; cross product of any two vectors should be zero</pre>
-<pre class="cython line score-0">&#xA0;<span class="">081</span>:     # idea:</pre>
-<pre class="cython line score-0">&#xA0;<span class="">082</span>:     #   cross product between any non null column vector and any vector not</pre>
-<pre class="cython line score-0">&#xA0;<span class="">083</span>:     #   aligned to the line will give one possible egVector</pre>
-<pre class="cython line score-0">&#xA0;<span class="">084</span>:     # implementation:</pre>
-<pre class="cython line score-0">&#xA0;<span class="">085</span>:     #   generate new vector through rotating any nonzero column vector</pre>
-<pre class="cython line score-0">&#xA0;<span class="">086</span>:     # (https://en.wikipedia.org/wiki/Rotation_matrix)</pre>
-<pre class="cython line score-0">&#xA0;<span class="">087</span>:     # 30 degrees around x axis</pre>
-<pre class="cython line score-0">&#xA0;<span class="">088</span>:     #   p_first = [1 0     0</pre>
-<pre class="cython line score-0">&#xA0;<span class="">089</span>:     #             0  0.86 -1/2</pre>
-<pre class="cython line score-0">&#xA0;<span class="">090</span>:     #             0  1/2   0.86]</pre>
-<pre class="cython line score-0">&#xA0;<span class="">091</span>:     # 30 degrees around z axis</pre>
-<pre class="cython line score-0">&#xA0;<span class="">092</span>:     #   p_sec = [ 0.86 -1/2 0</pre>
-<pre class="cython line score-0">&#xA0;<span class="">093</span>:     #             1/2 0.86  0</pre>
-<pre class="cython line score-0">&#xA0;<span class="">094</span>:     #             0    0    1]</pre>
-<pre class="cython line score-0">&#xA0;<span class="">095</span>:     #   return the normalized cross produc</pre>
-<pre class="cython line score-0">&#xA0;<span class="">096</span>: </pre>
-<pre class="cython line score-0">&#xA0;<span class="">097</span>:     cdef double[3] v_to_rotate</pre>
-<pre class="cython line score-0">&#xA0;<span class="">098</span>:     cdef double[3] v_rotated</pre>
-<pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">099</span>:     cdef int isVectorNonZero = 0</pre>
+</pre><pre class="cython line score-0">&#xA0;<span class="">082</span>: </pre>
+<pre class="cython line score-0">&#xA0;<span class="">083</span>:     # -------- Case 2 --------</pre>
+<pre class="cython line score-0">&#xA0;<span class="">084</span>:     #   one independent columns = geometric multiplicitiy: 2</pre>
+<pre class="cython line score-0">&#xA0;<span class="">085</span>:     #   -&gt; all columns are either zero-vectors or on the same line. At least one</pre>
+<pre class="cython line score-0">&#xA0;<span class="">086</span>:     #   vector is non-zero.</pre>
+<pre class="cython line score-0">&#xA0;<span class="">087</span>:     #   -&gt; cross product of any two vectors should be zero</pre>
+<pre class="cython line score-0">&#xA0;<span class="">088</span>:     # idea:</pre>
+<pre class="cython line score-0">&#xA0;<span class="">089</span>:     #   cross product between any non null column vector and any vector not</pre>
+<pre class="cython line score-0">&#xA0;<span class="">090</span>:     #   aligned to the line will give one possible egVector</pre>
+<pre class="cython line score-0">&#xA0;<span class="">091</span>:     # implementation:</pre>
+<pre class="cython line score-0">&#xA0;<span class="">092</span>:     #   generate new vector through rotating any nonzero column vector</pre>
+<pre class="cython line score-0">&#xA0;<span class="">093</span>:     # (https://en.wikipedia.org/wiki/Rotation_matrix)</pre>
+<pre class="cython line score-0">&#xA0;<span class="">094</span>:     # 30 degrees around x axis</pre>
+<pre class="cython line score-0">&#xA0;<span class="">095</span>:     #   p_first = [1 0     0</pre>
+<pre class="cython line score-0">&#xA0;<span class="">096</span>:     #             0  0.86 -1/2</pre>
+<pre class="cython line score-0">&#xA0;<span class="">097</span>:     #             0  1/2   0.86]</pre>
+<pre class="cython line score-0">&#xA0;<span class="">098</span>:     # 30 degrees around z axis</pre>
+<pre class="cython line score-0">&#xA0;<span class="">099</span>:     #   p_sec = [ 0.86 -1/2 0</pre>
+<pre class="cython line score-0">&#xA0;<span class="">100</span>:     #             1/2 0.86  0</pre>
+<pre class="cython line score-0">&#xA0;<span class="">101</span>:     #             0    0    1]</pre>
+<pre class="cython line score-0">&#xA0;<span class="">102</span>:     #   return the normalized cross produc</pre>
+<pre class="cython line score-0">&#xA0;<span class="">103</span>: </pre>
+<pre class="cython line score-0">&#xA0;<span class="">104</span>:     cdef double[3] v_to_rotate</pre>
+<pre class="cython line score-0">&#xA0;<span class="">105</span>:     cdef double[3] v_rotated</pre>
+<pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">106</span>:     cdef int isVectorNonZero = 0</pre>
 <pre class='cython code score-0 '>  __pyx_v_isVectorNonZero = 0;
-</pre><pre class="cython line score-0">&#xA0;<span class="">100</span>: </pre>
-<pre class="cython line score-0">&#xA0;<span class="">101</span>:     # find a vector that is nonzero</pre>
-<pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">102</span>:     if(calcDot(v1, v1) &gt; cutOffConstant):</pre>
+</pre><pre class="cython line score-0">&#xA0;<span class="">107</span>: </pre>
+<pre class="cython line score-0">&#xA0;<span class="">108</span>:     # find a vector that is nonzero</pre>
+<pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">109</span>:     if(calcDot(v1, v1) &gt; cutOffConstant):</pre>
 <pre class='cython code score-0 '>  __pyx_t_4 = ((__pyx_f_20cython_eigenFunction_calcDot(__pyx_v_v1, __pyx_v_v1) &gt; __pyx_v_cutOffConstant) != 0);
   if (__pyx_t_4) {
 /* … */
     goto __pyx_L6;
   }
-</pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">103</span>:         v_to_rotate = v1</pre>
+</pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">110</span>:         v_to_rotate = v1</pre>
 <pre class='cython code score-0 '>    memcpy(&amp;(__pyx_v_v_to_rotate[0]), __pyx_v_v1, sizeof(__pyx_v_v_to_rotate[0]) * (3));
-</pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">104</span>:         isVectorNonZero = 1</pre>
+</pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">111</span>:         isVectorNonZero = 1</pre>
 <pre class='cython code score-0 '>    __pyx_v_isVectorNonZero = 1;
-</pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">105</span>:     elif(calcDot(v2, v2) &gt; cutOffConstant):</pre>
+</pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">112</span>:     elif(calcDot(v2, v2) &gt; cutOffConstant):</pre>
 <pre class='cython code score-0 '>  __pyx_t_4 = ((__pyx_f_20cython_eigenFunction_calcDot(__pyx_v_v2, __pyx_v_v2) &gt; __pyx_v_cutOffConstant) != 0);
   if (__pyx_t_4) {
 /* … */
     goto __pyx_L6;
   }
-</pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">106</span>:         v_to_rotate = v2</pre>
+</pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">113</span>:         v_to_rotate = v2</pre>
 <pre class='cython code score-0 '>    memcpy(&amp;(__pyx_v_v_to_rotate[0]), __pyx_v_v2, sizeof(__pyx_v_v_to_rotate[0]) * (3));
-</pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">107</span>:         isVectorNonZero = 1</pre>
+</pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">114</span>:         isVectorNonZero = 1</pre>
 <pre class='cython code score-0 '>    __pyx_v_isVectorNonZero = 1;
-</pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">108</span>:     elif(calcDot(v3, v3) &gt; cutOffConstant):</pre>
+</pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">115</span>:     elif(calcDot(v3, v3) &gt; cutOffConstant):</pre>
 <pre class='cython code score-0 '>  __pyx_t_4 = ((__pyx_f_20cython_eigenFunction_calcDot(__pyx_v_v3, __pyx_v_v3) &gt; __pyx_v_cutOffConstant) != 0);
   if (__pyx_t_4) {
 /* … */
   }
   __pyx_L6:;
-</pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">109</span>:         v_to_rotate = v3</pre>
+</pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">116</span>:         v_to_rotate = v3</pre>
 <pre class='cython code score-0 '>    memcpy(&amp;(__pyx_v_v_to_rotate[0]), __pyx_v_v3, sizeof(__pyx_v_v_to_rotate[0]) * (3));
-</pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">110</span>:         isVectorNonZero = 1</pre>
+</pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">117</span>:         isVectorNonZero = 1</pre>
 <pre class='cython code score-0 '>    __pyx_v_isVectorNonZero = 1;
-</pre><pre class="cython line score-0">&#xA0;<span class="">111</span>: </pre>
-<pre class="cython line score-0">&#xA0;<span class="">112</span>:     # create a new vector through rotating the nonzer vector and return the cross</pre>
-<pre class="cython line score-0">&#xA0;<span class="">113</span>:     # product between the two</pre>
-<pre class="cython line score-0">&#xA0;<span class="">114</span>:     cdef double norm_sqrd</pre>
-<pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">115</span>:     if(isVectorNonZero == 1):</pre>
+</pre><pre class="cython line score-0">&#xA0;<span class="">118</span>: </pre>
+<pre class="cython line score-0">&#xA0;<span class="">119</span>:     # create a new vector through rotating the nonzer vector and return the cross</pre>
+<pre class="cython line score-0">&#xA0;<span class="">120</span>:     # product between the two</pre>
+<pre class="cython line score-0">&#xA0;<span class="">121</span>:     cdef double norm_sqrd</pre>
+<pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">122</span>:     if(isVectorNonZero == 1):</pre>
 <pre class='cython code score-0 '>  __pyx_t_4 = ((__pyx_v_isVectorNonZero == 1) != 0);
   if (__pyx_t_4) {
 /* … */
   }
-</pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">116</span>:         norm_sqrd = calcDot(v_to_rotate, v_to_rotate)</pre>
+</pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">123</span>:         norm_sqrd = calcDot(v_to_rotate, v_to_rotate)</pre>
 <pre class='cython code score-0 '>    __pyx_v_norm_sqrd = __pyx_f_20cython_eigenFunction_calcDot(__pyx_v_v_to_rotate, __pyx_v_v_to_rotate);
-</pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">117</span>:         v_rotated = rotateVector(v_to_rotate, v_rotated)</pre>
+</pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">124</span>:         v_rotated = rotateVector(v_to_rotate, v_rotated)</pre>
 <pre class='cython code score-0 '>    memcpy(&amp;(__pyx_v_v_rotated[0]), __pyx_f_20cython_eigenFunction_rotateVector(__pyx_v_v_to_rotate, __pyx_v_v_rotated), sizeof(__pyx_v_v_rotated[0]) * (3 - 0));
-</pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">118</span>:         egVec = calcCross(v_to_rotate, v_rotated,egVec)</pre>
+</pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">125</span>:         egVec = calcCross(v_to_rotate, v_rotated,egVec)</pre>
 <pre class='cython code score-0 '>    __pyx_v_egVec = __pyx_f_20cython_eigenFunction_calcCross(__pyx_v_v_to_rotate, __pyx_v_v_rotated, __pyx_v_egVec);
-</pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">119</span>:         norm_sqrd = calcDot(egVec, egVec)</pre>
+</pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">126</span>:         norm_sqrd = calcDot(egVec, egVec)</pre>
 <pre class='cython code score-0 '>    __pyx_v_norm_sqrd = __pyx_f_20cython_eigenFunction_calcDot(__pyx_v_egVec, __pyx_v_egVec);
-</pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">120</span>:         return egVec</pre>
+</pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">127</span>:         return egVec</pre>
 <pre class='cython code score-0 '>    __pyx_r = __pyx_v_egVec;
     goto __pyx_L0;
-</pre><pre class="cython line score-0">&#xA0;<span class="">121</span>: </pre>
-<pre class="cython line score-0">&#xA0;<span class="">122</span>:     # -------- Case 3 (least likely) --------</pre>
-<pre class="cython line score-0">&#xA0;<span class="">123</span>:     #   all values are zero, geometric multiplicitiy: 3</pre>
-<pre class="cython line score-0">&#xA0;<span class="">124</span>:     #   -&gt; any nonzero vector will do, but this will be misleading. The zero</pre>
-<pre class="cython line score-0">&#xA0;<span class="">125</span>:     #     vector is therefore returned</pre>
-<pre class="cython line score-0">&#xA0;<span class="">126</span>:     #   -&gt; it's also possible to end up here if all vectors where very small. In</pre>
-<pre class="cython line score-0">&#xA0;<span class="">127</span>:     #     this case, returning the zero vector is also the most reasonable.</pre>
-<pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">128</span>:     egVec[0] = 0</pre>
+</pre><pre class="cython line score-0">&#xA0;<span class="">128</span>: </pre>
+<pre class="cython line score-0">&#xA0;<span class="">129</span>:     # -------- Case 3 (least likely) --------</pre>
+<pre class="cython line score-0">&#xA0;<span class="">130</span>:     #   all values are zero, geometric multiplicitiy: 3</pre>
+<pre class="cython line score-0">&#xA0;<span class="">131</span>:     #   -&gt; any nonzero vector will do, but this will be misleading. The zero</pre>
+<pre class="cython line score-0">&#xA0;<span class="">132</span>:     #     vector is therefore returned</pre>
+<pre class="cython line score-0">&#xA0;<span class="">133</span>:     #   -&gt; it's also possible to end up here if all vectors where very small. In</pre>
+<pre class="cython line score-0">&#xA0;<span class="">134</span>:     #     this case, returning the zero vector is also the most reasonable.</pre>
+<pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">135</span>:     egVec[0] = 0</pre>
 <pre class='cython code score-0 '>  (__pyx_v_egVec[0]) = 0.0;
-</pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">129</span>:     egVec[1] = 0</pre>
+</pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">136</span>:     egVec[1] = 0</pre>
 <pre class='cython code score-0 '>  (__pyx_v_egVec[1]) = 0.0;
-</pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">130</span>:     egVec[2] = 0</pre>
+</pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">137</span>:     egVec[2] = 0</pre>
 <pre class='cython code score-0 '>  (__pyx_v_egVec[2]) = 0.0;
-</pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">131</span>:     return egVec</pre>
+</pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">138</span>:     return egVec</pre>
 <pre class='cython code score-0 '>  __pyx_r = __pyx_v_egVec;
   goto __pyx_L0;
-</pre><pre class="cython line score-0">&#xA0;<span class="">132</span>: </pre>
-<pre class="cython line score-0">&#xA0;<span class="">133</span>: # !!!! OBS!!!! only works for symmetrical matrices</pre>
-<pre class="cython line score-0">&#xA0;<span class="">134</span>: # implemented from https://d1rkab7tlqy5f1.cloudfront.net/TNW/Over%20faculteit/</pre>
-<pre class="cython line score-0">&#xA0;<span class="">135</span>: #                                   Decaan/Publications/1999/SCIA99GKNBLVea.pdf</pre>
-<pre class="cython line score-2" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">136</span>: cdef double calculateEigenValue(double[9] my_matrix):</pre>
-<pre class='cython code score-2 '>static double __pyx_f_20cython_eigenFunction_calculateEigenValue(double *__pyx_v_my_matrix) {
+</pre><pre class="cython line score-0">&#xA0;<span class="">139</span>: </pre>
+<pre class="cython line score-0">&#xA0;<span class="">140</span>: # cdef double newCalculateEigenValue(double[9] my_matrix):</pre>
+<pre class="cython line score-0">&#xA0;<span class="">141</span>: #     cdef double eig1</pre>
+<pre class="cython line score-0">&#xA0;<span class="">142</span>: #     cdef double eig2</pre>
+<pre class="cython line score-0">&#xA0;<span class="">143</span>: #     cdef double eig3</pre>
+<pre class="cython line score-0">&#xA0;<span class="">144</span>: #     cdef double m_00_q</pre>
+<pre class="cython line score-0">&#xA0;<span class="">145</span>: #     cdef double m_11_q</pre>
+<pre class="cython line score-0">&#xA0;<span class="">146</span>: #     cdef double m_22_q</pre>
+<pre class="cython line score-0">&#xA0;<span class="">147</span>: #     cdef double determinant</pre>
+<pre class="cython line score-0">&#xA0;<span class="">148</span>: #     cdef double pi</pre>
+<pre class="cython line score-0">&#xA0;<span class="">149</span>: #     cdef double phi</pre>
+<pre class="cython line score-0">&#xA0;<span class="">150</span>: #</pre>
+<pre class="cython line score-0">&#xA0;<span class="">151</span>: #     # all values are not needed since the matrix is symmetric</pre>
+<pre class="cython line score-0">&#xA0;<span class="">152</span>: #     cdef double m_00 = my_matrix[0]</pre>
+<pre class="cython line score-0">&#xA0;<span class="">153</span>: #     cdef double m_01 = my_matrix[1]</pre>
+<pre class="cython line score-0">&#xA0;<span class="">154</span>: #     cdef double m_02 = my_matrix[2]</pre>
+<pre class="cython line score-0">&#xA0;<span class="">155</span>: #     cdef double m_11 = my_matrix[4]</pre>
+<pre class="cython line score-0">&#xA0;<span class="">156</span>: #     cdef double m_12 = my_matrix[5]</pre>
+<pre class="cython line score-0">&#xA0;<span class="">157</span>: #     cdef double m_22 = my_matrix[8]</pre>
+<pre class="cython line score-0">&#xA0;<span class="">158</span>: #</pre>
+<pre class="cython line score-0">&#xA0;<span class="">159</span>: #     cdef double p1 = pow(m_01,2) + pow(m_02,2) + pow(m_12,2)</pre>
+<pre class="cython line score-0">&#xA0;<span class="">160</span>: #     # if A is diagonal.</pre>
+<pre class="cython line score-0">&#xA0;<span class="">161</span>: #     if (p1 == 0):</pre>
+<pre class="cython line score-0">&#xA0;<span class="">162</span>: #       eig1 = m_00</pre>
+<pre class="cython line score-0">&#xA0;<span class="">163</span>: #       eig2 = m_11</pre>
+<pre class="cython line score-0">&#xA0;<span class="">164</span>: #       eig3 = m_22</pre>
+<pre class="cython line score-0">&#xA0;<span class="">165</span>: #     else:</pre>
+<pre class="cython line score-0">&#xA0;<span class="">166</span>: #       q = (m_00 + m_11 + m_22)/3               # 3q = trace(A) = the sum of all diagonal values</pre>
+<pre class="cython line score-0">&#xA0;<span class="">167</span>: #       p2 = pow((m_00 - q),2) + pow((m_11 - q),2) + pow((m_22 - q),2) + 2 * p1</pre>
+<pre class="cython line score-0">&#xA0;<span class="">168</span>: #       p = sqrt(p2 / 6)</pre>
+<pre class="cython line score-0">&#xA0;<span class="">169</span>: #</pre>
+<pre class="cython line score-0">&#xA0;<span class="">170</span>: #       # doing B = A - q * I    # I is the identity matrix</pre>
+<pre class="cython line score-0">&#xA0;<span class="">171</span>: #       m_00_q = m_00 - q</pre>
+<pre class="cython line score-0">&#xA0;<span class="">172</span>: #       m_11_q = m_11 - q</pre>
+<pre class="cython line score-0">&#xA0;<span class="">173</span>: #       m_22_q = m_22 - q</pre>
+<pre class="cython line score-0">&#xA0;<span class="">174</span>: #</pre>
+<pre class="cython line score-0">&#xA0;<span class="">175</span>: #       # determinant of A - q * I</pre>
+<pre class="cython line score-0">&#xA0;<span class="">176</span>: #       determinant = m_00_q * m_11_q * m_22_q + \</pre>
+<pre class="cython line score-0">&#xA0;<span class="">177</span>: #       2 * (m_01 * m_12 * m_02) - \</pre>
+<pre class="cython line score-0">&#xA0;<span class="">178</span>: #       m_00_q * (m_12 * m_12) - \</pre>
+<pre class="cython line score-0">&#xA0;<span class="">179</span>: #       m_11_q * (m_02 * m_02) - \</pre>
+<pre class="cython line score-0">&#xA0;<span class="">180</span>: #       m_22_q * (m_01 * m_01)</pre>
+<pre class="cython line score-0">&#xA0;<span class="">181</span>: #</pre>
+<pre class="cython line score-0">&#xA0;<span class="">182</span>: #       r = (3 / p) * determinant / 2</pre>
+<pre class="cython line score-0">&#xA0;<span class="">183</span>: #</pre>
+<pre class="cython line score-0">&#xA0;<span class="">184</span>: #       # In exact arithmetic for a symmetric matrix  -1 &lt;= r &lt;= 1</pre>
+<pre class="cython line score-0">&#xA0;<span class="">185</span>: #       # but computation error can leave it slightly outside this range.</pre>
+<pre class="cython line score-0">&#xA0;<span class="">186</span>: #       pi = 3.14159265358979323846</pre>
+<pre class="cython line score-0">&#xA0;<span class="">187</span>: #       if (r &lt;= -1):</pre>
+<pre class="cython line score-0">&#xA0;<span class="">188</span>: #         phi = pi / 3</pre>
+<pre class="cython line score-0">&#xA0;<span class="">189</span>: #       elif (r &gt;= 1):</pre>
+<pre class="cython line score-0">&#xA0;<span class="">190</span>: #         phi = 0</pre>
+<pre class="cython line score-0">&#xA0;<span class="">191</span>: #       else:</pre>
+<pre class="cython line score-0">&#xA0;<span class="">192</span>: #         phi = acos(r) / 3</pre>
+<pre class="cython line score-0">&#xA0;<span class="">193</span>: #</pre>
+<pre class="cython line score-0">&#xA0;<span class="">194</span>: #       # the eigenvalues satisfy eig3 &lt;= eig2 &lt;= eig1</pre>
+<pre class="cython line score-0">&#xA0;<span class="">195</span>: #       eig1 = q + 2 * p * cos(phi)</pre>
+<pre class="cython line score-0">&#xA0;<span class="">196</span>: #       eig3 = q + 2 * p * cos(phi + (2 * pi / 3))</pre>
+<pre class="cython line score-0">&#xA0;<span class="">197</span>: #       eig2 = 3 * q - eig1 - eig3     # since trace(A) = eig1 + eig2 + eig3</pre>
+<pre class="cython line score-0">&#xA0;<span class="">198</span>: #       print(str(eig1) + " and " + str(eig2) + " and " + str(eig3))</pre>
+<pre class="cython line score-0">&#xA0;<span class="">199</span>: #</pre>
+<pre class="cython line score-0">&#xA0;<span class="">200</span>: #     # find the eigenvalue with the smallest absolute value</pre>
+<pre class="cython line score-0">&#xA0;<span class="">201</span>: #     cdef double smallestEgValue</pre>
+<pre class="cython line score-0">&#xA0;<span class="">202</span>: #     if(eig1*eig1 &lt; eig2*eig2):</pre>
+<pre class="cython line score-0">&#xA0;<span class="">203</span>: #      if(eig1*eig1 &lt; eig3*eig3):</pre>
+<pre class="cython line score-0">&#xA0;<span class="">204</span>: #        # eig1^2 is smaller than both eig1^2 and eig2^3</pre>
+<pre class="cython line score-0">&#xA0;<span class="">205</span>: #        smallestEgValue = eig1</pre>
+<pre class="cython line score-0">&#xA0;<span class="">206</span>: #      else:</pre>
+<pre class="cython line score-0">&#xA0;<span class="">207</span>: #        # eig3^2 is smaller than both eig1^2 and eig2^2</pre>
+<pre class="cython line score-0">&#xA0;<span class="">208</span>: #        smallestEgValue = eig3</pre>
+<pre class="cython line score-0">&#xA0;<span class="">209</span>: #     else:</pre>
+<pre class="cython line score-0">&#xA0;<span class="">210</span>: #      if(eig2*eig2 &lt; eig3*eig3):</pre>
+<pre class="cython line score-0">&#xA0;<span class="">211</span>: #        # eig2^2 is smaller than both eig1^2 and eig3^2</pre>
+<pre class="cython line score-0">&#xA0;<span class="">212</span>: #        smallestEgValue = eig2</pre>
+<pre class="cython line score-0">&#xA0;<span class="">213</span>: #      else:</pre>
+<pre class="cython line score-0">&#xA0;<span class="">214</span>: #        # eig3^2 is smaller than both eig1^2 and eig2^2</pre>
+<pre class="cython line score-0">&#xA0;<span class="">215</span>: #        smallestEgValue = eig3</pre>
+<pre class="cython line score-0">&#xA0;<span class="">216</span>: #     return smallestEgValue</pre>
+<pre class="cython line score-0">&#xA0;<span class="">217</span>: </pre>
+<pre class="cython line score-0">&#xA0;<span class="">218</span>: # !!!! OBS!!!! only works for symmetrical matrices</pre>
+<pre class="cython line score-0">&#xA0;<span class="">219</span>: # implemented from https://d1rkab7tlqy5f1.cloudfront.net/TNW/Over%20faculteit/</pre>
+<pre class="cython line score-0">&#xA0;<span class="">220</span>: #                                   Decaan/Publications/1999/SCIA99GKNBLVea.pdf</pre>
+<pre class="cython line score-4" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">221</span>: cdef double calculateEigenValue(double[9] my_matrix):</pre>
+<pre class='cython code score-4 '>static double __pyx_f_20cython_eigenFunction_calculateEigenValue(double *__pyx_v_my_matrix) {
   double __pyx_v_m_00;
   double __pyx_v_m_01;
   double __pyx_v_m_02;
@@ -771,159 +846,164 @@ static PyObject *__pyx_pf_20cython_eigenFunction_calculateTangent(CYTHON_UNUSED 
   double __pyx_v_small_constant;
   double __pyx_v_r_qSrt;
   double __pyx_v_theta;
-  double __pyx_v_PI;
-  double __pyx_v_egVal1;
-  double __pyx_v_egVal2;
-  double __pyx_v_egVal3;
-  double __pyx_v_smallestEgValue;
+  double __pyx_v_eig1;
   double __pyx_r;
   <span class='refnanny'>__Pyx_RefNannyDeclarations</span>
   <span class='refnanny'>__Pyx_RefNannySetupContext</span>("calculateEigenValue", 0);
 /* … */
   /* function exit code */
   __pyx_L1_error:;
+  <span class='pyx_macro_api'>__Pyx_XDECREF</span>(__pyx_t_2);
+  <span class='pyx_macro_api'>__Pyx_XDECREF</span>(__pyx_t_3);
   <span class='pyx_c_api'>__Pyx_WriteUnraisable</span>("cython_eigenFunction.calculateEigenValue", __pyx_clineno, __pyx_lineno, __pyx_filename, 1, 0);
   __pyx_r = 0;
   __pyx_L0:;
   <span class='refnanny'>__Pyx_RefNannyFinishContext</span>();
   return __pyx_r;
 }
-</pre><pre class="cython line score-0">&#xA0;<span class="">137</span>:     # all values are not needed since the matrix is symmetric</pre>
-<pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">138</span>:     cdef double m_00 = my_matrix[0]</pre>
+</pre><pre class="cython line score-0">&#xA0;<span class="">222</span>:     # all values are not needed since the matrix is symmetric</pre>
+<pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">223</span>:     cdef double m_00 = my_matrix[0]</pre>
 <pre class='cython code score-0 '>  __pyx_v_m_00 = (__pyx_v_my_matrix[0]);
-</pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">139</span>:     cdef double m_01 = my_matrix[1]</pre>
+</pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">224</span>:     cdef double m_01 = my_matrix[1]</pre>
 <pre class='cython code score-0 '>  __pyx_v_m_01 = (__pyx_v_my_matrix[1]);
-</pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">140</span>:     cdef double m_02 = my_matrix[2]</pre>
+</pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">225</span>:     cdef double m_02 = my_matrix[2]</pre>
 <pre class='cython code score-0 '>  __pyx_v_m_02 = (__pyx_v_my_matrix[2]);
-</pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">141</span>:     cdef double m_11 = my_matrix[4]</pre>
+</pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">226</span>:     cdef double m_11 = my_matrix[4]</pre>
 <pre class='cython code score-0 '>  __pyx_v_m_11 = (__pyx_v_my_matrix[4]);
-</pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">142</span>:     cdef double m_12 = my_matrix[5]</pre>
+</pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">227</span>:     cdef double m_12 = my_matrix[5]</pre>
 <pre class='cython code score-0 '>  __pyx_v_m_12 = (__pyx_v_my_matrix[5]);
-</pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">143</span>:     cdef double m_22 = my_matrix[8]</pre>
+</pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">228</span>:     cdef double m_22 = my_matrix[8]</pre>
 <pre class='cython code score-0 '>  __pyx_v_m_22 = (__pyx_v_my_matrix[8]);
-</pre><pre class="cython line score-0">&#xA0;<span class="">144</span>: </pre>
-<pre class="cython line score-0">&#xA0;<span class="">145</span>:     # coefficents for characteristic equation</pre>
-<pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">146</span>:     cdef double a = -(m_00 + m_11 + m_22)</pre>
+</pre><pre class="cython line score-0">&#xA0;<span class="">229</span>: </pre>
+<pre class="cython line score-0">&#xA0;<span class="">230</span>:     # coefficents for characteristic equation</pre>
+<pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">231</span>:     cdef double a = -(m_00 + m_11 + m_22)</pre>
 <pre class='cython code score-0 '>  __pyx_v_a = (-((__pyx_v_m_00 + __pyx_v_m_11) + __pyx_v_m_22));
-</pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">147</span>:     cdef double b = m_00 * m_11 + m_00 * m_22 + m_11 * m_22 - \</pre>
+</pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">232</span>:     cdef double b = m_00 * m_11 + m_00 * m_22 + m_11 * m_22 - \</pre>
 <pre class='cython code score-0 '>  __pyx_v_b = ((((__pyx_v_m_00 * __pyx_v_m_11) + (__pyx_v_m_00 * __pyx_v_m_22)) + (__pyx_v_m_11 * __pyx_v_m_22)) - (((__pyx_v_m_01 * __pyx_v_m_01) + (__pyx_v_m_02 * __pyx_v_m_02)) + (__pyx_v_m_12 * __pyx_v_m_12)));
-</pre><pre class="cython line score-0">&#xA0;<span class="">148</span>:     ( (m_01 * m_01) + (m_02 * m_02) + (m_12 * m_12) )</pre>
-<pre class="cython line score-0">&#xA0;<span class="">149</span>:     cdef double c = m_22 * (m_01 * m_01) + m_11 * (m_02 * m_02) + \</pre>
-<pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">150</span>:     m_00 * (m_12 * m_12) -  \</pre>
+</pre><pre class="cython line score-0">&#xA0;<span class="">233</span>:     ( (m_01 * m_01) + (m_02 * m_02) + (m_12 * m_12) )</pre>
+<pre class="cython line score-0">&#xA0;<span class="">234</span>:     cdef double c = m_22 * (m_01 * m_01) + m_11 * (m_02 * m_02) + \</pre>
+<pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">235</span>:     m_00 * (m_12 * m_12) -  \</pre>
 <pre class='cython code score-0 '>  __pyx_v_c = ((((__pyx_v_m_22 * (__pyx_v_m_01 * __pyx_v_m_01)) + (__pyx_v_m_11 * (__pyx_v_m_02 * __pyx_v_m_02))) + (__pyx_v_m_00 * (__pyx_v_m_12 * __pyx_v_m_12))) - (((__pyx_v_m_00 * __pyx_v_m_11) * __pyx_v_m_22) + (((2.0 * __pyx_v_m_01) * __pyx_v_m_02) * __pyx_v_m_12)));
-</pre><pre class="cython line score-0">&#xA0;<span class="">151</span>:     (m_00 * m_11 * m_22 + 2 * m_01 * m_02 * m_12)</pre>
-<pre class="cython line score-0">&#xA0;<span class="">152</span>: </pre>
-<pre class="cython line score-0">&#xA0;<span class="">153</span>:     # prep for formula</pre>
-<pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">154</span>:     cdef double Q = (a * a - 3 * b)/9</pre>
+</pre><pre class="cython line score-0">&#xA0;<span class="">236</span>:     (m_00 * m_11 * m_22 + 2 * m_01 * m_02 * m_12)</pre>
+<pre class="cython line score-0">&#xA0;<span class="">237</span>: </pre>
+<pre class="cython line score-0">&#xA0;<span class="">238</span>:     # prep for formula</pre>
+<pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">239</span>:     cdef double Q = (a * a - 3 * b)/9</pre>
 <pre class='cython code score-0 '>  __pyx_v_Q = (((__pyx_v_a * __pyx_v_a) - (3.0 * __pyx_v_b)) / 9.0);
-</pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">155</span>:     cdef double R = ( 2 * pow(a,3) - 9 * a * b + 27 * c ) / 54</pre>
+</pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">240</span>:     cdef double R = ( 2 * pow(a,3) - 9 * a * b + 27 * c ) / 54</pre>
 <pre class='cython code score-0 '>  __pyx_v_R = ((((2.0 * pow(__pyx_v_a, 3.0)) - ((9.0 * __pyx_v_a) * __pyx_v_b)) + (27.0 * __pyx_v_c)) / 54.0);
-</pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">156</span>:     cdef double qSqrt =  sqrt( pow(Q,3) )</pre>
+</pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">241</span>:     cdef double qSqrt =  sqrt( pow(Q,3) )</pre>
 <pre class='cython code score-0 '>  __pyx_v_qSqrt = sqrt(pow(__pyx_v_Q, 3.0));
-</pre><pre class="cython line score-0">&#xA0;<span class="">157</span>: </pre>
-<pre class="cython line score-0">&#xA0;<span class="">158</span>:     # make sure not to divide by zero or very close numbers</pre>
-<pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">159</span>:     small_constant = 0.00001</pre>
-<pre class='cython code score-0 '>  __pyx_v_small_constant = 0.00001;
-</pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">160</span>:     if(qSqrt &lt; small_constant):</pre>
+</pre><pre class="cython line score-0">&#xA0;<span class="">242</span>: </pre>
+<pre class="cython line score-0">&#xA0;<span class="">243</span>:     # make sure not to divide by zero or very close numbers</pre>
+<pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">244</span>:     small_constant = 0.000000000000001</pre>
+<pre class='cython code score-0 '>  __pyx_v_small_constant = 0.000000000000001;
+</pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">245</span>:     if(qSqrt &lt; small_constant):</pre>
 <pre class='cython code score-0 '>  __pyx_t_1 = ((__pyx_v_qSqrt &lt; __pyx_v_small_constant) != 0);
   if (__pyx_t_1) {
 /* … */
   }
-</pre><pre class="cython line score-2" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">161</span>:         print("qSqrt was too small")</pre>
-<pre class='cython code score-2 '>    if (<span class='pyx_c_api'>__Pyx_PrintOne</span>(0, __pyx_kp_s_qSqrt_was_too_small) &lt; 0) <span class='error_goto'>__PYX_ERR(0, 161, __pyx_L1_error)</span>
-</pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">162</span>:         qSqrt = small_constant</pre>
+</pre><pre class="cython line score-17" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">246</span>:         print("qSqrt was too small " + str(qSqrt))</pre>
+<pre class='cython code score-17 '>    __pyx_t_2 = <span class='py_c_api'>PyFloat_FromDouble</span>(__pyx_v_qSqrt);<span class='error_goto'> if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 246, __pyx_L1_error)</span>
+    <span class='refnanny'>__Pyx_GOTREF</span>(__pyx_t_2);
+    __pyx_t_3 = <span class='pyx_c_api'>__Pyx_PyObject_CallOneArg</span>(((PyObject *)(&amp;PyString_Type)), __pyx_t_2);<span class='error_goto'> if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 246, __pyx_L1_error)</span>
+    <span class='refnanny'>__Pyx_GOTREF</span>(__pyx_t_3);
+    <span class='pyx_macro_api'>__Pyx_DECREF</span>(__pyx_t_2); __pyx_t_2 = 0;
+    __pyx_t_2 = <span class='py_c_api'>PyNumber_Add</span>(__pyx_kp_s_qSqrt_was_too_small, __pyx_t_3);<span class='error_goto'> if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 246, __pyx_L1_error)</span>
+    <span class='refnanny'>__Pyx_GOTREF</span>(__pyx_t_2);
+    <span class='pyx_macro_api'>__Pyx_DECREF</span>(__pyx_t_3); __pyx_t_3 = 0;
+    if (<span class='pyx_c_api'>__Pyx_PrintOne</span>(0, __pyx_t_2) &lt; 0) <span class='error_goto'>__PYX_ERR(0, 246, __pyx_L1_error)</span>
+    <span class='pyx_macro_api'>__Pyx_DECREF</span>(__pyx_t_2); __pyx_t_2 = 0;
+</pre><pre class="cython line score-8" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">247</span>:         print(m_00)</pre>
+<pre class='cython code score-8 '>    __pyx_t_2 = <span class='py_c_api'>PyFloat_FromDouble</span>(__pyx_v_m_00);<span class='error_goto'> if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 247, __pyx_L1_error)</span>
+    <span class='refnanny'>__Pyx_GOTREF</span>(__pyx_t_2);
+    if (<span class='pyx_c_api'>__Pyx_PrintOne</span>(0, __pyx_t_2) &lt; 0) <span class='error_goto'>__PYX_ERR(0, 247, __pyx_L1_error)</span>
+    <span class='pyx_macro_api'>__Pyx_DECREF</span>(__pyx_t_2); __pyx_t_2 = 0;
+</pre><pre class="cython line score-8" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">248</span>:         print(m_01)</pre>
+<pre class='cython code score-8 '>    __pyx_t_2 = <span class='py_c_api'>PyFloat_FromDouble</span>(__pyx_v_m_01);<span class='error_goto'> if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 248, __pyx_L1_error)</span>
+    <span class='refnanny'>__Pyx_GOTREF</span>(__pyx_t_2);
+    if (<span class='pyx_c_api'>__Pyx_PrintOne</span>(0, __pyx_t_2) &lt; 0) <span class='error_goto'>__PYX_ERR(0, 248, __pyx_L1_error)</span>
+    <span class='pyx_macro_api'>__Pyx_DECREF</span>(__pyx_t_2); __pyx_t_2 = 0;
+</pre><pre class="cython line score-8" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">249</span>:         print(m_02)</pre>
+<pre class='cython code score-8 '>    __pyx_t_2 = <span class='py_c_api'>PyFloat_FromDouble</span>(__pyx_v_m_02);<span class='error_goto'> if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 249, __pyx_L1_error)</span>
+    <span class='refnanny'>__Pyx_GOTREF</span>(__pyx_t_2);
+    if (<span class='pyx_c_api'>__Pyx_PrintOne</span>(0, __pyx_t_2) &lt; 0) <span class='error_goto'>__PYX_ERR(0, 249, __pyx_L1_error)</span>
+    <span class='pyx_macro_api'>__Pyx_DECREF</span>(__pyx_t_2); __pyx_t_2 = 0;
+</pre><pre class="cython line score-8" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">250</span>:         print(m_11)</pre>
+<pre class='cython code score-8 '>    __pyx_t_2 = <span class='py_c_api'>PyFloat_FromDouble</span>(__pyx_v_m_11);<span class='error_goto'> if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 250, __pyx_L1_error)</span>
+    <span class='refnanny'>__Pyx_GOTREF</span>(__pyx_t_2);
+    if (<span class='pyx_c_api'>__Pyx_PrintOne</span>(0, __pyx_t_2) &lt; 0) <span class='error_goto'>__PYX_ERR(0, 250, __pyx_L1_error)</span>
+    <span class='pyx_macro_api'>__Pyx_DECREF</span>(__pyx_t_2); __pyx_t_2 = 0;
+</pre><pre class="cython line score-8" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">251</span>:         print(m_12)</pre>
+<pre class='cython code score-8 '>    __pyx_t_2 = <span class='py_c_api'>PyFloat_FromDouble</span>(__pyx_v_m_12);<span class='error_goto'> if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 251, __pyx_L1_error)</span>
+    <span class='refnanny'>__Pyx_GOTREF</span>(__pyx_t_2);
+    if (<span class='pyx_c_api'>__Pyx_PrintOne</span>(0, __pyx_t_2) &lt; 0) <span class='error_goto'>__PYX_ERR(0, 251, __pyx_L1_error)</span>
+    <span class='pyx_macro_api'>__Pyx_DECREF</span>(__pyx_t_2); __pyx_t_2 = 0;
+</pre><pre class="cython line score-8" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">252</span>:         print(m_22)</pre>
+<pre class='cython code score-8 '>    __pyx_t_2 = <span class='py_c_api'>PyFloat_FromDouble</span>(__pyx_v_m_22);<span class='error_goto'> if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 252, __pyx_L1_error)</span>
+    <span class='refnanny'>__Pyx_GOTREF</span>(__pyx_t_2);
+    if (<span class='pyx_c_api'>__Pyx_PrintOne</span>(0, __pyx_t_2) &lt; 0) <span class='error_goto'>__PYX_ERR(0, 252, __pyx_L1_error)</span>
+    <span class='pyx_macro_api'>__Pyx_DECREF</span>(__pyx_t_2); __pyx_t_2 = 0;
+</pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">253</span>:         qSqrt = small_constant</pre>
 <pre class='cython code score-0 '>    __pyx_v_qSqrt = __pyx_v_small_constant;
-</pre><pre class="cython line score-0">&#xA0;<span class="">163</span>: </pre>
-<pre class="cython line score-0">&#xA0;<span class="">164</span>:     # make sure that R / qSqrt does not step outside [-1,1] (may happen by arithmetic</pre>
-<pre class="cython line score-0">&#xA0;<span class="">165</span>:     # rounding errors)</pre>
-<pre class="cython line score-5" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">166</span>:     cdef double r_qSrt = R / qSqrt</pre>
+</pre><pre class="cython line score-0">&#xA0;<span class="">254</span>: </pre>
+<pre class="cython line score-0">&#xA0;<span class="">255</span>:     # make sure that R / qSqrt does not step outside [-1,1] (may happen by arithmetic</pre>
+<pre class="cython line score-0">&#xA0;<span class="">256</span>:     # rounding errors)</pre>
+<pre class="cython line score-5" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">257</span>:     cdef double r_qSrt = R / qSqrt</pre>
 <pre class='cython code score-5 '>  if (unlikely(__pyx_v_qSqrt == 0)) {
     <span class='py_c_api'>PyErr_SetString</span>(PyExc_ZeroDivisionError, "float division");
-    <span class='error_goto'>__PYX_ERR(0, 166, __pyx_L1_error)</span>
+    <span class='error_goto'>__PYX_ERR(0, 257, __pyx_L1_error)</span>
   }
   __pyx_v_r_qSrt = (__pyx_v_R / __pyx_v_qSqrt);
-</pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">167</span>:     if(r_qSrt &lt; -1):</pre>
+</pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">258</span>:     if(r_qSrt &lt; -1):</pre>
 <pre class='cython code score-0 '>  __pyx_t_1 = ((__pyx_v_r_qSrt &lt; -1.0) != 0);
   if (__pyx_t_1) {
 /* … */
   }
-</pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">168</span>:       r_qSrt = -1</pre>
+</pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">259</span>:       r_qSrt = -1</pre>
 <pre class='cython code score-0 '>    __pyx_v_r_qSrt = -1.0;
-</pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">169</span>:     if(r_qSrt &gt; 1):</pre>
+</pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">260</span>:     if(r_qSrt &gt; 1):</pre>
 <pre class='cython code score-0 '>  __pyx_t_1 = ((__pyx_v_r_qSrt &gt; 1.0) != 0);
   if (__pyx_t_1) {
 /* … */
   }
-</pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">170</span>:       r_qSrt = 1</pre>
+</pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">261</span>:       r_qSrt = 1</pre>
 <pre class='cython code score-0 '>    __pyx_v_r_qSrt = 1.0;
-</pre><pre class="cython line score-0">&#xA0;<span class="">171</span>: </pre>
-<pre class="cython line score-0">&#xA0;<span class="">172</span>:     # prep for formula</pre>
-<pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">173</span>:     cdef double theta = acos( r_qSrt )</pre>
+</pre><pre class="cython line score-0">&#xA0;<span class="">262</span>: </pre>
+<pre class="cython line score-0">&#xA0;<span class="">263</span>:     # prep for formula</pre>
+<pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">264</span>:     cdef double theta = acos( r_qSrt )</pre>
 <pre class='cython code score-0 '>  __pyx_v_theta = acos(__pyx_v_r_qSrt);
-</pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">174</span>:     cdef double PI = 3.14159265358979323846</pre>
-<pre class='cython code score-0 '>  __pyx_v_PI = 3.14159265358979323846;
-</pre><pre class="cython line score-0">&#xA0;<span class="">175</span>: </pre>
-<pre class="cython line score-0">&#xA0;<span class="">176</span>:     # formula for computing the eigenvalues</pre>
-<pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">177</span>:     cdef double egVal1 = -2 * sqrt(Q) * cos( theta/3 ) - a / 3</pre>
-<pre class='cython code score-0 '>  __pyx_v_egVal1 = (((-2.0 * sqrt(__pyx_v_Q)) * cos((__pyx_v_theta / 3.0))) - (__pyx_v_a / 3.0));
-</pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">178</span>:     cdef double egVal2 = -2 * sqrt(Q) * cos( (theta + PI)/3 ) - a / 3</pre>
-<pre class='cython code score-0 '>  __pyx_v_egVal2 = (((-2.0 * sqrt(__pyx_v_Q)) * cos(((__pyx_v_theta + __pyx_v_PI) / 3.0))) - (__pyx_v_a / 3.0));
-</pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">179</span>:     cdef double egVal3 = -2 * sqrt(Q) * cos( (theta - PI)/3 ) - a / 3</pre>
-<pre class='cython code score-0 '>  __pyx_v_egVal3 = (((-2.0 * sqrt(__pyx_v_Q)) * cos(((__pyx_v_theta - __pyx_v_PI) / 3.0))) - (__pyx_v_a / 3.0));
-</pre><pre class="cython line score-0">&#xA0;<span class="">180</span>: </pre>
-<pre class="cython line score-0">&#xA0;<span class="">181</span>:     # find the eigenvalue with the smallest absolute value</pre>
-<pre class="cython line score-0">&#xA0;<span class="">182</span>:     cdef double smallestEgValue</pre>
-<pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">183</span>:     if(egVal1*egVal1 &lt; egVal2*egVal2):</pre>
-<pre class='cython code score-0 '>  __pyx_t_1 = (((__pyx_v_egVal1 * __pyx_v_egVal1) &lt; (__pyx_v_egVal2 * __pyx_v_egVal2)) != 0);
-  if (__pyx_t_1) {
-/* … */
-    goto __pyx_L6;
-  }
-</pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">184</span>:       if(egVal1*egVal1 &lt; egVal3*egVal3):</pre>
-<pre class='cython code score-0 '>    __pyx_t_1 = (((__pyx_v_egVal1 * __pyx_v_egVal1) &lt; (__pyx_v_egVal3 * __pyx_v_egVal3)) != 0);
-    if (__pyx_t_1) {
-/* … */
-      goto __pyx_L7;
-    }
-</pre><pre class="cython line score-0">&#xA0;<span class="">185</span>:         # egVal1^2 is smaller than both egVal1^2 and egVal2^3</pre>
-<pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">186</span>:         smallestEgValue = egVal1</pre>
-<pre class='cython code score-0 '>      __pyx_v_smallestEgValue = __pyx_v_egVal1;
-</pre><pre class="cython line score-0">&#xA0;<span class="">187</span>:       else:</pre>
-<pre class="cython line score-0">&#xA0;<span class="">188</span>:         # egVal3^2 is smaller than both egVal1^2 and egVal2^2</pre>
-<pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">189</span>:         smallestEgValue = egVal3</pre>
-<pre class='cython code score-0 '>    /*else*/ {
-      __pyx_v_smallestEgValue = __pyx_v_egVal3;
-    }
-    __pyx_L7:;
-</pre><pre class="cython line score-0">&#xA0;<span class="">190</span>:     else:</pre>
-<pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">191</span>:       if(egVal2*egVal2 &lt; egVal3*egVal3):</pre>
-<pre class='cython code score-0 '>  /*else*/ {
-    __pyx_t_1 = (((__pyx_v_egVal2 * __pyx_v_egVal2) &lt; (__pyx_v_egVal3 * __pyx_v_egVal3)) != 0);
-    if (__pyx_t_1) {
-/* … */
-      goto __pyx_L8;
-    }
-</pre><pre class="cython line score-0">&#xA0;<span class="">192</span>:         # egVal2^2 is smaller than both egVal1^2 and egVal3^2</pre>
-<pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">193</span>:         smallestEgValue = egVal2</pre>
-<pre class='cython code score-0 '>      __pyx_v_smallestEgValue = __pyx_v_egVal2;
-</pre><pre class="cython line score-0">&#xA0;<span class="">194</span>:       else:</pre>
-<pre class="cython line score-0">&#xA0;<span class="">195</span>:         # egVal3^2 is smaller than both egVal1^2 and egVal2^2</pre>
-<pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">196</span>:         smallestEgValue = egVal3</pre>
-<pre class='cython code score-0 '>    /*else*/ {
-      __pyx_v_smallestEgValue = __pyx_v_egVal3;
-    }
-    __pyx_L8:;
-  }
-  __pyx_L6:;
-</pre><pre class="cython line score-0">&#xA0;<span class="">197</span>: </pre>
-<pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">198</span>:     return smallestEgValue</pre>
-<pre class='cython code score-0 '>  __pyx_r = __pyx_v_smallestEgValue;
+</pre><pre class="cython line score-0">&#xA0;<span class="">265</span>:     # cdef double PI = 3.14159265358979323846</pre>
+<pre class="cython line score-0">&#xA0;<span class="">266</span>: </pre>
+<pre class="cython line score-0">&#xA0;<span class="">267</span>:     # formula for computing the eigenvalues</pre>
+<pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">268</span>:     cdef double eig1 = -2 * sqrt(Q) * cos( theta/3 ) - a / 3</pre>
+<pre class='cython code score-0 '>  __pyx_v_eig1 = (((-2.0 * sqrt(__pyx_v_Q)) * cos((__pyx_v_theta / 3.0))) - (__pyx_v_a / 3.0));
+</pre><pre class="cython line score-0">&#xA0;<span class="">269</span>:     # cdef double eig2 = -2 * sqrt(Q) * cos( (theta + PI)/3 ) - a / 3</pre>
+<pre class="cython line score-0">&#xA0;<span class="">270</span>:     # cdef double eig3 = -2 * sqrt(Q) * cos( (theta - PI)/3 ) - a / 3</pre>
+<pre class="cython line score-0">&#xA0;<span class="">271</span>: </pre>
+<pre class="cython line score-0">&#xA0;<span class="">272</span>:     # print(str(eig1) + " and " + str(eig2) + " and " + str(eig3))</pre>
+<pre class="cython line score-0">&#xA0;<span class="">273</span>:     # # find the eigenvalue with the smallest absolute value</pre>
+<pre class="cython line score-0">&#xA0;<span class="">274</span>:     # cdef double smallestEgValue</pre>
+<pre class="cython line score-0">&#xA0;<span class="">275</span>:     # if(eig1*eig1 &lt; eig2*eig2):</pre>
+<pre class="cython line score-0">&#xA0;<span class="">276</span>:     #   if(eig1*eig1 &lt; eig3*eig3):</pre>
+<pre class="cython line score-0">&#xA0;<span class="">277</span>:     #     # eig1^2 is smaller than both eig1^2 and eig2^3</pre>
+<pre class="cython line score-0">&#xA0;<span class="">278</span>:     #     smallestEgValue = eig1</pre>
+<pre class="cython line score-0">&#xA0;<span class="">279</span>:     #   else:</pre>
+<pre class="cython line score-0">&#xA0;<span class="">280</span>:     #     # eig3^2 is smaller than both eig1^2 and eig2^2</pre>
+<pre class="cython line score-0">&#xA0;<span class="">281</span>:     #     smallestEgValue = eig3</pre>
+<pre class="cython line score-0">&#xA0;<span class="">282</span>:     # else:</pre>
+<pre class="cython line score-0">&#xA0;<span class="">283</span>:     #   if(eig2*eig2 &lt; eig3*eig3):</pre>
+<pre class="cython line score-0">&#xA0;<span class="">284</span>:     #     # eig2^2 is smaller than both eig1^2 and eig3^2</pre>
+<pre class="cython line score-0">&#xA0;<span class="">285</span>:     #     smallestEgValue = eig2</pre>
+<pre class="cython line score-0">&#xA0;<span class="">286</span>:     #   else:</pre>
+<pre class="cython line score-0">&#xA0;<span class="">287</span>:     #     # eig3^2 is smaller than both eig1^2 and eig2^2</pre>
+<pre class="cython line score-0">&#xA0;<span class="">288</span>:     #     smallestEgValue = eig3</pre>
+<pre class="cython line score-0">&#xA0;<span class="">289</span>: </pre>
+<pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">290</span>:     return eig1</pre>
+<pre class='cython code score-0 '>  __pyx_r = __pyx_v_eig1;
   goto __pyx_L0;
-</pre><pre class="cython line score-0">&#xA0;<span class="">199</span>: </pre>
-<pre class="cython line score-0">&#xA0;<span class="">200</span>: # # function for normalizing a 3*1 vector</pre>
-<pre class="cython line score-0">&#xA0;<span class="">201</span>: # @cython.boundscheck(False) # turn off bounds-checking for entire function</pre>
-<pre class="cython line score-0">&#xA0;<span class="">202</span>: # @cython.wraparound(False)  # turn off negative index wrapping for entire function</pre>
-<pre class="cython line score-2" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">203</span>: cdef double* normalizeVector(double[3] vector):</pre>
+</pre><pre class="cython line score-0">&#xA0;<span class="">291</span>: </pre>
+<pre class="cython line score-0">&#xA0;<span class="">292</span>: # # function for normalizing a 3*1 vector</pre>
+<pre class="cython line score-2" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">293</span>: cdef double* normalizeVector(double[3] vector):</pre>
 <pre class='cython code score-2 '>static double *__pyx_f_20cython_eigenFunction_normalizeVector(double *__pyx_v_vector) {
   double __pyx_v_norm;
   double *__pyx_r;
@@ -938,42 +1018,42 @@ static PyObject *__pyx_pf_20cython_eigenFunction_calculateTangent(CYTHON_UNUSED 
   <span class='refnanny'>__Pyx_RefNannyFinishContext</span>();
   return __pyx_r;
 }
-</pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">204</span>:     cdef double norm = sqrt(calcDot(vector, vector))</pre>
+</pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">294</span>:     cdef double norm = sqrt(calcDot(vector, vector))</pre>
 <pre class='cython code score-0 '>  __pyx_v_norm = sqrt(__pyx_f_20cython_eigenFunction_calcDot(__pyx_v_vector, __pyx_v_vector));
-</pre><pre class="cython line score-0">&#xA0;<span class="">205</span>:     # make sure not to divide by zero</pre>
-<pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">206</span>:     if(norm == 0):</pre>
+</pre><pre class="cython line score-0">&#xA0;<span class="">295</span>:     # make sure not to divide by zero</pre>
+<pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">296</span>:     if(norm == 0):</pre>
 <pre class='cython code score-0 '>  __pyx_t_1 = ((__pyx_v_norm == 0.0) != 0);
   if (__pyx_t_1) {
 /* … */
   }
-</pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">207</span>:       return vector</pre>
+</pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">297</span>:       return vector</pre>
 <pre class='cython code score-0 '>    __pyx_r = __pyx_v_vector;
     goto __pyx_L0;
-</pre><pre class="cython line score-5" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">208</span>:     vector[0] = vector[0]/norm</pre>
+</pre><pre class="cython line score-5" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">298</span>:     vector[0] = vector[0]/norm</pre>
 <pre class='cython code score-5 '>  if (unlikely(__pyx_v_norm == 0)) {
     <span class='py_c_api'>PyErr_SetString</span>(PyExc_ZeroDivisionError, "float division");
-    <span class='error_goto'>__PYX_ERR(0, 208, __pyx_L1_error)</span>
+    <span class='error_goto'>__PYX_ERR(0, 298, __pyx_L1_error)</span>
   }
   (__pyx_v_vector[0]) = ((__pyx_v_vector[0]) / __pyx_v_norm);
-</pre><pre class="cython line score-5" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">209</span>:     vector[1] = vector[1]/norm</pre>
+</pre><pre class="cython line score-5" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">299</span>:     vector[1] = vector[1]/norm</pre>
 <pre class='cython code score-5 '>  if (unlikely(__pyx_v_norm == 0)) {
     <span class='py_c_api'>PyErr_SetString</span>(PyExc_ZeroDivisionError, "float division");
-    <span class='error_goto'>__PYX_ERR(0, 209, __pyx_L1_error)</span>
+    <span class='error_goto'>__PYX_ERR(0, 299, __pyx_L1_error)</span>
   }
   (__pyx_v_vector[1]) = ((__pyx_v_vector[1]) / __pyx_v_norm);
-</pre><pre class="cython line score-5" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">210</span>:     vector[2] = vector[2]/norm</pre>
+</pre><pre class="cython line score-5" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">300</span>:     vector[2] = vector[2]/norm</pre>
 <pre class='cython code score-5 '>  if (unlikely(__pyx_v_norm == 0)) {
     <span class='py_c_api'>PyErr_SetString</span>(PyExc_ZeroDivisionError, "float division");
-    <span class='error_goto'>__PYX_ERR(0, 210, __pyx_L1_error)</span>
+    <span class='error_goto'>__PYX_ERR(0, 300, __pyx_L1_error)</span>
   }
   (__pyx_v_vector[2]) = ((__pyx_v_vector[2]) / __pyx_v_norm);
-</pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">211</span>:     return vector</pre>
+</pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">301</span>:     return vector</pre>
 <pre class='cython code score-0 '>  __pyx_r = __pyx_v_vector;
   goto __pyx_L0;
-</pre><pre class="cython line score-0">&#xA0;<span class="">212</span>: </pre>
-<pre class="cython line score-0">&#xA0;<span class="">213</span>: # function for rotating a vector two times (using operation taken from</pre>
-<pre class="cython line score-0">&#xA0;<span class="">214</span>: # standard rotational matrix described at eg wikipedia)</pre>
-<pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">215</span>: cdef inline double* rotateVector(double[3] v, double[3] v_rotated):</pre>
+</pre><pre class="cython line score-0">&#xA0;<span class="">302</span>: </pre>
+<pre class="cython line score-0">&#xA0;<span class="">303</span>: # function for rotating a vector two times (using operation taken from</pre>
+<pre class="cython line score-0">&#xA0;<span class="">304</span>: # standard rotational matrix described at eg wikipedia)</pre>
+<pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">305</span>: cdef inline double* rotateVector(double[3] v, double[3] v_rotated):</pre>
 <pre class='cython code score-0 '>static CYTHON_INLINE double *__pyx_f_20cython_eigenFunction_rotateVector(double *__pyx_v_v, double *__pyx_v_v_rotated) {
   double __pyx_v_x;
   double __pyx_v_y;
@@ -987,26 +1067,26 @@ static PyObject *__pyx_pf_20cython_eigenFunction_calculateTangent(CYTHON_UNUSED 
   <span class='refnanny'>__Pyx_RefNannyFinishContext</span>();
   return __pyx_r;
 }
-</pre><pre class="cython line score-0">&#xA0;<span class="">216</span>:     #first rotation</pre>
-<pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">217</span>:     cdef double x = v[0]</pre>
+</pre><pre class="cython line score-0">&#xA0;<span class="">306</span>:     #first rotation</pre>
+<pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">307</span>:     cdef double x = v[0]</pre>
 <pre class='cython code score-0 '>  __pyx_v_x = (__pyx_v_v[0]);
-</pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">218</span>:     cdef double y = v[1] * 0.86 - v[0]/2</pre>
+</pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">308</span>:     cdef double y = v[1] * 0.86 - v[0]/2</pre>
 <pre class='cython code score-0 '>  __pyx_v_y = (((__pyx_v_v[1]) * 0.86) - ((__pyx_v_v[0]) / 2.0));
-</pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">219</span>:     cdef double z = v[1]/2 + v[0] * 0.86</pre>
+</pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">309</span>:     cdef double z = v[1]/2 + v[0] * 0.86</pre>
 <pre class='cython code score-0 '>  __pyx_v_z = (((__pyx_v_v[1]) / 2.0) + ((__pyx_v_v[0]) * 0.86));
-</pre><pre class="cython line score-0">&#xA0;<span class="">220</span>:     # second rotation</pre>
-<pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">221</span>:     v_rotated[0] = x * 0.86 - y/2</pre>
+</pre><pre class="cython line score-0">&#xA0;<span class="">310</span>:     # second rotation</pre>
+<pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">311</span>:     v_rotated[0] = x * 0.86 - y/2</pre>
 <pre class='cython code score-0 '>  (__pyx_v_v_rotated[0]) = ((__pyx_v_x * 0.86) - (__pyx_v_y / 2.0));
-</pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">222</span>:     v_rotated[1] = x/2 + y * 0.86</pre>
+</pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">312</span>:     v_rotated[1] = x/2 + y * 0.86</pre>
 <pre class='cython code score-0 '>  (__pyx_v_v_rotated[1]) = ((__pyx_v_x / 2.0) + (__pyx_v_y * 0.86));
-</pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">223</span>:     v_rotated[2] = z</pre>
+</pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">313</span>:     v_rotated[2] = z</pre>
 <pre class='cython code score-0 '>  (__pyx_v_v_rotated[2]) = __pyx_v_z;
-</pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">224</span>:     return v_rotated</pre>
+</pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">314</span>:     return v_rotated</pre>
 <pre class='cython code score-0 '>  __pyx_r = __pyx_v_v_rotated;
   goto __pyx_L0;
-</pre><pre class="cython line score-0">&#xA0;<span class="">225</span>: </pre>
-<pre class="cython line score-0">&#xA0;<span class="">226</span>: # function for calculating cross product of two 3x1 vectors</pre>
-<pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">227</span>: cdef inline double* calcCross(double[3] v1, double[3] v2, double[3] crossVec):</pre>
+</pre><pre class="cython line score-0">&#xA0;<span class="">315</span>: </pre>
+<pre class="cython line score-0">&#xA0;<span class="">316</span>: # function for calculating cross product of two 3x1 vectors</pre>
+<pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">317</span>: cdef inline double* calcCross(double[3] v1, double[3] v2, double[3] crossVec):</pre>
 <pre class='cython code score-0 '>static CYTHON_INLINE double *__pyx_f_20cython_eigenFunction_calcCross(double *__pyx_v_v1, double *__pyx_v_v2, double *__pyx_v_crossVec) {
   double *__pyx_r;
   <span class='refnanny'>__Pyx_RefNannyDeclarations</span>
@@ -1017,18 +1097,18 @@ static PyObject *__pyx_pf_20cython_eigenFunction_calculateTangent(CYTHON_UNUSED 
   <span class='refnanny'>__Pyx_RefNannyFinishContext</span>();
   return __pyx_r;
 }
-</pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">228</span>:     crossVec[0] = v1[1] * v2[2] - v1[2] * v2[1]</pre>
+</pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">318</span>:     crossVec[0] = v1[1] * v2[2] - v1[2] * v2[1]</pre>
 <pre class='cython code score-0 '>  (__pyx_v_crossVec[0]) = (((__pyx_v_v1[1]) * (__pyx_v_v2[2])) - ((__pyx_v_v1[2]) * (__pyx_v_v2[1])));
-</pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">229</span>:     crossVec[1] = v1[2] * v2[0] - v1[0] * v2[2]</pre>
+</pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">319</span>:     crossVec[1] = v1[2] * v2[0] - v1[0] * v2[2]</pre>
 <pre class='cython code score-0 '>  (__pyx_v_crossVec[1]) = (((__pyx_v_v1[2]) * (__pyx_v_v2[0])) - ((__pyx_v_v1[0]) * (__pyx_v_v2[2])));
-</pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">230</span>:     crossVec[2] = v1[0] * v2[1] - v1[1] * v2[0]</pre>
+</pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">320</span>:     crossVec[2] = v1[0] * v2[1] - v1[1] * v2[0]</pre>
 <pre class='cython code score-0 '>  (__pyx_v_crossVec[2]) = (((__pyx_v_v1[0]) * (__pyx_v_v2[1])) - ((__pyx_v_v1[1]) * (__pyx_v_v2[0])));
-</pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">231</span>:     return crossVec</pre>
+</pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">321</span>:     return crossVec</pre>
 <pre class='cython code score-0 '>  __pyx_r = __pyx_v_crossVec;
   goto __pyx_L0;
-</pre><pre class="cython line score-0">&#xA0;<span class="">232</span>: </pre>
-<pre class="cython line score-0">&#xA0;<span class="">233</span>: # function for calculating dot product between two 3x1 vectors</pre>
-<pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">234</span>: cdef inline double calcDot(double[3] v1, double[3] v2):</pre>
+</pre><pre class="cython line score-0">&#xA0;<span class="">322</span>: </pre>
+<pre class="cython line score-0">&#xA0;<span class="">323</span>: # function for calculating dot product between two 3x1 vectors</pre>
+<pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">324</span>: cdef inline double calcDot(double[3] v1, double[3] v2):</pre>
 <pre class='cython code score-0 '>static CYTHON_INLINE double __pyx_f_20cython_eigenFunction_calcDot(double *__pyx_v_v1, double *__pyx_v_v2) {
   double __pyx_v_prod;
   double __pyx_r;
@@ -1040,9 +1120,9 @@ static PyObject *__pyx_pf_20cython_eigenFunction_calculateTangent(CYTHON_UNUSED 
   <span class='refnanny'>__Pyx_RefNannyFinishContext</span>();
   return __pyx_r;
 }
-</pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">235</span>:     cdef double prod = v1[0] * v2[0] + v1[1] * v2[1] + v1[2] * v2[2]</pre>
+</pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">325</span>:     cdef double prod = v1[0] * v2[0] + v1[1] * v2[1] + v1[2] * v2[2]</pre>
 <pre class='cython code score-0 '>  __pyx_v_prod = ((((__pyx_v_v1[0]) * (__pyx_v_v2[0])) + ((__pyx_v_v1[1]) * (__pyx_v_v2[1]))) + ((__pyx_v_v1[2]) * (__pyx_v_v2[2])));
-</pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">236</span>:     return prod</pre>
+</pre><pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">326</span>:     return prod</pre>
 <pre class='cython code score-0 '>  __pyx_r = __pyx_v_prod;
   goto __pyx_L0;
 </pre></div></body></html>
