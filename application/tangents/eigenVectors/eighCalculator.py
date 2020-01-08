@@ -9,11 +9,7 @@ def calculateWithEigh(GST):
     z_coord = np.zeros(dims)
 
     for (i, j, k), m in np.ndenumerate(GST[:,:,:,0,0]):
-        if(not np.any(GST[i,j,k,:,:])):
-            x_coord[i,j,k] = 0
-            y_coord[i,j,k] = 0
-            z_coord[i,j,k] = 0
-        else:
+        if(np.any(GST[i,j,k,:,:])):
             eigs, vecs = np.linalg.eigh(GST[i,j,k,:,:])
 
             nonzero_eigs = eigs[eigs.nonzero()]

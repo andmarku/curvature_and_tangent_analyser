@@ -18,13 +18,8 @@ cpdef cnp.ndarray[double, ndim=1] calculateTangent(cnp.ndarray arg):
 
     # create the matrix (M - lambda I)
     cdef double smallestEgValue = calculateEigenValue(arg_as_array)
-    # eigs, vecs = np.linalg.eigh(arg)
-    # index = np.argmin(abs(eigs))
-    # print(smallestEgValue)
-    # print(newCalculateEigenValue(arg_as_array))
-    # print(eigs[index])
-    # print()
 
+    # update matrix
     arg_as_array[0] = arg_as_array[0] - smallestEgValue
     arg_as_array[4] = arg_as_array[4] - smallestEgValue
     arg_as_array[8] = arg_as_array[8] - smallestEgValue
