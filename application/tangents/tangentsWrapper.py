@@ -4,7 +4,7 @@ sys.path.append('./tangents/gst')
 sys.path.append('./tangents/eigenVectors')
 from GST0 import calculateGST0
 from gaussianSmoothing import convolution
-from eigenVectorCalculator import calculateEigenVectors
+from eigenVectorWrapper import calculateEigenVectors
 
 def tangents(d):
     partials = convolution(d)
