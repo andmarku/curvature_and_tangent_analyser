@@ -6,6 +6,39 @@ from libc.math cimport cos
 from libc.math cimport acos
 from libc.math cimport pow
 
+
+cpdef cnp.ndarray[double, ndim=4] calculateWithCython(GST):
+
+    cdef int shape0 = GST.shape[0]
+    cdef int shape1 = GST.shape[1]
+    cdef int shape2 = GST.shape[2]
+
+    dims = (shape0,shape1, shape2)
+    x_coord = np.zeros(dims)
+    y_coord = np.zeros(dims)
+    z_coord = np.zeros(dims)
+
+    nonzero_vecs = np.zeros(3)
+    local_gst = np.zeros(3)
+
+    cdef int i,j,k
+    for i in range(shape0):
+      for j in range(shape1):
+        for k in range(shape2):
+          local_gst = GST[i,j,k,:,:]
+          if( local_gst.max() > 0.0001):
+            nonzero_vecs = calculateTangent(local_gst)
+            x_coord[i,j,k] = nonzero_vecs[0]
+            y_coord[i,j,k] = nonzero_vecs[1]
+            z_coord[i,j,k] = nonzero_vecs[2]
+
+    data = np.zeros((GST.shape[0], GST.shape[1], GST.shape[2], 3))
+    data[:,:,:,0] = x_coord
+    data[:,:,:,1] = y_coord
+    data[:,:,:,2] = z_coord
+
+    return data
+
 # assumes that all-zero elements are taken care of before function
 cpdef cnp.ndarray[double, ndim=1] calculateTangent(cnp.ndarray arg):
 
