@@ -15,4 +15,4 @@ def calcCurvatureForAllVoxels(tensor_dmAlongTangent):
 
 # calculate curvature for single voxel
 def calcCurvature(dmAlongTangent):
-    return CONST_SQRT_OF_TWO*np.linalg.norm(dmAlongTangent)
+    return np.linalg.norm(dmAlongTangent)/CONST_SQRT_OF_TWO
