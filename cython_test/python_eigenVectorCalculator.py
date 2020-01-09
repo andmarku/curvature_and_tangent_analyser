@@ -10,6 +10,7 @@ def calculateTangent(arg):
     smallestEgValue = calculateEigenValue(arg)
     tangent = calcEgVecByCrossProduct( arg - smallestEgValue*np.identity(3))
     tangent = tangent * smallestEgValue
+    print("smallestEgValue is "+ str(smallestEgValue))
     return tangent
 
 def calcEgVecByCrossProduct(arg):
@@ -156,9 +157,37 @@ def calculateEigenValue(arg):
     if(qSqrt*qSqrt < 0.0001):
         return 0
 
-    arccosTerm = math.acos( R / qSqrt )
+    # make sure that R / qSqrt does not step outside [-1,1] (may happen by arithmetic
+    # rounding errors)
+    r_qSrt = R / qSqrt
+    if(r_qSrt < -1):
+      r_qSrt = -1
+    if(r_qSrt > 1):
+      r_qSrt = 1
 
-    # compute smallest eigenvalue
-    egValue = -2 * math.sqrt(Q) * math.cos( arccosTerm/3 ) - a / 3
+    # prep for formula
+    theta = math.acos( r_qSrt )
+    PI = 3.14159265358979323846
 
-    return egValue
+    # formula for computing the eigenvalues
+    egVal1 = -2 * math.sqrt(Q) *  math.cos( theta/3 ) - a / 3
+    egVal2 = -2 *  math.sqrt(Q) *  math.cos( (theta + PI)/3 ) - a / 3
+    egVal3 = -2 *  math.sqrt(Q) *  math.cos( (theta - PI)/3 ) - a / 3
+
+    # find the eigenvalue with the smallest absolute value
+    if(egVal1*egVal1 < egVal2*egVal2):
+      if(egVal1*egVal1 < egVal3*egVal3):
+        # egVal1^2 is smaller than both egVal1^2 and egVal2^3
+        smallestEgValue = egVal1
+      else:
+        # egVal3^2 is smaller than both egVal1^2 and egVal2^2
+        smallestEgValue = egVal3
+    else:
+      if(egVal2*egVal2 < egVal3*egVal3):
+        # egVal2^2 is smaller than both egVal1^2 and egVal3^2
+        smallestEgValue = egVal2
+      else:
+        # egVal3^2 is smaller than both egVal1^2 and egVal2^2
+        smallestEgValue = egVal3
+
+    return smallestEgValue
