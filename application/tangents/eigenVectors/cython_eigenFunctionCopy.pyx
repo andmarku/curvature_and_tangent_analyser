@@ -14,11 +14,8 @@ cpdef cnp.ndarray[double, ndim=4] calculateWithCython(GST):
     cdef int shape2 = GST.shape[2]
 
     dims = (shape0,shape1, shape2)
-    x_coord = np.zeros(dims)
-    y_coord = np.zeros(dims)
-    z_coord = np.zeros(dims)
-
-    nonzero_vecs = np.zeros(3)
+    data = np.zeros((GST.shape[0], GST.shape[1], GST.shape[2], 3))
+    
     local_gst = np.zeros(3)
 
     cdef int i,j,k
@@ -27,15 +24,7 @@ cpdef cnp.ndarray[double, ndim=4] calculateWithCython(GST):
         for k in range(shape2):
           local_gst = GST[i,j,k,:,:]
           if( local_gst.max() > 0.0001):
-            nonzero_vecs = calculateTangent(local_gst)
-            x_coord[i,j,k] = nonzero_vecs[0]
-            y_coord[i,j,k] = nonzero_vecs[1]
-            z_coord[i,j,k] = nonzero_vecs[2]
-
-    data = np.zeros((GST.shape[0], GST.shape[1], GST.shape[2], 3))
-    data[:,:,:,0] = x_coord
-    data[:,:,:,1] = y_coord
-    data[:,:,:,2] = z_coord
+            data[i,j,k,:] = calculateTangent(local_gst)
 
     return data
 
