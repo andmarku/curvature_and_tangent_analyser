@@ -1,12 +1,14 @@
 import numpy as np
 
+# 9 ELEMENT CASE
+
 ''' Calculates the knutsson mapping of a vector
 
 Input is on the form:
-    numpy array: eigenvector = (3, 3)
+    numpy array: allEigenvectors = (dimX, dimY, dimZ, 3, 3)
 
 Output is on the form:
-    numpy array: knutMap = (9,1)
+    numpy array: allKnutsson = (dimX, dimY, dimZ,9)
 '''
 
 def knutssonMapping(eigenvector):

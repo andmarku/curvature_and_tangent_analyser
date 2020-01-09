@@ -9,13 +9,10 @@ def calculateWithEigh(GST):
     for (i, j, k), m in np.ndenumerate(GST[:,:,:,0,0]):
         if(np.any(GST[i,j,k,:,:])):
             eigs, vecs = np.linalg.eigh(GST[i,j,k,:,:])
+            
+            index = np.argmin(abs(eigs))
 
-            nonzero_eigs = eigs[eigs.nonzero()]
-            nonzero_vecs = vecs[:, eigs.nonzero()[0]]
-
-            index = np.argmin(abs(nonzero_eigs))
-
-            data[i,j,k,:] = nonzero_vecs[:, index]
+            data[i,j,k,:] = vecs[:, index]
 
     print("finished eigenvalues")
 

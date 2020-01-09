@@ -1,23 +1,24 @@
 import numpy as np
-# 9 ELEMENT CASE
+
+# 5 element case
 def dmDotTangents(tensor_knutVecs, tensor_tangents):
     ''' Dot product of DM matrix and tangent vectors in each voxel.
 
     Parameters
     ---------
-    tensor_knutVecs : the flattened Knutsson vector in each voxel, N x M x L x 9.
+    tensor_knutVecs : the flattened Knutsson vector in each voxel, N x M x L x 5.
 
     tensor_tangents : tangent vectors in each voxel N x M x L x 3.
 
     Returns
     -------
     vector of floats
-        dmAlongTangent : derivatives of flattened Knuttson vector, N x M x L x 9.
+        dmAlongTangent : derivatives of flattened Knuttson vector, N x M x L x 5.
     '''
     tensor_DM = approximateAlong_XYZ(tensor_knutVecs)
 
     dim = tensor_knutVecs.shape
-    dmAlongTangent = np.zeros((dim[0],dim[1],dim[2],9))
+    dmAlongTangent = np.zeros((dim[0],dim[1],dim[2],5))
 
     # for each DM take the dot product between the 3 derivatives and the tangent
     for idx, _ in np.ndenumerate(tensor_DM[:,:,:,0,0]):
@@ -32,19 +33,19 @@ def approximateAlong_XYZ(knutVecs):
 
     Parameters
     ---------
-    knutVecs : knutsson for every voxel, assumes knutVecs are N x M x L x 9.
+    knutVecs : knutsson for every voxel, assumes knutVecs are N x M x L x 5.
 
     Returns
     -------
     vector of floats
-        tensor_DM : dimensions N x M x L x 3 x 9.
+        tensor_DM : dimensions N x M x L x 3 x 5.
                     N, M, L are the 3 dimensional space coordinates.
                     3 x 9 are the dimension of the local DM matrix.
     '''
     dim = knutVecs.shape
-    tensor_DM = np.zeros((dim[0],dim[1],dim[2],3,9))
+    tensor_DM = np.zeros((dim[0],dim[1],dim[2],3,5))
 
-    for elementInKnut in range(9):
+    for elementInKnut in range(5):
         tensor_DM[:,:,:,0,elementInKnut] = np.gradient(knutVecs[:,:,:,elementInKnut], axis = 0)
         tensor_DM[:,:,:,1,elementInKnut] = np.gradient(knutVecs[:,:,:,elementInKnut], axis = 1)
         tensor_DM[:,:,:,2,elementInKnut] = np.gradient(knutVecs[:,:,:,elementInKnut], axis = 2)
