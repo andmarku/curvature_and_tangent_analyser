@@ -19,9 +19,9 @@ def program(filename, fiber_width):
     d, x, y, z = readVTK(filename)
     print("finished reading in data")
 
-    tensor_tangents = tangents(d)
+    tensor_tangents = tangents(d, fiber_width)
     print("finished calculating tangents")
-
+    import pdb; pdb.set_trace() 
     tensor_curvatures = curvatures(tensor_tangents)
     print("finished calculating curvatures")
 
