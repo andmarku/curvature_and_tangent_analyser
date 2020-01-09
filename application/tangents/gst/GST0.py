@@ -4,11 +4,11 @@ from scipy.ndimage import gaussian_filter
 ''' Calculates the gradient structure tensor
 
 Input is on the form:
-    numpy array: partials = (200, 200, 200, 3)
+    numpy array: partials = (N1, N2, N3, 3)
     real value: std
 
 Output is on the form:
-    numpy array: GST = (200, 200, 200, 3, 3)
+    numpy array: GST = (N1, N2, N3, 3, 3)
 '''
 def calculateGST0(partials, std):
 
