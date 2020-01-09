@@ -6,19 +6,15 @@ def testAgainstDefinition(myFun, nrOfTests, epsilon):
 
     nrOfFailedTests = 0
     for k in range(0,nrOfTests):
-        # Old version of test matrix
-        # u =  2 * (np.random.random_sample(9).reshape(3,3) - 0.5)
-        # symmetricMatric = u + np.transpose(u)
+        # symmetric version one
+        u =  2 * (np.random.random_sample(9).reshape(3,3) - 0.5)
+        symmetricMatric = u + np.transpose(u)
 
+        # # symmetric version two
         # matrix =  2 * (np.random.random_sample(9).reshape(3,3) - 0.5)
         # symmetricMatric = np.matmul(matrix, np.transpose(matrix))
         #
-        # create vector with uniformly random values in [-1.0, 1.0)
-        u =  2 * (np.random.random_sample(3) - 0.5)
-        # simulate a gradient structure tensor using the random vector
-        symmetricMatric = np.outer(u, u)
-
-        # use function to calculate egVector
+        # # use function to calculate egVector
         egVec = myFun(symmetricMatric)
 
         # use first part of definition
