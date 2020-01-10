@@ -21,7 +21,7 @@ def program(filename, fiber_width, curvature=''):
 
     tensor_tangents = tangents(d, fiber_width)
     print("finished calculating tangents")
-    import pdb; pdb.set_trace() 
+    #import pdb; pdb.set_trace() 
     tensor_curvatures = curvatures(tensor_tangents)
     print("finished calculating curvatures")
 
