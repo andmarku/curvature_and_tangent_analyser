@@ -11,12 +11,18 @@ def createCurvatureHistogram(curvature, name_of_input, fiber_width):
     array with dimension m x 1
 
     '''
-    num_bins = 20
-    # the histogram of the data
-    n, bins, patches = plt.hist(curvature, num_bins, density=1, facecolor='blue', alpha=0.5)
+    num_bins = 40
 
+    # Take out non-zero curvatures (only where there is a volume)
+    nz_curvature = curvature[curvature.nonzero()]
+    mean_curvature = nz_curvature.mean()
+
+    # the histogram of the data
+    n, bins, patches = plt.hist(nz_curvature, num_bins, density=1, facecolor='blue', alpha=0.5)
+    plt.axvline(mean_curvature, c = 'red',label='Mean: ' + str(np.round(mean_curvature, 3)))
+    plt.legend()
     plt.xlabel('Curvature')
-    plt.ylabel('Probability')
+    plt.ylabel('Frequency')
     title = 'Histogram of curvature: figure ' + name_of_input + \
      r', fiber width $=' + str(fiber_width) + r'$'
     plt.title(title)
@@ -25,3 +31,4 @@ def createCurvatureHistogram(curvature, name_of_input, fiber_width):
     plt.subplots_adjust(left=0.15)
     plt.savefig("curvatures.png")
     plt.show()
+    #import pdb; pdb.set_trace()
