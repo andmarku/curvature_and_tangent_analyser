@@ -31,9 +31,11 @@ def createCurvatureHistogram(curvature, name_of_input, fiber_width, curvature_fi
         title = 'Histogram of curvature: figure ' + name_of_input + \
          r', fiber width $=' + str(fiber_width) + r'$'
         plt.title(title)
+        # Tweak spacing to prevent clipping of ylabel
+        plt.subplots_adjust(left=0.15)
     else:
         # path for validation file
-        path = './data/' + str(curvature_filename)
+        path = './data/testfiles/' + str(curvature_filename)
         trueCurvatures = np.loadtxt(fname = path)
         # import pdb; pdb.set_trace()
         trueMean = np.mean(trueCurvatures)
@@ -60,8 +62,6 @@ def createCurvatureHistogram(curvature, name_of_input, fiber_width, curvature_fi
         axs[1].set_xlabel('Curvature')
         axs[1].set_ylabel('Frequency')
 
-        # Tweak spacing to prevent clipping of ylabel
-        # plt.subplots_adjust(left=0.15)
-    # plt.savefig("curvatures.png")
+    plt.savefig("curvatures.png")
     plt.show()
         #import pdb; pdb.set_trace()
