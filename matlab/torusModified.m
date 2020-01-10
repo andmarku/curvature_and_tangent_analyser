@@ -1,13 +1,12 @@
 %%
-clc, clear all
-N = 50;
+clc, clear all, clf
+N = 22;
 X = zeros(N, N, N);
-K1 = zeros(N, N, N);
-K2 = zeros(N, N, N);
+K = zeros(N, N, N);
 
-R = 15;
-
-r = linspace(0, 3);
+R = 8;
+rSmall = 2;
+r = linspace(0, rSmall);
 t = linspace(0, 2 * pi, 1000);
 % i = u, j = v
 for i = t
@@ -17,7 +16,7 @@ for i = t
             y = R * sin(i) + k .* sin(i) .* cos(j);
             z = k .* sin(j);
             
-            if sqrt(x^2 + y^2) < R - 3
+            if sqrt(x^2 + y^2) < R - rSmall
                 disp(x);
             end
             
@@ -27,8 +26,7 @@ for i = t
         
             X(x, y, z) = 1;
             
-            K1(x, y, z) = -cos(j)/( R + k*cos(j) );
-            K2(x, y, z) = -1/k;
+            K(x, y, z) = 1/( R + k.*cos(j) );
         end
     end
 end
@@ -36,10 +34,15 @@ end
 ind = find(X);
 [i1, i2, i3] = ind2sub(size(X), ind);
 plot3(i1, i2, i3, 'o')
+axis equal
 xlabel('x')
 ylabel('y')
 zlabel('z')
-axis equal
-Test = K1.*K2
-histogram(K1(find(K1)), 35)
-% Ktest = round(K1, 2)
+
+K = K(find(K));
+histogram(K, 40,'Normalization','pdf')
+hold on;
+meanK = mean(K);
+xline(meanK,'LineWidth', 2, 'Color', 'r');
+legend('curvatures',['mean: ' num2str(round(meanK,3))])
+dlmwrite('torus1Matlab.txt',K)
