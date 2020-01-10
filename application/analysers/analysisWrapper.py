@@ -1,7 +1,7 @@
 import numpy as np
 from curvatureHistogram import createCurvatureHistogram
 
-def analyze(tensor_tangents, tensor_curvatures, name_of_input, fiber_width):
+def analyze(tensor_tangents, tensor_curvatures, name_of_input, fiber_width, curvature):
     # format input
     flattened_tangents = flatten_tangents(tensor_tangents)
     flattened_curvatures = tensor_curvatures.flatten()
@@ -20,7 +20,7 @@ def analyze(tensor_tangents, tensor_curvatures, name_of_input, fiber_width):
     print("Number of tangents that are non zero")
     print(nonzero_tangents.shape)
 
-    createCurvatureHistogram(curvatures_corr_to_nonzero_tangents, name_of_input, fiber_width)
+    createCurvatureHistogram(curvatures_corr_to_nonzero_tangents, name_of_input, fiber_width, curvature)
 
 
 def flatten_tangents(tensor_tangents):
