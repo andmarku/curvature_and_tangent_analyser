@@ -33,6 +33,8 @@ def createCurvatureHistogram(curvature, name_of_input, fiber_width, curvature_fi
         plt.title(title)
         # Tweak spacing to prevent clipping of ylabel
         plt.subplots_adjust(left=0.15)
+
+        plt.savefig("curvatures.png")
     else:
         # path for validation file
         path = './data/testfiles/' + str(curvature_filename)
@@ -62,6 +64,8 @@ def createCurvatureHistogram(curvature, name_of_input, fiber_width, curvature_fi
         axs[1].set_xlabel('Curvature')
         axs[1].set_ylabel('Frequency')
 
-    plt.savefig("curvatures.png")
+        plt.savefig("curvatures.png")
+
+
     plt.show()
         #import pdb; pdb.set_trace()
