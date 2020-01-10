@@ -11,7 +11,7 @@ def createCurvatureHistogram(curvature, name_of_input, fiber_width):
     array with dimension m x 1
 
     '''
-    num_bins = 35
+    num_bins = 40
 
     # Take out non-zero curvatures (only where there is a volume)
     nz_curvature = curvature[curvature.nonzero()]
