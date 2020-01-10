@@ -37,7 +37,7 @@ def createCurvatureHistogram(curvature, name_of_input, fiber_width, curvature_fi
         plt.savefig("curvatures.png")
     else:
         # path for validation file
-        path = './data/testfiles/' + str(curvature_filename)
+        path = './data/testfiles/' + curvature_filename
 
         trueCurvatures = np.loadtxt(fname = path)
         trueMean = np.mean(trueCurvatures)
