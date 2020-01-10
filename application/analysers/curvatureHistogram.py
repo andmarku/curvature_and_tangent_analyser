@@ -38,13 +38,12 @@ def createCurvatureHistogram(curvature, name_of_input, fiber_width, curvature_fi
     else:
         # path for validation file
         path = './data/testfiles/' + str(curvature_filename)
+
         trueCurvatures = np.loadtxt(fname = path)
-        # import pdb; pdb.set_trace()
         trueMean = np.mean(trueCurvatures)
 
         # the histogram of the data
         fig, axs = plt.subplots(1, 2, sharey=False, tight_layout=True)
-        # n, bins, patches = plt.hist(nz_curvature, num_bins, density=1, facecolor='blue', alpha=0.5)
         n, bins, patches = axs[0].hist(nz_curvature, num_bins, density=1, facecolor='blue', alpha=0.5)
         axs[0].axvline(mean_curvature, c = 'red',label='Mean: ' + str(np.round(mean_curvature, 3)))
         axs[0].legend()
@@ -65,7 +64,6 @@ def createCurvatureHistogram(curvature, name_of_input, fiber_width, curvature_fi
         axs[1].set_ylabel('Frequency')
 
         plt.savefig("curvatures.png")
-
 
     plt.show()
         #import pdb; pdb.set_trace()
