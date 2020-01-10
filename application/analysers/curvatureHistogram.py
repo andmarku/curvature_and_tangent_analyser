@@ -23,4 +23,5 @@ def createCurvatureHistogram(curvature, name_of_input, fiber_width):
 
     # Tweak spacing to prevent clipping of ylabel
     plt.subplots_adjust(left=0.15)
+    plt.savefig("curvatures.png")
     plt.show()
