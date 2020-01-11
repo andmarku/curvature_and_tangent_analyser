@@ -23,8 +23,6 @@ cpdef cnp.ndarray[double, ndim=1] calculateTangent(cnp.ndarray arg):
     arg_as_array[4] = arg_as_array[4] - smallestEgValue
     arg_as_array[8] = arg_as_array[8] - smallestEgValue
 
-    # temporary printing
-    #print("printing eigenvalue " + str(smallestEgValue))
 
     # the not yet normalized eigenvector
     cdef double[3] raw_egVec
@@ -42,13 +40,6 @@ cpdef cnp.ndarray[double, ndim=1] calculateTangent(cnp.ndarray arg):
 # the method relies on that the input matrix is normal, which is fulfilled for
 # symmetric matrices
 cdef double* calcEgVecByCrossProduct(double[9] arg, double[3] egVec):
-    # constant to protect from rounding of errors
-    cdef double cutOffConstant = 0
-
-    cdef double[3] v1 = [arg[0], arg[1], arg[2]]
-    cdef double[3] v2 = [arg[3], arg[4], arg[5]]
-    cdef double[3] v3 = [arg[6], arg[7], arg[8]]
-
     # -------- Case 1 (most likely) --------
     #   two indep. columns, geometric multiplicitiy: 1
     #   -> the column space has rank 2
@@ -59,11 +50,18 @@ cdef double* calcEgVecByCrossProduct(double[9] arg, double[3] egVec):
     #   take cross product of two random vectors.
     #   If the cross product is zero, they are parallell, which won't work. If so,
     #   try the next pair, and potentially the third.
-    #   Then return the first (normalized) nonzero vector
+    #   Then return the first nonzero vector
 
-    # returning any nonzero cross product
+    # constant to protect from rounding of errors
+    cdef double cutOffConstant = 1e-15
+
+    # prep
+    cdef double[3] v1 = [arg[0], arg[1], arg[2]]
+    cdef double[3] v2 = [arg[3], arg[4], arg[5]]
+    cdef double[3] v3 = [arg[6], arg[7], arg[8]]
+
+    # return any nonzero orthogonal vector
     # (also make sure that the vector only nonzero due to arithmetic faults)
-
     egVec = calcCross(v1,v2, egVec)
     if(calcDot(egVec, egVec) > cutOffConstant):
       return egVec
@@ -74,58 +72,12 @@ cdef double* calcEgVecByCrossProduct(double[9] arg, double[3] egVec):
     if(calcDot(egVec, egVec) > cutOffConstant):
       return egVec
 
-    # -------- Case 2 --------
+    # -------- Case 2 & 3 --------
     #   one independent columns = geometric multiplicitiy: 2
-    #   -> all columns are either zero-vectors or on the same line. At least one
-    #   vector is non-zero.
-    #   -> cross product of any two vectors should be zero
-    # idea:
-    #   cross product between any non null column vector and any vector not
-    #   aligned to the line will give one possible egVector
-    # implementation:
-    #   generate new vector through rotating any nonzero column vector
-    # (https://en.wikipedia.org/wiki/Rotation_matrix)
-    # 30 degrees around x axis
-    #   p_first = [1 0     0
-    #             0  0.86 -1/2
-    #             0  1/2   0.86]
-    # 30 degrees around z axis
-    #   p_sec = [ 0.86 -1/2 0
-    #             1/2 0.86  0
-    #             0    0    1]
-    #   return the normalized cross produc
-
-    cdef double[3] v_to_rotate
-    cdef double[3] v_rotated
-    cdef int isVectorNonZero = 0
-
-    # find a vector that is nonzero
-    if(calcDot(v1, v1) > cutOffConstant):
-        v_to_rotate = v1
-        isVectorNonZero = 1
-    elif(calcDot(v2, v2) > cutOffConstant):
-        v_to_rotate = v2
-        isVectorNonZero = 1
-    elif(calcDot(v3, v3) > cutOffConstant):
-        v_to_rotate = v3
-        isVectorNonZero = 1
-
-    # create a new vector through rotating the nonzer vector and return the cross
-    # product between the two
-    cdef double norm_sqrd
-    if(isVectorNonZero == 1):
-        norm_sqrd = calcDot(v_to_rotate, v_to_rotate)
-        v_rotated = rotateVector(v_to_rotate, v_rotated)
-        egVec = calcCross(v_to_rotate, v_rotated,egVec)
-        norm_sqrd = calcDot(egVec, egVec)
-        return egVec
-
-    # -------- Case 3 (least likely) --------
-    #   all values are zero, geometric multiplicitiy: 3
-    #   -> any nonzero vector will do, but this will be misleading. The zero
-    #     vector is therefore returned
-    #   -> it's also possible to end up here if all vectors where very small. In
-    #     this case, returning the zero vector is also the most reasonable.
+    #   zero independent columns = geometric multiplicitiy: 3
+    #   in this case, return the zero vector since there is no
+    #   tangent. It would therefore be misleading to return an
+    #   eigenvector corresponding to the eigenvalue.
     egVec[0] = 0
     egVec[1] = 0
     egVec[2] = 0
@@ -172,33 +124,33 @@ cdef double calculateEigenValue(double[9] my_matrix, cnp.ndarray arg):
 
     # prep for formula
     cdef double theta = acos( r_qSrt )
-    # cdef double PI = 3.14159265358979323846
+    cdef double PI = 3.14159265358979323846
 
     # formula for computing the eigenvalues
     cdef double eig1 = -2 * sqrt(Q) * cos( theta/3 ) - a / 3
+    cdef double eig2 = -2 * sqrt(Q) * cos( (theta + 2 * PI)/3 ) - a / 3
+    cdef double eig3 = -2 * sqrt(Q) * cos( (theta - 2 * PI)/3 ) - a / 3
 
-    # cdef double eig2 = -2 * sqrt(Q) * cos( (theta + PI)/3 ) - a / 3
-    # cdef double eig3 = -2 * sqrt(Q) * cos( (theta - PI)/3 ) - a / 3
+    # find the eigenvalue with the smallest absolute value
+    # (eig1 <= eig3 <= eig2 but have not found a reliable source on that eig1
+    # is always positive)
+    cdef double smallestEgValue
+    if(eig1*eig1 < eig2*eig2):
+      if(eig1*eig1 < eig3*eig3):
+        # eig1^2 is smaller than both eig1^2 and eig2^3
+        smallestEgValue = eig1
+      else:
+        # eig3^2 is smaller than both eig1^2 and eig2^2
+        smallestEgValue = eig3
+    else:
+      if(eig2*eig2 < eig3*eig3):
+        # eig2^2 is smaller than both eig1^2 and eig3^2
+        smallestEgValue = eig2
+      else:
+        # eig3^2 is smaller than both eig1^2 and eig2^2
+        smallestEgValue = eig3
 
-    # print(str(eig1) + " and " + str(eig2) + " and " + str(eig3))
-    # # find the eigenvalue with the smallest absolute value
-    # cdef double smallestEgValue
-    # if(eig1*eig1 < eig2*eig2):
-    #   if(eig1*eig1 < eig3*eig3):
-    #     # eig1^2 is smaller than both eig1^2 and eig2^3
-    #     smallestEgValue = eig1
-    #   else:
-    #     # eig3^2 is smaller than both eig1^2 and eig2^2
-    #     smallestEgValue = eig3
-    # else:
-    #   if(eig2*eig2 < eig3*eig3):
-    #     # eig2^2 is smaller than both eig1^2 and eig3^2
-    #     smallestEgValue = eig2
-    #   else:
-    #     # eig3^2 is smaller than both eig1^2 and eig2^2
-    #     smallestEgValue = eig3
-
-    return eig1
+    return smallestEgValue
 
 # # function for normalizing a 3*1 vector
 cdef double* normalizeVector(double[3] vector):

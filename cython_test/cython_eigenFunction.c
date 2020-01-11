@@ -1706,7 +1706,6 @@ static PyArrayObject *__pyx_f_20cython_eigenFunction_calculateTangent(PyArrayObj
 static double *__pyx_f_20cython_eigenFunction_calcEgVecByCrossProduct(double *, double *); /*proto*/
 static double __pyx_f_20cython_eigenFunction_calculateEigenValue(double *, PyArrayObject *); /*proto*/
 static double *__pyx_f_20cython_eigenFunction_normalizeVector(double *); /*proto*/
-static CYTHON_INLINE double *__pyx_f_20cython_eigenFunction_rotateVector(double *, double *); /*proto*/
 static CYTHON_INLINE double *__pyx_f_20cython_eigenFunction_calcCross(double *, double *, double *); /*proto*/
 static CYTHON_INLINE double __pyx_f_20cython_eigenFunction_calcDot(double *, double *); /*proto*/
 static CYTHON_INLINE PyObject *__Pyx_carray_to_py_double(double *, Py_ssize_t); /*proto*/
@@ -1958,11 +1957,11 @@ static PyArrayObject *__pyx_f_20cython_eigenFunction_calculateTangent(PyArrayObj
  *     arg_as_array[4] = arg_as_array[4] - smallestEgValue
  *     arg_as_array[8] = arg_as_array[8] - smallestEgValue             # <<<<<<<<<<<<<<
  * 
- *     # temporary printing
+ * 
  */
   (__pyx_v_arg_as_array[8]) = ((__pyx_v_arg_as_array[8]) - __pyx_v_smallestEgValue);
 
-  /* "cython_eigenFunction.pyx":31
+  /* "cython_eigenFunction.pyx":29
  *     # the not yet normalized eigenvector
  *     cdef double[3] raw_egVec
  *     raw_egVec = calcEgVecByCrossProduct(arg_as_array, raw_egVec)             # <<<<<<<<<<<<<<
@@ -1971,7 +1970,7 @@ static PyArrayObject *__pyx_f_20cython_eigenFunction_calculateTangent(PyArrayObj
  */
   memcpy(&(__pyx_v_raw_egVec[0]), __pyx_f_20cython_eigenFunction_calcEgVecByCrossProduct(__pyx_v_arg_as_array, __pyx_v_raw_egVec), sizeof(__pyx_v_raw_egVec[0]) * (3 - 0));
 
-  /* "cython_eigenFunction.pyx":34
+  /* "cython_eigenFunction.pyx":32
  * 
  *     # normalize
  *     cdef double[3] egVec = normalizeVector(raw_egVec)             # <<<<<<<<<<<<<<
@@ -1980,19 +1979,19 @@ static PyArrayObject *__pyx_f_20cython_eigenFunction_calculateTangent(PyArrayObj
  */
   memcpy(&(__pyx_v_egVec[0]), __pyx_f_20cython_eigenFunction_normalizeVector(__pyx_v_raw_egVec), sizeof(__pyx_v_egVec[0]) * (3 - 0));
 
-  /* "cython_eigenFunction.pyx":37
+  /* "cython_eigenFunction.pyx":35
  * 
  *     # cast to numpy array
  *     cdef cnp.ndarray[cnp.double_t, ndim=1] npEgVec = np.asarray(egVec)             # <<<<<<<<<<<<<<
  * 
  *     return npEgVec
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 37, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 35, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_13 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_asarray); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 37, __pyx_L1_error)
+  __pyx_t_13 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_asarray); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 35, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_13);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_carray_to_py_double(__pyx_v_egVec, 3); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 37, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_carray_to_py_double(__pyx_v_egVec, 3); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 35, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_t_14 = NULL;
   if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_13))) {
@@ -2007,16 +2006,16 @@ static PyArrayObject *__pyx_f_20cython_eigenFunction_calculateTangent(PyArrayObj
   __pyx_t_2 = (__pyx_t_14) ? __Pyx_PyObject_Call2Args(__pyx_t_13, __pyx_t_14, __pyx_t_1) : __Pyx_PyObject_CallOneArg(__pyx_t_13, __pyx_t_1);
   __Pyx_XDECREF(__pyx_t_14); __pyx_t_14 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 37, __pyx_L1_error)
+  if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 35, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
-  if (!(likely(((__pyx_t_2) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_2, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 37, __pyx_L1_error)
+  if (!(likely(((__pyx_t_2) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_2, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 35, __pyx_L1_error)
   __pyx_t_15 = ((PyArrayObject *)__pyx_t_2);
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
     if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_npEgVec.rcbuffer->pybuffer, (PyObject*)__pyx_t_15, &__Pyx_TypeInfo_nn___pyx_t_5numpy_double_t, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) {
       __pyx_v_npEgVec = ((PyArrayObject *)Py_None); __Pyx_INCREF(Py_None); __pyx_pybuffernd_npEgVec.rcbuffer->pybuffer.buf = NULL;
-      __PYX_ERR(0, 37, __pyx_L1_error)
+      __PYX_ERR(0, 35, __pyx_L1_error)
     } else {__pyx_pybuffernd_npEgVec.diminfo[0].strides = __pyx_pybuffernd_npEgVec.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_npEgVec.diminfo[0].shape = __pyx_pybuffernd_npEgVec.rcbuffer->pybuffer.shape[0];
     }
   }
@@ -2024,7 +2023,7 @@ static PyArrayObject *__pyx_f_20cython_eigenFunction_calculateTangent(PyArrayObj
   __pyx_v_npEgVec = ((PyArrayObject *)__pyx_t_2);
   __pyx_t_2 = 0;
 
-  /* "cython_eigenFunction.pyx":39
+  /* "cython_eigenFunction.pyx":37
  *     cdef cnp.ndarray[cnp.double_t, ndim=1] npEgVec = np.asarray(egVec)
  * 
  *     return npEgVec             # <<<<<<<<<<<<<<
@@ -2109,12 +2108,12 @@ static PyObject *__pyx_pf_20cython_eigenFunction_calculateTangent(CYTHON_UNUSED 
   return __pyx_r;
 }
 
-/* "cython_eigenFunction.pyx":44
+/* "cython_eigenFunction.pyx":42
  * # the method relies on that the input matrix is normal, which is fulfilled for
  * # symmetric matrices
  * cdef double* calcEgVecByCrossProduct(double[9] arg, double[3] egVec):             # <<<<<<<<<<<<<<
- *     # constant to protect from rounding of errors
- *     cdef double cutOffConstant = 0
+ *     # -------- Case 1 (most likely) --------
+ *     #   two indep. columns, geometric multiplicitiy: 1
  */
 
 static double *__pyx_f_20cython_eigenFunction_calcEgVecByCrossProduct(double *__pyx_v_arg, double *__pyx_v_egVec) {
@@ -2122,10 +2121,6 @@ static double *__pyx_f_20cython_eigenFunction_calcEgVecByCrossProduct(double *__
   double __pyx_v_v1[3];
   double __pyx_v_v2[3];
   double __pyx_v_v3[3];
-  double __pyx_v_v_to_rotate[3];
-  double __pyx_v_v_rotated[3];
-  int __pyx_v_isVectorNonZero;
-  CYTHON_UNUSED double __pyx_v_norm_sqrd;
   double *__pyx_r;
   __Pyx_RefNannyDeclarations
   double __pyx_t_1[3];
@@ -2134,18 +2129,18 @@ static double *__pyx_f_20cython_eigenFunction_calcEgVecByCrossProduct(double *__
   int __pyx_t_4;
   __Pyx_RefNannySetupContext("calcEgVecByCrossProduct", 0);
 
-  /* "cython_eigenFunction.pyx":46
- * cdef double* calcEgVecByCrossProduct(double[9] arg, double[3] egVec):
+  /* "cython_eigenFunction.pyx":56
+ * 
  *     # constant to protect from rounding of errors
- *     cdef double cutOffConstant = 0             # <<<<<<<<<<<<<<
+ *     cdef double cutOffConstant = 1e-15             # <<<<<<<<<<<<<<
  * 
- *     cdef double[3] v1 = [arg[0], arg[1], arg[2]]
+ *     # prep
  */
-  __pyx_v_cutOffConstant = 0.0;
+  __pyx_v_cutOffConstant = 1e-15;
 
-  /* "cython_eigenFunction.pyx":48
- *     cdef double cutOffConstant = 0
+  /* "cython_eigenFunction.pyx":59
  * 
+ *     # prep
  *     cdef double[3] v1 = [arg[0], arg[1], arg[2]]             # <<<<<<<<<<<<<<
  *     cdef double[3] v2 = [arg[3], arg[4], arg[5]]
  *     cdef double[3] v3 = [arg[6], arg[7], arg[8]]
@@ -2155,8 +2150,8 @@ static double *__pyx_f_20cython_eigenFunction_calcEgVecByCrossProduct(double *__
   __pyx_t_1[2] = (__pyx_v_arg[2]);
   memcpy(&(__pyx_v_v1[0]), __pyx_t_1, sizeof(__pyx_v_v1[0]) * (3));
 
-  /* "cython_eigenFunction.pyx":49
- * 
+  /* "cython_eigenFunction.pyx":60
+ *     # prep
  *     cdef double[3] v1 = [arg[0], arg[1], arg[2]]
  *     cdef double[3] v2 = [arg[3], arg[4], arg[5]]             # <<<<<<<<<<<<<<
  *     cdef double[3] v3 = [arg[6], arg[7], arg[8]]
@@ -2167,29 +2162,29 @@ static double *__pyx_f_20cython_eigenFunction_calcEgVecByCrossProduct(double *__
   __pyx_t_2[2] = (__pyx_v_arg[5]);
   memcpy(&(__pyx_v_v2[0]), __pyx_t_2, sizeof(__pyx_v_v2[0]) * (3));
 
-  /* "cython_eigenFunction.pyx":50
+  /* "cython_eigenFunction.pyx":61
  *     cdef double[3] v1 = [arg[0], arg[1], arg[2]]
  *     cdef double[3] v2 = [arg[3], arg[4], arg[5]]
  *     cdef double[3] v3 = [arg[6], arg[7], arg[8]]             # <<<<<<<<<<<<<<
  * 
- *     # -------- Case 1 (most likely) --------
+ *     # return any nonzero orthogonal vector
  */
   __pyx_t_3[0] = (__pyx_v_arg[6]);
   __pyx_t_3[1] = (__pyx_v_arg[7]);
   __pyx_t_3[2] = (__pyx_v_arg[8]);
   memcpy(&(__pyx_v_v3[0]), __pyx_t_3, sizeof(__pyx_v_v3[0]) * (3));
 
-  /* "cython_eigenFunction.pyx":67
+  /* "cython_eigenFunction.pyx":65
+ *     # return any nonzero orthogonal vector
  *     # (also make sure that the vector only nonzero due to arithmetic faults)
- * 
  *     egVec = calcCross(v1,v2, egVec)             # <<<<<<<<<<<<<<
  *     if(calcDot(egVec, egVec) > cutOffConstant):
  *       return egVec
  */
   __pyx_v_egVec = __pyx_f_20cython_eigenFunction_calcCross(__pyx_v_v1, __pyx_v_v2, __pyx_v_egVec);
 
-  /* "cython_eigenFunction.pyx":68
- * 
+  /* "cython_eigenFunction.pyx":66
+ *     # (also make sure that the vector only nonzero due to arithmetic faults)
  *     egVec = calcCross(v1,v2, egVec)
  *     if(calcDot(egVec, egVec) > cutOffConstant):             # <<<<<<<<<<<<<<
  *       return egVec
@@ -2198,7 +2193,7 @@ static double *__pyx_f_20cython_eigenFunction_calcEgVecByCrossProduct(double *__
   __pyx_t_4 = ((__pyx_f_20cython_eigenFunction_calcDot(__pyx_v_egVec, __pyx_v_egVec) > __pyx_v_cutOffConstant) != 0);
   if (__pyx_t_4) {
 
-    /* "cython_eigenFunction.pyx":69
+    /* "cython_eigenFunction.pyx":67
  *     egVec = calcCross(v1,v2, egVec)
  *     if(calcDot(egVec, egVec) > cutOffConstant):
  *       return egVec             # <<<<<<<<<<<<<<
@@ -2208,8 +2203,8 @@ static double *__pyx_f_20cython_eigenFunction_calcEgVecByCrossProduct(double *__
     __pyx_r = __pyx_v_egVec;
     goto __pyx_L0;
 
-    /* "cython_eigenFunction.pyx":68
- * 
+    /* "cython_eigenFunction.pyx":66
+ *     # (also make sure that the vector only nonzero due to arithmetic faults)
  *     egVec = calcCross(v1,v2, egVec)
  *     if(calcDot(egVec, egVec) > cutOffConstant):             # <<<<<<<<<<<<<<
  *       return egVec
@@ -2217,7 +2212,7 @@ static double *__pyx_f_20cython_eigenFunction_calcEgVecByCrossProduct(double *__
  */
   }
 
-  /* "cython_eigenFunction.pyx":70
+  /* "cython_eigenFunction.pyx":68
  *     if(calcDot(egVec, egVec) > cutOffConstant):
  *       return egVec
  *     egVec = calcCross(v1, v3, egVec)             # <<<<<<<<<<<<<<
@@ -2226,7 +2221,7 @@ static double *__pyx_f_20cython_eigenFunction_calcEgVecByCrossProduct(double *__
  */
   __pyx_v_egVec = __pyx_f_20cython_eigenFunction_calcCross(__pyx_v_v1, __pyx_v_v3, __pyx_v_egVec);
 
-  /* "cython_eigenFunction.pyx":71
+  /* "cython_eigenFunction.pyx":69
  *       return egVec
  *     egVec = calcCross(v1, v3, egVec)
  *     if(calcDot(egVec, egVec) > cutOffConstant):             # <<<<<<<<<<<<<<
@@ -2236,7 +2231,7 @@ static double *__pyx_f_20cython_eigenFunction_calcEgVecByCrossProduct(double *__
   __pyx_t_4 = ((__pyx_f_20cython_eigenFunction_calcDot(__pyx_v_egVec, __pyx_v_egVec) > __pyx_v_cutOffConstant) != 0);
   if (__pyx_t_4) {
 
-    /* "cython_eigenFunction.pyx":72
+    /* "cython_eigenFunction.pyx":70
  *     egVec = calcCross(v1, v3, egVec)
  *     if(calcDot(egVec, egVec) > cutOffConstant):
  *       return egVec             # <<<<<<<<<<<<<<
@@ -2246,7 +2241,7 @@ static double *__pyx_f_20cython_eigenFunction_calcEgVecByCrossProduct(double *__
     __pyx_r = __pyx_v_egVec;
     goto __pyx_L0;
 
-    /* "cython_eigenFunction.pyx":71
+    /* "cython_eigenFunction.pyx":69
  *       return egVec
  *     egVec = calcCross(v1, v3, egVec)
  *     if(calcDot(egVec, egVec) > cutOffConstant):             # <<<<<<<<<<<<<<
@@ -2255,7 +2250,7 @@ static double *__pyx_f_20cython_eigenFunction_calcEgVecByCrossProduct(double *__
  */
   }
 
-  /* "cython_eigenFunction.pyx":73
+  /* "cython_eigenFunction.pyx":71
  *     if(calcDot(egVec, egVec) > cutOffConstant):
  *       return egVec
  *     egVec = calcCross(v2,v3, egVec)             # <<<<<<<<<<<<<<
@@ -2264,7 +2259,7 @@ static double *__pyx_f_20cython_eigenFunction_calcEgVecByCrossProduct(double *__
  */
   __pyx_v_egVec = __pyx_f_20cython_eigenFunction_calcCross(__pyx_v_v2, __pyx_v_v3, __pyx_v_egVec);
 
-  /* "cython_eigenFunction.pyx":74
+  /* "cython_eigenFunction.pyx":72
  *       return egVec
  *     egVec = calcCross(v2,v3, egVec)
  *     if(calcDot(egVec, egVec) > cutOffConstant):             # <<<<<<<<<<<<<<
@@ -2274,17 +2269,17 @@ static double *__pyx_f_20cython_eigenFunction_calcEgVecByCrossProduct(double *__
   __pyx_t_4 = ((__pyx_f_20cython_eigenFunction_calcDot(__pyx_v_egVec, __pyx_v_egVec) > __pyx_v_cutOffConstant) != 0);
   if (__pyx_t_4) {
 
-    /* "cython_eigenFunction.pyx":75
+    /* "cython_eigenFunction.pyx":73
  *     egVec = calcCross(v2,v3, egVec)
  *     if(calcDot(egVec, egVec) > cutOffConstant):
  *       return egVec             # <<<<<<<<<<<<<<
  * 
- *     # -------- Case 2 --------
+ *     # -------- Case 2 & 3 --------
  */
     __pyx_r = __pyx_v_egVec;
     goto __pyx_L0;
 
-    /* "cython_eigenFunction.pyx":74
+    /* "cython_eigenFunction.pyx":72
  *       return egVec
  *     egVec = calcCross(v2,v3, egVec)
  *     if(calcDot(egVec, egVec) > cutOffConstant):             # <<<<<<<<<<<<<<
@@ -2293,205 +2288,17 @@ static double *__pyx_f_20cython_eigenFunction_calcEgVecByCrossProduct(double *__
  */
   }
 
-  /* "cython_eigenFunction.pyx":100
- *     cdef double[3] v_to_rotate
- *     cdef double[3] v_rotated
- *     cdef int isVectorNonZero = 0             # <<<<<<<<<<<<<<
- * 
- *     # find a vector that is nonzero
- */
-  __pyx_v_isVectorNonZero = 0;
-
-  /* "cython_eigenFunction.pyx":103
- * 
- *     # find a vector that is nonzero
- *     if(calcDot(v1, v1) > cutOffConstant):             # <<<<<<<<<<<<<<
- *         v_to_rotate = v1
- *         isVectorNonZero = 1
- */
-  __pyx_t_4 = ((__pyx_f_20cython_eigenFunction_calcDot(__pyx_v_v1, __pyx_v_v1) > __pyx_v_cutOffConstant) != 0);
-  if (__pyx_t_4) {
-
-    /* "cython_eigenFunction.pyx":104
- *     # find a vector that is nonzero
- *     if(calcDot(v1, v1) > cutOffConstant):
- *         v_to_rotate = v1             # <<<<<<<<<<<<<<
- *         isVectorNonZero = 1
- *     elif(calcDot(v2, v2) > cutOffConstant):
- */
-    memcpy(&(__pyx_v_v_to_rotate[0]), __pyx_v_v1, sizeof(__pyx_v_v_to_rotate[0]) * (3));
-
-    /* "cython_eigenFunction.pyx":105
- *     if(calcDot(v1, v1) > cutOffConstant):
- *         v_to_rotate = v1
- *         isVectorNonZero = 1             # <<<<<<<<<<<<<<
- *     elif(calcDot(v2, v2) > cutOffConstant):
- *         v_to_rotate = v2
- */
-    __pyx_v_isVectorNonZero = 1;
-
-    /* "cython_eigenFunction.pyx":103
- * 
- *     # find a vector that is nonzero
- *     if(calcDot(v1, v1) > cutOffConstant):             # <<<<<<<<<<<<<<
- *         v_to_rotate = v1
- *         isVectorNonZero = 1
- */
-    goto __pyx_L6;
-  }
-
-  /* "cython_eigenFunction.pyx":106
- *         v_to_rotate = v1
- *         isVectorNonZero = 1
- *     elif(calcDot(v2, v2) > cutOffConstant):             # <<<<<<<<<<<<<<
- *         v_to_rotate = v2
- *         isVectorNonZero = 1
- */
-  __pyx_t_4 = ((__pyx_f_20cython_eigenFunction_calcDot(__pyx_v_v2, __pyx_v_v2) > __pyx_v_cutOffConstant) != 0);
-  if (__pyx_t_4) {
-
-    /* "cython_eigenFunction.pyx":107
- *         isVectorNonZero = 1
- *     elif(calcDot(v2, v2) > cutOffConstant):
- *         v_to_rotate = v2             # <<<<<<<<<<<<<<
- *         isVectorNonZero = 1
- *     elif(calcDot(v3, v3) > cutOffConstant):
- */
-    memcpy(&(__pyx_v_v_to_rotate[0]), __pyx_v_v2, sizeof(__pyx_v_v_to_rotate[0]) * (3));
-
-    /* "cython_eigenFunction.pyx":108
- *     elif(calcDot(v2, v2) > cutOffConstant):
- *         v_to_rotate = v2
- *         isVectorNonZero = 1             # <<<<<<<<<<<<<<
- *     elif(calcDot(v3, v3) > cutOffConstant):
- *         v_to_rotate = v3
- */
-    __pyx_v_isVectorNonZero = 1;
-
-    /* "cython_eigenFunction.pyx":106
- *         v_to_rotate = v1
- *         isVectorNonZero = 1
- *     elif(calcDot(v2, v2) > cutOffConstant):             # <<<<<<<<<<<<<<
- *         v_to_rotate = v2
- *         isVectorNonZero = 1
- */
-    goto __pyx_L6;
-  }
-
-  /* "cython_eigenFunction.pyx":109
- *         v_to_rotate = v2
- *         isVectorNonZero = 1
- *     elif(calcDot(v3, v3) > cutOffConstant):             # <<<<<<<<<<<<<<
- *         v_to_rotate = v3
- *         isVectorNonZero = 1
- */
-  __pyx_t_4 = ((__pyx_f_20cython_eigenFunction_calcDot(__pyx_v_v3, __pyx_v_v3) > __pyx_v_cutOffConstant) != 0);
-  if (__pyx_t_4) {
-
-    /* "cython_eigenFunction.pyx":110
- *         isVectorNonZero = 1
- *     elif(calcDot(v3, v3) > cutOffConstant):
- *         v_to_rotate = v3             # <<<<<<<<<<<<<<
- *         isVectorNonZero = 1
- * 
- */
-    memcpy(&(__pyx_v_v_to_rotate[0]), __pyx_v_v3, sizeof(__pyx_v_v_to_rotate[0]) * (3));
-
-    /* "cython_eigenFunction.pyx":111
- *     elif(calcDot(v3, v3) > cutOffConstant):
- *         v_to_rotate = v3
- *         isVectorNonZero = 1             # <<<<<<<<<<<<<<
- * 
- *     # create a new vector through rotating the nonzer vector and return the cross
- */
-    __pyx_v_isVectorNonZero = 1;
-
-    /* "cython_eigenFunction.pyx":109
- *         v_to_rotate = v2
- *         isVectorNonZero = 1
- *     elif(calcDot(v3, v3) > cutOffConstant):             # <<<<<<<<<<<<<<
- *         v_to_rotate = v3
- *         isVectorNonZero = 1
- */
-  }
-  __pyx_L6:;
-
-  /* "cython_eigenFunction.pyx":116
- *     # product between the two
- *     cdef double norm_sqrd
- *     if(isVectorNonZero == 1):             # <<<<<<<<<<<<<<
- *         norm_sqrd = calcDot(v_to_rotate, v_to_rotate)
- *         v_rotated = rotateVector(v_to_rotate, v_rotated)
- */
-  __pyx_t_4 = ((__pyx_v_isVectorNonZero == 1) != 0);
-  if (__pyx_t_4) {
-
-    /* "cython_eigenFunction.pyx":117
- *     cdef double norm_sqrd
- *     if(isVectorNonZero == 1):
- *         norm_sqrd = calcDot(v_to_rotate, v_to_rotate)             # <<<<<<<<<<<<<<
- *         v_rotated = rotateVector(v_to_rotate, v_rotated)
- *         egVec = calcCross(v_to_rotate, v_rotated,egVec)
- */
-    __pyx_v_norm_sqrd = __pyx_f_20cython_eigenFunction_calcDot(__pyx_v_v_to_rotate, __pyx_v_v_to_rotate);
-
-    /* "cython_eigenFunction.pyx":118
- *     if(isVectorNonZero == 1):
- *         norm_sqrd = calcDot(v_to_rotate, v_to_rotate)
- *         v_rotated = rotateVector(v_to_rotate, v_rotated)             # <<<<<<<<<<<<<<
- *         egVec = calcCross(v_to_rotate, v_rotated,egVec)
- *         norm_sqrd = calcDot(egVec, egVec)
- */
-    memcpy(&(__pyx_v_v_rotated[0]), __pyx_f_20cython_eigenFunction_rotateVector(__pyx_v_v_to_rotate, __pyx_v_v_rotated), sizeof(__pyx_v_v_rotated[0]) * (3 - 0));
-
-    /* "cython_eigenFunction.pyx":119
- *         norm_sqrd = calcDot(v_to_rotate, v_to_rotate)
- *         v_rotated = rotateVector(v_to_rotate, v_rotated)
- *         egVec = calcCross(v_to_rotate, v_rotated,egVec)             # <<<<<<<<<<<<<<
- *         norm_sqrd = calcDot(egVec, egVec)
- *         return egVec
- */
-    __pyx_v_egVec = __pyx_f_20cython_eigenFunction_calcCross(__pyx_v_v_to_rotate, __pyx_v_v_rotated, __pyx_v_egVec);
-
-    /* "cython_eigenFunction.pyx":120
- *         v_rotated = rotateVector(v_to_rotate, v_rotated)
- *         egVec = calcCross(v_to_rotate, v_rotated,egVec)
- *         norm_sqrd = calcDot(egVec, egVec)             # <<<<<<<<<<<<<<
- *         return egVec
- * 
- */
-    __pyx_v_norm_sqrd = __pyx_f_20cython_eigenFunction_calcDot(__pyx_v_egVec, __pyx_v_egVec);
-
-    /* "cython_eigenFunction.pyx":121
- *         egVec = calcCross(v_to_rotate, v_rotated,egVec)
- *         norm_sqrd = calcDot(egVec, egVec)
- *         return egVec             # <<<<<<<<<<<<<<
- * 
- *     # -------- Case 3 (least likely) --------
- */
-    __pyx_r = __pyx_v_egVec;
-    goto __pyx_L0;
-
-    /* "cython_eigenFunction.pyx":116
- *     # product between the two
- *     cdef double norm_sqrd
- *     if(isVectorNonZero == 1):             # <<<<<<<<<<<<<<
- *         norm_sqrd = calcDot(v_to_rotate, v_to_rotate)
- *         v_rotated = rotateVector(v_to_rotate, v_rotated)
- */
-  }
-
-  /* "cython_eigenFunction.pyx":129
- *     #   -> it's also possible to end up here if all vectors where very small. In
- *     #     this case, returning the zero vector is also the most reasonable.
+  /* "cython_eigenFunction.pyx":81
+ *     #   tangent. It would therefore be misleading to return an
+ *     #   eigenvector corresponding to the eigenvalue.
  *     egVec[0] = 0             # <<<<<<<<<<<<<<
  *     egVec[1] = 0
  *     egVec[2] = 0
  */
   (__pyx_v_egVec[0]) = 0.0;
 
-  /* "cython_eigenFunction.pyx":130
- *     #     this case, returning the zero vector is also the most reasonable.
+  /* "cython_eigenFunction.pyx":82
+ *     #   eigenvector corresponding to the eigenvalue.
  *     egVec[0] = 0
  *     egVec[1] = 0             # <<<<<<<<<<<<<<
  *     egVec[2] = 0
@@ -2499,7 +2306,7 @@ static double *__pyx_f_20cython_eigenFunction_calcEgVecByCrossProduct(double *__
  */
   (__pyx_v_egVec[1]) = 0.0;
 
-  /* "cython_eigenFunction.pyx":131
+  /* "cython_eigenFunction.pyx":83
  *     egVec[0] = 0
  *     egVec[1] = 0
  *     egVec[2] = 0             # <<<<<<<<<<<<<<
@@ -2508,7 +2315,7 @@ static double *__pyx_f_20cython_eigenFunction_calcEgVecByCrossProduct(double *__
  */
   (__pyx_v_egVec[2]) = 0.0;
 
-  /* "cython_eigenFunction.pyx":132
+  /* "cython_eigenFunction.pyx":84
  *     egVec[1] = 0
  *     egVec[2] = 0
  *     return egVec             # <<<<<<<<<<<<<<
@@ -2518,12 +2325,12 @@ static double *__pyx_f_20cython_eigenFunction_calcEgVecByCrossProduct(double *__
   __pyx_r = __pyx_v_egVec;
   goto __pyx_L0;
 
-  /* "cython_eigenFunction.pyx":44
+  /* "cython_eigenFunction.pyx":42
  * # the method relies on that the input matrix is normal, which is fulfilled for
  * # symmetric matrices
  * cdef double* calcEgVecByCrossProduct(double[9] arg, double[3] egVec):             # <<<<<<<<<<<<<<
- *     # constant to protect from rounding of errors
- *     cdef double cutOffConstant = 0
+ *     # -------- Case 1 (most likely) --------
+ *     #   two indep. columns, geometric multiplicitiy: 1
  */
 
   /* function exit code */
@@ -2532,7 +2339,7 @@ static double *__pyx_f_20cython_eigenFunction_calcEgVecByCrossProduct(double *__
   return __pyx_r;
 }
 
-/* "cython_eigenFunction.pyx":137
+/* "cython_eigenFunction.pyx":89
  * # implemented from https://d1rkab7tlqy5f1.cloudfront.net/TNW/Over%20faculteit/
  * #                                   Decaan/Publications/1999/SCIA99GKNBLVea.pdf
  * cdef double calculateEigenValue(double[9] my_matrix, cnp.ndarray arg):             # <<<<<<<<<<<<<<
@@ -2558,7 +2365,11 @@ static double __pyx_f_20cython_eigenFunction_calculateEigenValue(double *__pyx_v
   PyObject *__pyx_v_minEgValue = NULL;
   double __pyx_v_r_qSrt;
   double __pyx_v_theta;
+  double __pyx_v_PI;
   double __pyx_v_eig1;
+  double __pyx_v_eig2;
+  double __pyx_v_eig3;
+  double __pyx_v_smallestEgValue;
   double __pyx_r;
   __Pyx_RefNannyDeclarations
   int __pyx_t_1;
@@ -2570,7 +2381,7 @@ static double __pyx_f_20cython_eigenFunction_calculateEigenValue(double *__pyx_v
   double __pyx_t_7;
   __Pyx_RefNannySetupContext("calculateEigenValue", 0);
 
-  /* "cython_eigenFunction.pyx":139
+  /* "cython_eigenFunction.pyx":91
  * cdef double calculateEigenValue(double[9] my_matrix, cnp.ndarray arg):
  *     # all values are not needed since the matrix is symmetric
  *     cdef double m_00 = my_matrix[0]             # <<<<<<<<<<<<<<
@@ -2579,7 +2390,7 @@ static double __pyx_f_20cython_eigenFunction_calculateEigenValue(double *__pyx_v
  */
   __pyx_v_m_00 = (__pyx_v_my_matrix[0]);
 
-  /* "cython_eigenFunction.pyx":140
+  /* "cython_eigenFunction.pyx":92
  *     # all values are not needed since the matrix is symmetric
  *     cdef double m_00 = my_matrix[0]
  *     cdef double m_01 = my_matrix[1]             # <<<<<<<<<<<<<<
@@ -2588,7 +2399,7 @@ static double __pyx_f_20cython_eigenFunction_calculateEigenValue(double *__pyx_v
  */
   __pyx_v_m_01 = (__pyx_v_my_matrix[1]);
 
-  /* "cython_eigenFunction.pyx":141
+  /* "cython_eigenFunction.pyx":93
  *     cdef double m_00 = my_matrix[0]
  *     cdef double m_01 = my_matrix[1]
  *     cdef double m_02 = my_matrix[2]             # <<<<<<<<<<<<<<
@@ -2597,7 +2408,7 @@ static double __pyx_f_20cython_eigenFunction_calculateEigenValue(double *__pyx_v
  */
   __pyx_v_m_02 = (__pyx_v_my_matrix[2]);
 
-  /* "cython_eigenFunction.pyx":142
+  /* "cython_eigenFunction.pyx":94
  *     cdef double m_01 = my_matrix[1]
  *     cdef double m_02 = my_matrix[2]
  *     cdef double m_11 = my_matrix[4]             # <<<<<<<<<<<<<<
@@ -2606,7 +2417,7 @@ static double __pyx_f_20cython_eigenFunction_calculateEigenValue(double *__pyx_v
  */
   __pyx_v_m_11 = (__pyx_v_my_matrix[4]);
 
-  /* "cython_eigenFunction.pyx":143
+  /* "cython_eigenFunction.pyx":95
  *     cdef double m_02 = my_matrix[2]
  *     cdef double m_11 = my_matrix[4]
  *     cdef double m_12 = my_matrix[5]             # <<<<<<<<<<<<<<
@@ -2615,7 +2426,7 @@ static double __pyx_f_20cython_eigenFunction_calculateEigenValue(double *__pyx_v
  */
   __pyx_v_m_12 = (__pyx_v_my_matrix[5]);
 
-  /* "cython_eigenFunction.pyx":144
+  /* "cython_eigenFunction.pyx":96
  *     cdef double m_11 = my_matrix[4]
  *     cdef double m_12 = my_matrix[5]
  *     cdef double m_22 = my_matrix[8]             # <<<<<<<<<<<<<<
@@ -2624,7 +2435,7 @@ static double __pyx_f_20cython_eigenFunction_calculateEigenValue(double *__pyx_v
  */
   __pyx_v_m_22 = (__pyx_v_my_matrix[8]);
 
-  /* "cython_eigenFunction.pyx":147
+  /* "cython_eigenFunction.pyx":99
  * 
  *     # coefficents for characteristic equation
  *     cdef double a = -(m_00 + m_11 + m_22)             # <<<<<<<<<<<<<<
@@ -2633,7 +2444,7 @@ static double __pyx_f_20cython_eigenFunction_calculateEigenValue(double *__pyx_v
  */
   __pyx_v_a = (-((__pyx_v_m_00 + __pyx_v_m_11) + __pyx_v_m_22));
 
-  /* "cython_eigenFunction.pyx":148
+  /* "cython_eigenFunction.pyx":100
  *     # coefficents for characteristic equation
  *     cdef double a = -(m_00 + m_11 + m_22)
  *     cdef double b = m_00 * m_11 + m_00 * m_22 + m_11 * m_22 - \             # <<<<<<<<<<<<<<
@@ -2642,7 +2453,7 @@ static double __pyx_f_20cython_eigenFunction_calculateEigenValue(double *__pyx_v
  */
   __pyx_v_b = ((((__pyx_v_m_00 * __pyx_v_m_11) + (__pyx_v_m_00 * __pyx_v_m_22)) + (__pyx_v_m_11 * __pyx_v_m_22)) - (((__pyx_v_m_01 * __pyx_v_m_01) + (__pyx_v_m_02 * __pyx_v_m_02)) + (__pyx_v_m_12 * __pyx_v_m_12)));
 
-  /* "cython_eigenFunction.pyx":151
+  /* "cython_eigenFunction.pyx":103
  *     ( (m_01 * m_01) + (m_02 * m_02) + (m_12 * m_12) )
  *     cdef double c = m_22 * (m_01 * m_01) + m_11 * (m_02 * m_02) + \
  *     m_00 * (m_12 * m_12) -  \             # <<<<<<<<<<<<<<
@@ -2651,7 +2462,7 @@ static double __pyx_f_20cython_eigenFunction_calculateEigenValue(double *__pyx_v
  */
   __pyx_v_c = ((((__pyx_v_m_22 * (__pyx_v_m_01 * __pyx_v_m_01)) + (__pyx_v_m_11 * (__pyx_v_m_02 * __pyx_v_m_02))) + (__pyx_v_m_00 * (__pyx_v_m_12 * __pyx_v_m_12))) - (((__pyx_v_m_00 * __pyx_v_m_11) * __pyx_v_m_22) + (((2.0 * __pyx_v_m_01) * __pyx_v_m_02) * __pyx_v_m_12)));
 
-  /* "cython_eigenFunction.pyx":155
+  /* "cython_eigenFunction.pyx":107
  * 
  *     # prep for formula
  *     cdef double Q = (a * a - 3 * b)/9             # <<<<<<<<<<<<<<
@@ -2660,7 +2471,7 @@ static double __pyx_f_20cython_eigenFunction_calculateEigenValue(double *__pyx_v
  */
   __pyx_v_Q = (((__pyx_v_a * __pyx_v_a) - (3.0 * __pyx_v_b)) / 9.0);
 
-  /* "cython_eigenFunction.pyx":156
+  /* "cython_eigenFunction.pyx":108
  *     # prep for formula
  *     cdef double Q = (a * a - 3 * b)/9
  *     cdef double R = ( 2 * pow(a,3) - 9 * a * b + 27 * c ) / 54             # <<<<<<<<<<<<<<
@@ -2669,7 +2480,7 @@ static double __pyx_f_20cython_eigenFunction_calculateEigenValue(double *__pyx_v
  */
   __pyx_v_R = ((((2.0 * pow(__pyx_v_a, 3.0)) - ((9.0 * __pyx_v_a) * __pyx_v_b)) + (27.0 * __pyx_v_c)) / 54.0);
 
-  /* "cython_eigenFunction.pyx":157
+  /* "cython_eigenFunction.pyx":109
  *     cdef double Q = (a * a - 3 * b)/9
  *     cdef double R = ( 2 * pow(a,3) - 9 * a * b + 27 * c ) / 54
  *     cdef double qSqrt =  sqrt( pow(Q,3) )             # <<<<<<<<<<<<<<
@@ -2678,29 +2489,29 @@ static double __pyx_f_20cython_eigenFunction_calculateEigenValue(double *__pyx_v
  */
   __pyx_v_qSqrt = sqrt(pow(__pyx_v_Q, 3.0));
 
-  /* "cython_eigenFunction.pyx":160
+  /* "cython_eigenFunction.pyx":112
  * 
  *     # make sure not to divide by zero
  *     if(qSqrt == 0):             # <<<<<<<<<<<<<<
- *         # print("qSqrt was too small " + str(qSqrt))
  *         eigs, vecs = np.linalg.eigh(arg)
+ *         minEgValue = np.argmin(abs(eigs))
  */
   __pyx_t_1 = ((__pyx_v_qSqrt == 0.0) != 0);
   if (__pyx_t_1) {
 
-    /* "cython_eigenFunction.pyx":162
+    /* "cython_eigenFunction.pyx":113
+ *     # make sure not to divide by zero
  *     if(qSqrt == 0):
- *         # print("qSqrt was too small " + str(qSqrt))
  *         eigs, vecs = np.linalg.eigh(arg)             # <<<<<<<<<<<<<<
  *         minEgValue = np.argmin(abs(eigs))
  *         return  <double> minEgValue
  */
-    __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 162, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 113, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_linalg); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 162, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_linalg); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 113, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_eigh); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 162, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_eigh); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 113, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __pyx_t_4 = NULL;
@@ -2715,7 +2526,7 @@ static double __pyx_f_20cython_eigenFunction_calculateEigenValue(double *__pyx_v
     }
     __pyx_t_2 = (__pyx_t_4) ? __Pyx_PyObject_Call2Args(__pyx_t_3, __pyx_t_4, ((PyObject *)__pyx_v_arg)) : __Pyx_PyObject_CallOneArg(__pyx_t_3, ((PyObject *)__pyx_v_arg));
     __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 162, __pyx_L1_error)
+    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 113, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     if ((likely(PyTuple_CheckExact(__pyx_t_2))) || (PyList_CheckExact(__pyx_t_2))) {
@@ -2724,7 +2535,7 @@ static double __pyx_f_20cython_eigenFunction_calculateEigenValue(double *__pyx_v
       if (unlikely(size != 2)) {
         if (size > 2) __Pyx_RaiseTooManyValuesError(2);
         else if (size >= 0) __Pyx_RaiseNeedMoreValuesError(size);
-        __PYX_ERR(0, 162, __pyx_L1_error)
+        __PYX_ERR(0, 113, __pyx_L1_error)
       }
       #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
       if (likely(PyTuple_CheckExact(sequence))) {
@@ -2737,15 +2548,15 @@ static double __pyx_f_20cython_eigenFunction_calculateEigenValue(double *__pyx_v
       __Pyx_INCREF(__pyx_t_3);
       __Pyx_INCREF(__pyx_t_4);
       #else
-      __pyx_t_3 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 162, __pyx_L1_error)
+      __pyx_t_3 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 113, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
-      __pyx_t_4 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 162, __pyx_L1_error)
+      __pyx_t_4 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 113, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
       #endif
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     } else {
       Py_ssize_t index = -1;
-      __pyx_t_5 = PyObject_GetIter(__pyx_t_2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 162, __pyx_L1_error)
+      __pyx_t_5 = PyObject_GetIter(__pyx_t_2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 113, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_5);
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
       __pyx_t_6 = Py_TYPE(__pyx_t_5)->tp_iternext;
@@ -2753,7 +2564,7 @@ static double __pyx_f_20cython_eigenFunction_calculateEigenValue(double *__pyx_v
       __Pyx_GOTREF(__pyx_t_3);
       index = 1; __pyx_t_4 = __pyx_t_6(__pyx_t_5); if (unlikely(!__pyx_t_4)) goto __pyx_L4_unpacking_failed;
       __Pyx_GOTREF(__pyx_t_4);
-      if (__Pyx_IternextUnpackEndCheck(__pyx_t_6(__pyx_t_5), 2) < 0) __PYX_ERR(0, 162, __pyx_L1_error)
+      if (__Pyx_IternextUnpackEndCheck(__pyx_t_6(__pyx_t_5), 2) < 0) __PYX_ERR(0, 113, __pyx_L1_error)
       __pyx_t_6 = NULL;
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
       goto __pyx_L5_unpacking_done;
@@ -2761,7 +2572,7 @@ static double __pyx_f_20cython_eigenFunction_calculateEigenValue(double *__pyx_v
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
       __pyx_t_6 = NULL;
       if (__Pyx_IterFinish() == 0) __Pyx_RaiseNeedMoreValuesError(index);
-      __PYX_ERR(0, 162, __pyx_L1_error)
+      __PYX_ERR(0, 113, __pyx_L1_error)
       __pyx_L5_unpacking_done:;
     }
     __pyx_v_eigs = __pyx_t_3;
@@ -2769,19 +2580,19 @@ static double __pyx_f_20cython_eigenFunction_calculateEigenValue(double *__pyx_v
     __pyx_v_vecs = __pyx_t_4;
     __pyx_t_4 = 0;
 
-    /* "cython_eigenFunction.pyx":163
- *         # print("qSqrt was too small " + str(qSqrt))
+    /* "cython_eigenFunction.pyx":114
+ *     if(qSqrt == 0):
  *         eigs, vecs = np.linalg.eigh(arg)
  *         minEgValue = np.argmin(abs(eigs))             # <<<<<<<<<<<<<<
  *         return  <double> minEgValue
- *         # qSqrt = 000000000000001
+ * 
  */
-    __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_np); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 163, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_np); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 114, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_argmin); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 163, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_argmin); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 114, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __pyx_t_4 = __Pyx_PyNumber_Absolute(__pyx_v_eigs); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 163, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyNumber_Absolute(__pyx_v_eigs); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 114, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __pyx_t_5 = NULL;
     if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_3))) {
@@ -2796,33 +2607,33 @@ static double __pyx_f_20cython_eigenFunction_calculateEigenValue(double *__pyx_v
     __pyx_t_2 = (__pyx_t_5) ? __Pyx_PyObject_Call2Args(__pyx_t_3, __pyx_t_5, __pyx_t_4) : __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_4);
     __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 163, __pyx_L1_error)
+    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 114, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __pyx_v_minEgValue = __pyx_t_2;
     __pyx_t_2 = 0;
 
-    /* "cython_eigenFunction.pyx":164
+    /* "cython_eigenFunction.pyx":115
  *         eigs, vecs = np.linalg.eigh(arg)
  *         minEgValue = np.argmin(abs(eigs))
  *         return  <double> minEgValue             # <<<<<<<<<<<<<<
- *         # qSqrt = 000000000000001
  * 
+ *     # make sure that R / qSqrt does not step outside [-1,1] (may happen by arithmetic
  */
-    __pyx_t_7 = __pyx_PyFloat_AsDouble(__pyx_v_minEgValue); if (unlikely((__pyx_t_7 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 164, __pyx_L1_error)
+    __pyx_t_7 = __pyx_PyFloat_AsDouble(__pyx_v_minEgValue); if (unlikely((__pyx_t_7 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 115, __pyx_L1_error)
     __pyx_r = ((double)__pyx_t_7);
     goto __pyx_L0;
 
-    /* "cython_eigenFunction.pyx":160
+    /* "cython_eigenFunction.pyx":112
  * 
  *     # make sure not to divide by zero
  *     if(qSqrt == 0):             # <<<<<<<<<<<<<<
- *         # print("qSqrt was too small " + str(qSqrt))
  *         eigs, vecs = np.linalg.eigh(arg)
+ *         minEgValue = np.argmin(abs(eigs))
  */
   }
 
-  /* "cython_eigenFunction.pyx":169
+  /* "cython_eigenFunction.pyx":119
  *     # make sure that R / qSqrt does not step outside [-1,1] (may happen by arithmetic
  *     # rounding errors)
  *     cdef double r_qSrt = R / qSqrt             # <<<<<<<<<<<<<<
@@ -2831,11 +2642,11 @@ static double __pyx_f_20cython_eigenFunction_calculateEigenValue(double *__pyx_v
  */
   if (unlikely(__pyx_v_qSqrt == 0)) {
     PyErr_SetString(PyExc_ZeroDivisionError, "float division");
-    __PYX_ERR(0, 169, __pyx_L1_error)
+    __PYX_ERR(0, 119, __pyx_L1_error)
   }
   __pyx_v_r_qSrt = (__pyx_v_R / __pyx_v_qSqrt);
 
-  /* "cython_eigenFunction.pyx":170
+  /* "cython_eigenFunction.pyx":120
  *     # rounding errors)
  *     cdef double r_qSrt = R / qSqrt
  *     if(r_qSrt < -1):             # <<<<<<<<<<<<<<
@@ -2845,7 +2656,7 @@ static double __pyx_f_20cython_eigenFunction_calculateEigenValue(double *__pyx_v
   __pyx_t_1 = ((__pyx_v_r_qSrt < -1.0) != 0);
   if (__pyx_t_1) {
 
-    /* "cython_eigenFunction.pyx":171
+    /* "cython_eigenFunction.pyx":121
  *     cdef double r_qSrt = R / qSqrt
  *     if(r_qSrt < -1):
  *       r_qSrt = -1             # <<<<<<<<<<<<<<
@@ -2854,7 +2665,7 @@ static double __pyx_f_20cython_eigenFunction_calculateEigenValue(double *__pyx_v
  */
     __pyx_v_r_qSrt = -1.0;
 
-    /* "cython_eigenFunction.pyx":170
+    /* "cython_eigenFunction.pyx":120
  *     # rounding errors)
  *     cdef double r_qSrt = R / qSqrt
  *     if(r_qSrt < -1):             # <<<<<<<<<<<<<<
@@ -2863,7 +2674,7 @@ static double __pyx_f_20cython_eigenFunction_calculateEigenValue(double *__pyx_v
  */
   }
 
-  /* "cython_eigenFunction.pyx":172
+  /* "cython_eigenFunction.pyx":122
  *     if(r_qSrt < -1):
  *       r_qSrt = -1
  *     if(r_qSrt > 1):             # <<<<<<<<<<<<<<
@@ -2873,7 +2684,7 @@ static double __pyx_f_20cython_eigenFunction_calculateEigenValue(double *__pyx_v
   __pyx_t_1 = ((__pyx_v_r_qSrt > 1.0) != 0);
   if (__pyx_t_1) {
 
-    /* "cython_eigenFunction.pyx":173
+    /* "cython_eigenFunction.pyx":123
  *       r_qSrt = -1
  *     if(r_qSrt > 1):
  *       r_qSrt = 1             # <<<<<<<<<<<<<<
@@ -2882,7 +2693,7 @@ static double __pyx_f_20cython_eigenFunction_calculateEigenValue(double *__pyx_v
  */
     __pyx_v_r_qSrt = 1.0;
 
-    /* "cython_eigenFunction.pyx":172
+    /* "cython_eigenFunction.pyx":122
  *     if(r_qSrt < -1):
  *       r_qSrt = -1
  *     if(r_qSrt > 1):             # <<<<<<<<<<<<<<
@@ -2891,35 +2702,167 @@ static double __pyx_f_20cython_eigenFunction_calculateEigenValue(double *__pyx_v
  */
   }
 
-  /* "cython_eigenFunction.pyx":176
+  /* "cython_eigenFunction.pyx":126
  * 
  *     # prep for formula
  *     cdef double theta = acos( r_qSrt )             # <<<<<<<<<<<<<<
- *     # cdef double PI = 3.14159265358979323846
+ *     cdef double PI = 3.14159265358979323846
  * 
  */
   __pyx_v_theta = acos(__pyx_v_r_qSrt);
 
-  /* "cython_eigenFunction.pyx":180
+  /* "cython_eigenFunction.pyx":127
+ *     # prep for formula
+ *     cdef double theta = acos( r_qSrt )
+ *     cdef double PI = 3.14159265358979323846             # <<<<<<<<<<<<<<
+ * 
+ *     # formula for computing the eigenvalues
+ */
+  __pyx_v_PI = 3.14159265358979323846;
+
+  /* "cython_eigenFunction.pyx":130
  * 
  *     # formula for computing the eigenvalues
  *     cdef double eig1 = -2 * sqrt(Q) * cos( theta/3 ) - a / 3             # <<<<<<<<<<<<<<
- * 
- *     # cdef double eig2 = -2 * sqrt(Q) * cos( (theta + PI)/3 ) - a / 3
+ *     cdef double eig2 = -2 * sqrt(Q) * cos( (theta + 2 * PI)/3 ) - a / 3
+ *     cdef double eig3 = -2 * sqrt(Q) * cos( (theta - 2 * PI)/3 ) - a / 3
  */
   __pyx_v_eig1 = (((-2.0 * sqrt(__pyx_v_Q)) * cos((__pyx_v_theta / 3.0))) - (__pyx_v_a / 3.0));
 
-  /* "cython_eigenFunction.pyx":203
- *     #     smallestEgValue = eig3
+  /* "cython_eigenFunction.pyx":131
+ *     # formula for computing the eigenvalues
+ *     cdef double eig1 = -2 * sqrt(Q) * cos( theta/3 ) - a / 3
+ *     cdef double eig2 = -2 * sqrt(Q) * cos( (theta + 2 * PI)/3 ) - a / 3             # <<<<<<<<<<<<<<
+ *     cdef double eig3 = -2 * sqrt(Q) * cos( (theta - 2 * PI)/3 ) - a / 3
  * 
- *     return eig1             # <<<<<<<<<<<<<<
+ */
+  __pyx_v_eig2 = (((-2.0 * sqrt(__pyx_v_Q)) * cos(((__pyx_v_theta + (2.0 * __pyx_v_PI)) / 3.0))) - (__pyx_v_a / 3.0));
+
+  /* "cython_eigenFunction.pyx":132
+ *     cdef double eig1 = -2 * sqrt(Q) * cos( theta/3 ) - a / 3
+ *     cdef double eig2 = -2 * sqrt(Q) * cos( (theta + 2 * PI)/3 ) - a / 3
+ *     cdef double eig3 = -2 * sqrt(Q) * cos( (theta - 2 * PI)/3 ) - a / 3             # <<<<<<<<<<<<<<
+ * 
+ *     # find the eigenvalue with the smallest absolute value
+ */
+  __pyx_v_eig3 = (((-2.0 * sqrt(__pyx_v_Q)) * cos(((__pyx_v_theta - (2.0 * __pyx_v_PI)) / 3.0))) - (__pyx_v_a / 3.0));
+
+  /* "cython_eigenFunction.pyx":138
+ *     # is always positive)
+ *     cdef double smallestEgValue
+ *     if(eig1*eig1 < eig2*eig2):             # <<<<<<<<<<<<<<
+ *       if(eig1*eig1 < eig3*eig3):
+ *         # eig1^2 is smaller than both eig1^2 and eig2^3
+ */
+  __pyx_t_1 = (((__pyx_v_eig1 * __pyx_v_eig1) < (__pyx_v_eig2 * __pyx_v_eig2)) != 0);
+  if (__pyx_t_1) {
+
+    /* "cython_eigenFunction.pyx":139
+ *     cdef double smallestEgValue
+ *     if(eig1*eig1 < eig2*eig2):
+ *       if(eig1*eig1 < eig3*eig3):             # <<<<<<<<<<<<<<
+ *         # eig1^2 is smaller than both eig1^2 and eig2^3
+ *         smallestEgValue = eig1
+ */
+    __pyx_t_1 = (((__pyx_v_eig1 * __pyx_v_eig1) < (__pyx_v_eig3 * __pyx_v_eig3)) != 0);
+    if (__pyx_t_1) {
+
+      /* "cython_eigenFunction.pyx":141
+ *       if(eig1*eig1 < eig3*eig3):
+ *         # eig1^2 is smaller than both eig1^2 and eig2^3
+ *         smallestEgValue = eig1             # <<<<<<<<<<<<<<
+ *       else:
+ *         # eig3^2 is smaller than both eig1^2 and eig2^2
+ */
+      __pyx_v_smallestEgValue = __pyx_v_eig1;
+
+      /* "cython_eigenFunction.pyx":139
+ *     cdef double smallestEgValue
+ *     if(eig1*eig1 < eig2*eig2):
+ *       if(eig1*eig1 < eig3*eig3):             # <<<<<<<<<<<<<<
+ *         # eig1^2 is smaller than both eig1^2 and eig2^3
+ *         smallestEgValue = eig1
+ */
+      goto __pyx_L9;
+    }
+
+    /* "cython_eigenFunction.pyx":144
+ *       else:
+ *         # eig3^2 is smaller than both eig1^2 and eig2^2
+ *         smallestEgValue = eig3             # <<<<<<<<<<<<<<
+ *     else:
+ *       if(eig2*eig2 < eig3*eig3):
+ */
+    /*else*/ {
+      __pyx_v_smallestEgValue = __pyx_v_eig3;
+    }
+    __pyx_L9:;
+
+    /* "cython_eigenFunction.pyx":138
+ *     # is always positive)
+ *     cdef double smallestEgValue
+ *     if(eig1*eig1 < eig2*eig2):             # <<<<<<<<<<<<<<
+ *       if(eig1*eig1 < eig3*eig3):
+ *         # eig1^2 is smaller than both eig1^2 and eig2^3
+ */
+    goto __pyx_L8;
+  }
+
+  /* "cython_eigenFunction.pyx":146
+ *         smallestEgValue = eig3
+ *     else:
+ *       if(eig2*eig2 < eig3*eig3):             # <<<<<<<<<<<<<<
+ *         # eig2^2 is smaller than both eig1^2 and eig3^2
+ *         smallestEgValue = eig2
+ */
+  /*else*/ {
+    __pyx_t_1 = (((__pyx_v_eig2 * __pyx_v_eig2) < (__pyx_v_eig3 * __pyx_v_eig3)) != 0);
+    if (__pyx_t_1) {
+
+      /* "cython_eigenFunction.pyx":148
+ *       if(eig2*eig2 < eig3*eig3):
+ *         # eig2^2 is smaller than both eig1^2 and eig3^2
+ *         smallestEgValue = eig2             # <<<<<<<<<<<<<<
+ *       else:
+ *         # eig3^2 is smaller than both eig1^2 and eig2^2
+ */
+      __pyx_v_smallestEgValue = __pyx_v_eig2;
+
+      /* "cython_eigenFunction.pyx":146
+ *         smallestEgValue = eig3
+ *     else:
+ *       if(eig2*eig2 < eig3*eig3):             # <<<<<<<<<<<<<<
+ *         # eig2^2 is smaller than both eig1^2 and eig3^2
+ *         smallestEgValue = eig2
+ */
+      goto __pyx_L10;
+    }
+
+    /* "cython_eigenFunction.pyx":151
+ *       else:
+ *         # eig3^2 is smaller than both eig1^2 and eig2^2
+ *         smallestEgValue = eig3             # <<<<<<<<<<<<<<
+ * 
+ *     return smallestEgValue
+ */
+    /*else*/ {
+      __pyx_v_smallestEgValue = __pyx_v_eig3;
+    }
+    __pyx_L10:;
+  }
+  __pyx_L8:;
+
+  /* "cython_eigenFunction.pyx":153
+ *         smallestEgValue = eig3
+ * 
+ *     return smallestEgValue             # <<<<<<<<<<<<<<
  * 
  * # # function for normalizing a 3*1 vector
  */
-  __pyx_r = __pyx_v_eig1;
+  __pyx_r = __pyx_v_smallestEgValue;
   goto __pyx_L0;
 
-  /* "cython_eigenFunction.pyx":137
+  /* "cython_eigenFunction.pyx":89
  * # implemented from https://d1rkab7tlqy5f1.cloudfront.net/TNW/Over%20faculteit/
  * #                                   Decaan/Publications/1999/SCIA99GKNBLVea.pdf
  * cdef double calculateEigenValue(double[9] my_matrix, cnp.ndarray arg):             # <<<<<<<<<<<<<<
@@ -2943,7 +2886,7 @@ static double __pyx_f_20cython_eigenFunction_calculateEigenValue(double *__pyx_v
   return __pyx_r;
 }
 
-/* "cython_eigenFunction.pyx":206
+/* "cython_eigenFunction.pyx":156
  * 
  * # # function for normalizing a 3*1 vector
  * cdef double* normalizeVector(double[3] vector):             # <<<<<<<<<<<<<<
@@ -2958,7 +2901,7 @@ static double *__pyx_f_20cython_eigenFunction_normalizeVector(double *__pyx_v_ve
   int __pyx_t_1;
   __Pyx_RefNannySetupContext("normalizeVector", 0);
 
-  /* "cython_eigenFunction.pyx":207
+  /* "cython_eigenFunction.pyx":157
  * # # function for normalizing a 3*1 vector
  * cdef double* normalizeVector(double[3] vector):
  *     cdef double norm = sqrt(calcDot(vector, vector))             # <<<<<<<<<<<<<<
@@ -2967,7 +2910,7 @@ static double *__pyx_f_20cython_eigenFunction_normalizeVector(double *__pyx_v_ve
  */
   __pyx_v_norm = sqrt(__pyx_f_20cython_eigenFunction_calcDot(__pyx_v_vector, __pyx_v_vector));
 
-  /* "cython_eigenFunction.pyx":209
+  /* "cython_eigenFunction.pyx":159
  *     cdef double norm = sqrt(calcDot(vector, vector))
  *     # make sure not to divide by zero
  *     if(norm == 0):             # <<<<<<<<<<<<<<
@@ -2977,7 +2920,7 @@ static double *__pyx_f_20cython_eigenFunction_normalizeVector(double *__pyx_v_ve
   __pyx_t_1 = ((__pyx_v_norm == 0.0) != 0);
   if (__pyx_t_1) {
 
-    /* "cython_eigenFunction.pyx":210
+    /* "cython_eigenFunction.pyx":160
  *     # make sure not to divide by zero
  *     if(norm == 0):
  *       return vector             # <<<<<<<<<<<<<<
@@ -2987,7 +2930,7 @@ static double *__pyx_f_20cython_eigenFunction_normalizeVector(double *__pyx_v_ve
     __pyx_r = __pyx_v_vector;
     goto __pyx_L0;
 
-    /* "cython_eigenFunction.pyx":209
+    /* "cython_eigenFunction.pyx":159
  *     cdef double norm = sqrt(calcDot(vector, vector))
  *     # make sure not to divide by zero
  *     if(norm == 0):             # <<<<<<<<<<<<<<
@@ -2996,7 +2939,7 @@ static double *__pyx_f_20cython_eigenFunction_normalizeVector(double *__pyx_v_ve
  */
   }
 
-  /* "cython_eigenFunction.pyx":211
+  /* "cython_eigenFunction.pyx":161
  *     if(norm == 0):
  *       return vector
  *     vector[0] = vector[0]/norm             # <<<<<<<<<<<<<<
@@ -3005,11 +2948,11 @@ static double *__pyx_f_20cython_eigenFunction_normalizeVector(double *__pyx_v_ve
  */
   if (unlikely(__pyx_v_norm == 0)) {
     PyErr_SetString(PyExc_ZeroDivisionError, "float division");
-    __PYX_ERR(0, 211, __pyx_L1_error)
+    __PYX_ERR(0, 161, __pyx_L1_error)
   }
   (__pyx_v_vector[0]) = ((__pyx_v_vector[0]) / __pyx_v_norm);
 
-  /* "cython_eigenFunction.pyx":212
+  /* "cython_eigenFunction.pyx":162
  *       return vector
  *     vector[0] = vector[0]/norm
  *     vector[1] = vector[1]/norm             # <<<<<<<<<<<<<<
@@ -3018,11 +2961,11 @@ static double *__pyx_f_20cython_eigenFunction_normalizeVector(double *__pyx_v_ve
  */
   if (unlikely(__pyx_v_norm == 0)) {
     PyErr_SetString(PyExc_ZeroDivisionError, "float division");
-    __PYX_ERR(0, 212, __pyx_L1_error)
+    __PYX_ERR(0, 162, __pyx_L1_error)
   }
   (__pyx_v_vector[1]) = ((__pyx_v_vector[1]) / __pyx_v_norm);
 
-  /* "cython_eigenFunction.pyx":213
+  /* "cython_eigenFunction.pyx":163
  *     vector[0] = vector[0]/norm
  *     vector[1] = vector[1]/norm
  *     vector[2] = vector[2]/norm             # <<<<<<<<<<<<<<
@@ -3031,11 +2974,11 @@ static double *__pyx_f_20cython_eigenFunction_normalizeVector(double *__pyx_v_ve
  */
   if (unlikely(__pyx_v_norm == 0)) {
     PyErr_SetString(PyExc_ZeroDivisionError, "float division");
-    __PYX_ERR(0, 213, __pyx_L1_error)
+    __PYX_ERR(0, 163, __pyx_L1_error)
   }
   (__pyx_v_vector[2]) = ((__pyx_v_vector[2]) / __pyx_v_norm);
 
-  /* "cython_eigenFunction.pyx":214
+  /* "cython_eigenFunction.pyx":164
  *     vector[1] = vector[1]/norm
  *     vector[2] = vector[2]/norm
  *     return vector             # <<<<<<<<<<<<<<
@@ -3045,7 +2988,7 @@ static double *__pyx_f_20cython_eigenFunction_normalizeVector(double *__pyx_v_ve
   __pyx_r = __pyx_v_vector;
   goto __pyx_L0;
 
-  /* "cython_eigenFunction.pyx":206
+  /* "cython_eigenFunction.pyx":156
  * 
  * # # function for normalizing a 3*1 vector
  * cdef double* normalizeVector(double[3] vector):             # <<<<<<<<<<<<<<
@@ -3062,7 +3005,7 @@ static double *__pyx_f_20cython_eigenFunction_normalizeVector(double *__pyx_v_ve
   return __pyx_r;
 }
 
-/* "cython_eigenFunction.pyx":218
+/* "cython_eigenFunction.pyx":168
  * # function for rotating a vector two times (using operation taken from
  * # standard rotational matrix described at eg wikipedia)
  * cdef inline double* rotateVector(double[3] v, double[3] v_rotated):             # <<<<<<<<<<<<<<
@@ -3078,7 +3021,7 @@ static CYTHON_INLINE double *__pyx_f_20cython_eigenFunction_rotateVector(double 
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("rotateVector", 0);
 
-  /* "cython_eigenFunction.pyx":220
+  /* "cython_eigenFunction.pyx":170
  * cdef inline double* rotateVector(double[3] v, double[3] v_rotated):
  *     #first rotation
  *     cdef double x = v[0]             # <<<<<<<<<<<<<<
@@ -3087,7 +3030,7 @@ static CYTHON_INLINE double *__pyx_f_20cython_eigenFunction_rotateVector(double 
  */
   __pyx_v_x = (__pyx_v_v[0]);
 
-  /* "cython_eigenFunction.pyx":221
+  /* "cython_eigenFunction.pyx":171
  *     #first rotation
  *     cdef double x = v[0]
  *     cdef double y = v[1] * 0.86 - v[0]/2             # <<<<<<<<<<<<<<
@@ -3096,7 +3039,7 @@ static CYTHON_INLINE double *__pyx_f_20cython_eigenFunction_rotateVector(double 
  */
   __pyx_v_y = (((__pyx_v_v[1]) * 0.86) - ((__pyx_v_v[0]) / 2.0));
 
-  /* "cython_eigenFunction.pyx":222
+  /* "cython_eigenFunction.pyx":172
  *     cdef double x = v[0]
  *     cdef double y = v[1] * 0.86 - v[0]/2
  *     cdef double z = v[1]/2 + v[0] * 0.86             # <<<<<<<<<<<<<<
@@ -3105,7 +3048,7 @@ static CYTHON_INLINE double *__pyx_f_20cython_eigenFunction_rotateVector(double 
  */
   __pyx_v_z = (((__pyx_v_v[1]) / 2.0) + ((__pyx_v_v[0]) * 0.86));
 
-  /* "cython_eigenFunction.pyx":224
+  /* "cython_eigenFunction.pyx":174
  *     cdef double z = v[1]/2 + v[0] * 0.86
  *     # second rotation
  *     v_rotated[0] = x * 0.86 - y/2             # <<<<<<<<<<<<<<
@@ -3114,7 +3057,7 @@ static CYTHON_INLINE double *__pyx_f_20cython_eigenFunction_rotateVector(double 
  */
   (__pyx_v_v_rotated[0]) = ((__pyx_v_x * 0.86) - (__pyx_v_y / 2.0));
 
-  /* "cython_eigenFunction.pyx":225
+  /* "cython_eigenFunction.pyx":175
  *     # second rotation
  *     v_rotated[0] = x * 0.86 - y/2
  *     v_rotated[1] = x/2 + y * 0.86             # <<<<<<<<<<<<<<
@@ -3123,7 +3066,7 @@ static CYTHON_INLINE double *__pyx_f_20cython_eigenFunction_rotateVector(double 
  */
   (__pyx_v_v_rotated[1]) = ((__pyx_v_x / 2.0) + (__pyx_v_y * 0.86));
 
-  /* "cython_eigenFunction.pyx":226
+  /* "cython_eigenFunction.pyx":176
  *     v_rotated[0] = x * 0.86 - y/2
  *     v_rotated[1] = x/2 + y * 0.86
  *     v_rotated[2] = z             # <<<<<<<<<<<<<<
@@ -3132,7 +3075,7 @@ static CYTHON_INLINE double *__pyx_f_20cython_eigenFunction_rotateVector(double 
  */
   (__pyx_v_v_rotated[2]) = __pyx_v_z;
 
-  /* "cython_eigenFunction.pyx":227
+  /* "cython_eigenFunction.pyx":177
  *     v_rotated[1] = x/2 + y * 0.86
  *     v_rotated[2] = z
  *     return v_rotated             # <<<<<<<<<<<<<<
@@ -3142,7 +3085,7 @@ static CYTHON_INLINE double *__pyx_f_20cython_eigenFunction_rotateVector(double 
   __pyx_r = __pyx_v_v_rotated;
   goto __pyx_L0;
 
-  /* "cython_eigenFunction.pyx":218
+  /* "cython_eigenFunction.pyx":168
  * # function for rotating a vector two times (using operation taken from
  * # standard rotational matrix described at eg wikipedia)
  * cdef inline double* rotateVector(double[3] v, double[3] v_rotated):             # <<<<<<<<<<<<<<
@@ -3156,7 +3099,7 @@ static CYTHON_INLINE double *__pyx_f_20cython_eigenFunction_rotateVector(double 
   return __pyx_r;
 }
 
-/* "cython_eigenFunction.pyx":230
+/* "cython_eigenFunction.pyx":180
  * 
  * # function for calculating cross product of two 3x1 vectors
  * cdef inline double* calcCross(double[3] v1, double[3] v2, double[3] crossVec):             # <<<<<<<<<<<<<<
@@ -3169,7 +3112,7 @@ static CYTHON_INLINE double *__pyx_f_20cython_eigenFunction_calcCross(double *__
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("calcCross", 0);
 
-  /* "cython_eigenFunction.pyx":231
+  /* "cython_eigenFunction.pyx":181
  * # function for calculating cross product of two 3x1 vectors
  * cdef inline double* calcCross(double[3] v1, double[3] v2, double[3] crossVec):
  *     crossVec[0] = v1[1] * v2[2] - v1[2] * v2[1]             # <<<<<<<<<<<<<<
@@ -3178,7 +3121,7 @@ static CYTHON_INLINE double *__pyx_f_20cython_eigenFunction_calcCross(double *__
  */
   (__pyx_v_crossVec[0]) = (((__pyx_v_v1[1]) * (__pyx_v_v2[2])) - ((__pyx_v_v1[2]) * (__pyx_v_v2[1])));
 
-  /* "cython_eigenFunction.pyx":232
+  /* "cython_eigenFunction.pyx":182
  * cdef inline double* calcCross(double[3] v1, double[3] v2, double[3] crossVec):
  *     crossVec[0] = v1[1] * v2[2] - v1[2] * v2[1]
  *     crossVec[1] = v1[2] * v2[0] - v1[0] * v2[2]             # <<<<<<<<<<<<<<
@@ -3187,7 +3130,7 @@ static CYTHON_INLINE double *__pyx_f_20cython_eigenFunction_calcCross(double *__
  */
   (__pyx_v_crossVec[1]) = (((__pyx_v_v1[2]) * (__pyx_v_v2[0])) - ((__pyx_v_v1[0]) * (__pyx_v_v2[2])));
 
-  /* "cython_eigenFunction.pyx":233
+  /* "cython_eigenFunction.pyx":183
  *     crossVec[0] = v1[1] * v2[2] - v1[2] * v2[1]
  *     crossVec[1] = v1[2] * v2[0] - v1[0] * v2[2]
  *     crossVec[2] = v1[0] * v2[1] - v1[1] * v2[0]             # <<<<<<<<<<<<<<
@@ -3196,7 +3139,7 @@ static CYTHON_INLINE double *__pyx_f_20cython_eigenFunction_calcCross(double *__
  */
   (__pyx_v_crossVec[2]) = (((__pyx_v_v1[0]) * (__pyx_v_v2[1])) - ((__pyx_v_v1[1]) * (__pyx_v_v2[0])));
 
-  /* "cython_eigenFunction.pyx":234
+  /* "cython_eigenFunction.pyx":184
  *     crossVec[1] = v1[2] * v2[0] - v1[0] * v2[2]
  *     crossVec[2] = v1[0] * v2[1] - v1[1] * v2[0]
  *     return crossVec             # <<<<<<<<<<<<<<
@@ -3206,7 +3149,7 @@ static CYTHON_INLINE double *__pyx_f_20cython_eigenFunction_calcCross(double *__
   __pyx_r = __pyx_v_crossVec;
   goto __pyx_L0;
 
-  /* "cython_eigenFunction.pyx":230
+  /* "cython_eigenFunction.pyx":180
  * 
  * # function for calculating cross product of two 3x1 vectors
  * cdef inline double* calcCross(double[3] v1, double[3] v2, double[3] crossVec):             # <<<<<<<<<<<<<<
@@ -3220,7 +3163,7 @@ static CYTHON_INLINE double *__pyx_f_20cython_eigenFunction_calcCross(double *__
   return __pyx_r;
 }
 
-/* "cython_eigenFunction.pyx":237
+/* "cython_eigenFunction.pyx":187
  * 
  * # function for calculating dot product between two 3x1 vectors
  * cdef inline double calcDot(double[3] v1, double[3] v2):             # <<<<<<<<<<<<<<
@@ -3234,7 +3177,7 @@ static CYTHON_INLINE double __pyx_f_20cython_eigenFunction_calcDot(double *__pyx
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("calcDot", 0);
 
-  /* "cython_eigenFunction.pyx":238
+  /* "cython_eigenFunction.pyx":188
  * # function for calculating dot product between two 3x1 vectors
  * cdef inline double calcDot(double[3] v1, double[3] v2):
  *     cdef double prod = v1[0] * v2[0] + v1[1] * v2[1] + v1[2] * v2[2]             # <<<<<<<<<<<<<<
@@ -3242,7 +3185,7 @@ static CYTHON_INLINE double __pyx_f_20cython_eigenFunction_calcDot(double *__pyx
  */
   __pyx_v_prod = ((((__pyx_v_v1[0]) * (__pyx_v_v2[0])) + ((__pyx_v_v1[1]) * (__pyx_v_v2[1]))) + ((__pyx_v_v1[2]) * (__pyx_v_v2[2])));
 
-  /* "cython_eigenFunction.pyx":239
+  /* "cython_eigenFunction.pyx":189
  * cdef inline double calcDot(double[3] v1, double[3] v2):
  *     cdef double prod = v1[0] * v2[0] + v1[1] * v2[1] + v1[2] * v2[2]
  *     return prod             # <<<<<<<<<<<<<<
@@ -3250,7 +3193,7 @@ static CYTHON_INLINE double __pyx_f_20cython_eigenFunction_calcDot(double *__pyx
   __pyx_r = __pyx_v_prod;
   goto __pyx_L0;
 
-  /* "cython_eigenFunction.pyx":237
+  /* "cython_eigenFunction.pyx":187
  * 
  * # function for calculating dot product between two 3x1 vectors
  * cdef inline double calcDot(double[3] v1, double[3] v2):             # <<<<<<<<<<<<<<
