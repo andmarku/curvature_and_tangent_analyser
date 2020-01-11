@@ -12,12 +12,12 @@ Output is on the form:
     tuple of numpy arrays: knutMap = ((dimX, dimY, dimZ), (dimX, dimY, dimZ), (dimX, dimY, dimZ))
 '''
 
-def convolution(input, sig = 1):
-    Ix = gaussian_filter1d(input, sigma=sig, order = 1, axis = 0, mode='constant', truncate = 3)
-    Iy = gaussian_filter1d(input, sigma=sig, order = 1, axis = 1, mode='constant', truncate = 3)
-    Iz = gaussian_filter1d(input, sigma=sig, order = 1, axis = 2, mode='constant', truncate = 3)
+def convolution(data, sig = 1):
+    Ix = gaussian_filter1d(data, sigma=sig, order = 1, axis = 0, mode='constant', truncate = 1)
+    Iy = gaussian_filter1d(data, sigma=sig, order = 1, axis = 1, mode='constant', truncate = 1)
+    Iz = gaussian_filter1d(data, sigma=sig, order = 1, axis = 2, mode='constant', truncate = 1)
 
-    partials = np.zeros(input.shape + (3,))
+    partials = np.zeros(data.shape + (3,))
 
     partials[:,:,:,0] = Ix
     partials[:,:,:,1] = Iy
