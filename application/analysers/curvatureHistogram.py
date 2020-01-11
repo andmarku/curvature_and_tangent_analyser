@@ -14,7 +14,7 @@ def createCurvatureHistogram(curvature, name_of_input, fiber_width, curvature_fi
     num_bins = 40
 
     # Take out non-zero curvatures (only where there is a volume)
-    nz_curvature = curvature[curvature.nonzero()]
+    nz_curvature = curvature
     mean_curvature = nz_curvature.mean()
 
     # If no validation file exist, only one plot will be shown
