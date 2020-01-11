@@ -1,5 +1,6 @@
 import numpy as np
 from curvatureHistogram import createCurvatureHistogram
+from plotTangents import plotTangentComponents
 
 def analyze(tensor_tangents, tensor_curvatures, name_of_input, fiber_width, curvature):
     # format input
@@ -21,6 +22,8 @@ def analyze(tensor_tangents, tensor_curvatures, name_of_input, fiber_width, curv
     print(nonzero_tangents.shape)
 
     createCurvatureHistogram(curvatures_corr_to_nonzero_tangents, name_of_input, fiber_width, curvature)
+
+    plotTangentComponents(tensor_tangents)
 
 
 def flatten_tangents(tensor_tangents):
