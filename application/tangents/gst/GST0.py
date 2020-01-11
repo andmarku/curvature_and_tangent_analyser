@@ -16,6 +16,6 @@ def calculateGST0(partials, std):
 
     for (i, j), _ in np.ndenumerate(GST[0,0,0,:,:]):
         structure = partials[:,:,:,i] * partials[:,:,:,j]
-        GST[:,:,:,i,j] = gaussian_filter(structure, sigma=std, mode='constant', truncate=1)
+        GST[:,:,:,i,j] = gaussian_filter(structure, sigma=std, mode='constant', truncate=3)
 
     return GST
