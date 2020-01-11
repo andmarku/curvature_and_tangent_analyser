@@ -1,15 +1,23 @@
 from mpl_toolkits.mplot3d import Axes3D  # noqa: F401 unused import
 import matplotlib.pyplot as plt
-import matplotlib.cm as cm
+import matplotlib as mpl
 import numpy as np
 
-def plotTangentComponents(tensor_tangents):
+def plotTangentComponents(tensor_tangents, fiber_width, name_of_input):
+    '''Function that plots the orientation filed of the input
+
+    Parameters:
+        numpy array: tensor_tangents = (dimX, dimY, dimZ, 3) tensor of the tangents that builds the field
+        scalar: fiber_with = radius of the fibers in the input
+        string: name_of_input = file name of the input file
+
+    Result:
+        plot of the orientation field whih is saved to file 'name_of_input.png'
+
+    '''
+
     dims =  tensor_tangents.shape
     x,y,z = np.meshgrid(np.arange(0,dims[0],1),np.arange(0,dims[1],1),np.arange(0,dims[2],1), indexing = 'ij')
-    # x = tensor_tangents[:,:,:,0].shape[0]
-    # y = tensor_tangents[:,:,:,1].shape[1]
-    # z = tensor_tangents[:,:,:,2].shape[2]
-    # X,Y,Z = np.meshgrid(np.arange(0,x),np.arange(0,y),np.arange(0,z), indexing = 'ij')
 
     xcomp = tensor_tangents[:,:,:,0]
     ycomp = tensor_tangents[:,:,:,1]
@@ -18,11 +26,15 @@ def plotTangentComponents(tensor_tangents):
     fig = plt.figure()
     ax = fig.gca(projection='3d')
 
-    plt.xlabel('x')
-    plt.ylabel('y')
+    ax.set_xlabel('$X$', fontsize=16)
+    ax.set_ylabel('$Y$', fontsize=16)
+    ax.set_zlabel('$Z$', fontsize=16)
 
-    # Plot x xomponents only
-    ax.quiver(x,y,z, xcomp, ycomp, zcomp, alpha=0.8)
+    title = 'Orientation field of tangents: figure ' + name_of_input + \
+     r', fiber radius $=' + str(fiber_width) + r'$'
+    ax.set_title(title, size = 16)
+
+    ax.quiver(x,y,z, xcomp, ycomp, zcomp, alpha=0.5)
     fig.set_size_inches(16, 9)
-    plt.savefig("tangents.png")
+    plt.savefig(str(name_of_input)+"Tangents.png")
     plt.show()
