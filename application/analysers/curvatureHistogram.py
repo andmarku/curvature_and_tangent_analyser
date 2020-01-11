@@ -22,7 +22,6 @@ def createCurvatureHistogram(curvature, name_of_input, fiber_width, curvature_fi
         # the histogram of the data
         plt.figure(figsize=(16, 9))
         n, bins, patches = plt.hist(nz_curvature, num_bins, density=1, facecolor='blue', alpha=0.5)
-        # fig = plt.hist(nz_curvature, num_bins, density=1, facecolor='blue', alpha=0.5)
 
         plt.axvline(mean_curvature, c = 'red',label='Mean: ' + str(np.round(mean_curvature, 3)))
         plt.legend()
@@ -33,7 +32,6 @@ def createCurvatureHistogram(curvature, name_of_input, fiber_width, curvature_fi
         plt.title(title)
         # Tweak spacing to prevent clipping of ylabel
         plt.subplots_adjust(left=0.15)
-        # fig.set_size_inches(16, 9)
         plt.savefig("curvatures.png")
     else:
         # path for validation file
@@ -67,4 +65,3 @@ def createCurvatureHistogram(curvature, name_of_input, fiber_width, curvature_fi
         plt.savefig("curvatures.png")
 
     plt.show()
-        #import pdb; pdb.set_trace()
