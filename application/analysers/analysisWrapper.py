@@ -23,7 +23,7 @@ def analyze(tensor_tangents, tensor_curvatures, name_of_input, fiber_width, curv
 
     createCurvatureHistogram(curvatures_corr_to_nonzero_tangents, name_of_input, fiber_width, curvature)
 
-    plotTangentComponents(tensor_tangents)
+    plotTangentComponents(tensor_tangents, fiber_width, name_of_input)
 
 
 def flatten_tangents(tensor_tangents):
