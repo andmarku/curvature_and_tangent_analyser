@@ -16,15 +16,13 @@ cpdef cnp.ndarray[double, ndim=1] calculateTangent(cnp.ndarray arg):
        <double> arg[2][0], <double> arg[2][1], <double> arg[2][2]]
 
     # create the matrix (M - lambda I)
-    cdef double smallestEgValue = calculateEigenValue(arg_as_array)
+    cdef double smallestEgValue = calculateEigenValue(arg_as_array, arg)
 
     # update matrix
     arg_as_array[0] = arg_as_array[0] - smallestEgValue
     arg_as_array[4] = arg_as_array[4] - smallestEgValue
     arg_as_array[8] = arg_as_array[8] - smallestEgValue
 
-    # temporary printing
-    #print("printing eigenvalue " + str(smallestEgValue))
 
     # the not yet normalized eigenvector
     cdef double[3] raw_egVec
@@ -43,7 +41,7 @@ cpdef cnp.ndarray[double, ndim=1] calculateTangent(cnp.ndarray arg):
 # symmetric matrices
 cdef double* calcEgVecByCrossProduct(double[9] arg, double[3] egVec):
     # constant to protect from rounding of errors
-    cdef double cutOffConstant = 0
+    cdef double cutOffConstant = 1e-15
 
     cdef double[3] v1 = [arg[0], arg[1], arg[2]]
     cdef double[3] v2 = [arg[3], arg[4], arg[5]]
@@ -65,13 +63,22 @@ cdef double* calcEgVecByCrossProduct(double[9] arg, double[3] egVec):
     # (also make sure that the vector only nonzero due to arithmetic faults)
 
     egVec = calcCross(v1,v2, egVec)
+    # print(calcDot(egVec, egVec))
     if(calcDot(egVec, egVec) > cutOffConstant):
+      # print("v1 is ")
+      # print(np.asarray(v1))
+      # print("v2 is ")
+      # print(np.asarray(v2))
       return egVec
     egVec = calcCross(v1, v3, egVec)
     if(calcDot(egVec, egVec) > cutOffConstant):
+      # print("v2 is ")
+      # print(np.asarray(v2))
       return egVec
     egVec = calcCross(v2,v3, egVec)
     if(calcDot(egVec, egVec) > cutOffConstant):
+      # print("v3 is ")
+      # print(np.asarray(v3))
       return egVec
 
     # -------- Case 2 --------
@@ -134,7 +141,7 @@ cdef double* calcEgVecByCrossProduct(double[9] arg, double[3] egVec):
 # !!!! OBS!!!! only works for symmetrical matrices
 # implemented from https://d1rkab7tlqy5f1.cloudfront.net/TNW/Over%20faculteit/
 #                                   Decaan/Publications/1999/SCIA99GKNBLVea.pdf
-cdef double calculateEigenValue(double[9] my_matrix):
+cdef double calculateEigenValue(double[9] my_matrix, cnp.ndarray arg):
     # all values are not needed since the matrix is symmetric
     cdef double m_00 = my_matrix[0]
     cdef double m_01 = my_matrix[1]
@@ -158,8 +165,9 @@ cdef double calculateEigenValue(double[9] my_matrix):
 
     # make sure not to divide by zero
     if(qSqrt == 0):
-        # print("qSqrt was too small " + str(qSqrt))
-        qSqrt = 000000000000001
+        eigs, vecs = np.linalg.eigh(arg)
+        minEgValue = np.argmin(abs(eigs))
+        return  <double> minEgValue
 
     # make sure that R / qSqrt does not step outside [-1,1] (may happen by arithmetic
     # rounding errors)
@@ -171,33 +179,31 @@ cdef double calculateEigenValue(double[9] my_matrix):
 
     # prep for formula
     cdef double theta = acos( r_qSrt )
-    # cdef double PI = 3.14159265358979323846
+    cdef double PI = 3.14159265358979323846
 
     # formula for computing the eigenvalues
     cdef double eig1 = -2 * sqrt(Q) * cos( theta/3 ) - a / 3
+    cdef double eig2 = -2 * sqrt(Q) * cos( (theta + 2 * PI)/3 ) - a / 3
+    cdef double eig3 = -2 * sqrt(Q) * cos( (theta - 2 * PI)/3 ) - a / 3
 
-    # cdef double eig2 = -2 * sqrt(Q) * cos( (theta + PI)/3 ) - a / 3
-    # cdef double eig3 = -2 * sqrt(Q) * cos( (theta - PI)/3 ) - a / 3
+    # find the eigenvalue with the smallest absolute value
+    cdef double smallestEgValue
+    if(eig1*eig1 < eig2*eig2):
+      if(eig1*eig1 < eig3*eig3):
+        # eig1^2 is smaller than both eig1^2 and eig2^3
+        smallestEgValue = eig1
+      else:
+        # eig3^2 is smaller than both eig1^2 and eig2^2
+        smallestEgValue = eig3
+    else:
+      if(eig2*eig2 < eig3*eig3):
+        # eig2^2 is smaller than both eig1^2 and eig3^2
+        smallestEgValue = eig2
+      else:
+        # eig3^2 is smaller than both eig1^2 and eig2^2
+        smallestEgValue = eig3
 
-    # print(str(eig1) + " and " + str(eig2) + " and " + str(eig3))
-    # # find the eigenvalue with the smallest absolute value
-    # cdef double smallestEgValue
-    # if(eig1*eig1 < eig2*eig2):
-    #   if(eig1*eig1 < eig3*eig3):
-    #     # eig1^2 is smaller than both eig1^2 and eig2^3
-    #     smallestEgValue = eig1
-    #   else:
-    #     # eig3^2 is smaller than both eig1^2 and eig2^2
-    #     smallestEgValue = eig3
-    # else:
-    #   if(eig2*eig2 < eig3*eig3):
-    #     # eig2^2 is smaller than both eig1^2 and eig3^2
-    #     smallestEgValue = eig2
-    #   else:
-    #     # eig3^2 is smaller than both eig1^2 and eig2^2
-    #     smallestEgValue = eig3
-
-    return eig1
+    return smallestEgValue
 
 # # function for normalizing a 3*1 vector
 cdef double* normalizeVector(double[3] vector):
