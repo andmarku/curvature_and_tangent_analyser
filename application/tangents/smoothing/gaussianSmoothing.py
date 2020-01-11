@@ -13,9 +13,9 @@ Output is on the form:
 '''
 
 def convolution(data, sig = 1):
-    Ix = gaussian_filter1d(data, sigma=sig, order = 1, axis = 0, mode='constant', truncate = 3)
-    Iy = gaussian_filter1d(data, sigma=sig, order = 1, axis = 1, mode='constant', truncate = 3)
-    Iz = gaussian_filter1d(data, sigma=sig, order = 1, axis = 2, mode='constant', truncate = 3)
+    Ix = gaussian_filter1d(data, sigma=sig, order = 1, axis = 0, mode='constant', truncate = 1)
+    Iy = gaussian_filter1d(data, sigma=sig, order = 1, axis = 1, mode='constant', truncate = 1)
+    Iz = gaussian_filter1d(data, sigma=sig, order = 1, axis = 2, mode='constant', truncate = 1)
 
     partials = np.zeros(data.shape + (3,))
 
