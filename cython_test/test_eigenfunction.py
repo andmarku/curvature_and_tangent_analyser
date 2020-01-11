@@ -1,5 +1,4 @@
 import numpy as np
-import python_eigenVectorCalculator as python
 import cython_eigenFunction as cython
 from definitionTester import testAgainstDefinition
 
