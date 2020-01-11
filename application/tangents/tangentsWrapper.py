@@ -7,7 +7,7 @@ from gaussianSmoothing import convolution
 from eigenVectorWrapper import calculateEigenVectors
 
 def tangents(d, fiber_width):
-    partials = convolution(d)
+    partials = convolution(d, fiber_width)
     GST = calculateGST0(partials, fiber_width)
     tangents = calculateEigenVectors(GST)
     return tangents
