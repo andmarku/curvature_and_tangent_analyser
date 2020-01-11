@@ -14,6 +14,7 @@ from curvatureWrapper import curvatures
 from analysisWrapper import analyze
 from writeCurvatures import write as curvwrite
 from writeTangents import write as tangwrite
+from filterCurvatures import filterSmoothedCurvatures
 
 def program(filename, fiber_width, curvature=''):
     d, x, y, z = readVTK(filename)
@@ -21,15 +22,18 @@ def program(filename, fiber_width, curvature=''):
 
     tensor_tangents = tangents(d, fiber_width)
     print("finished calculating tangents")
-    #import pdb; pdb.set_trace() 
+    #import pdb; pdb.set_trace()
     tensor_curvatures = curvatures(tensor_tangents)
     print("finished calculating curvatures")
 
-    analyze(tensor_tangents, tensor_curvatures, filename, fiber_width, curvature)
+    nzCurvatures, nzTangents = filterSmoothedCurvatures(tensor_curvatures, tensor_tangents,x,y,z)
+    print("finished filtering curvatures and tangents")
+
+    analyze(nzTangents, nzCurvatures, filename, fiber_width, curvature)
     print("finished analysis")
 
-    tangwrite(tensor_tangents, 'tangents.vtk')
+    tangwrite(nzTangents, 'tangents.vtk')
     print("finished writing tangents to file")
 
-    curvwrite(tensor_curvatures, 'curvatures.vtk')
+    curvwrite(nzTangents, 'curvatures.vtk')
     print("finished writing curvatures to file")
