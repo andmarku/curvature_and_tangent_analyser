@@ -8,6 +8,10 @@ def calculateWithCython(GST):
     for (i, j, k), m in np.ndenumerate(GST[:,:,:,0,0]):
         if( GST[i,j,k,:,:].max() > 0.0001):
             data[i,j,k,:] = cython.calculateTangent(GST[i,j,k,:,:])
+        elif(np.any(GST[i,j,k,:,:])):
+            eigs, vecs = np.linalg.eigh(GST[i,j,k,:,:])
+            index = np.argmin(abs(eigs))
+            data[i,j,k,:] = vecs[:, index]
 
     print("finished eigenvalues")
 

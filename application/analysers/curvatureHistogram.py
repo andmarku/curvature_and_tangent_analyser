@@ -2,8 +2,6 @@ import numpy as np
 import matplotlib.mlab as mlab
 from scipy.stats import norm
 import matplotlib.pyplot as plt
-# import sys
-# sys.path.append('./data')
 
 def createCurvatureHistogram(curvature, name_of_input, fiber_width, curvature_filename):
     ''' Function creating a histogram of sent in array with values
