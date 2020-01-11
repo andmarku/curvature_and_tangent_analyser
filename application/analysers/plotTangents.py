@@ -18,4 +18,7 @@ def plotTangentComponents(tensor_tangents):
 
     # Plot x xomponents only
     ax.quiver(x, y, z, xcomp, ycomp, zcomp)
+    # ax.set_aspect('equal')
+    fig.set_size_inches(16, 9)
+    # plt.savefig("tangents.png")
     plt.show()
