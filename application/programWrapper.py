@@ -35,5 +35,5 @@ def program(filename, fiber_width, curvature=''):
     tangwrite(nzTangents, 'tangents.vtk')
     print("finished writing tangents to file")
 
-    curvwrite(nzTangents, 'curvatures.vtk')
+    curvwrite(nzCurvatures, 'curvatures.vtk')
     print("finished writing curvatures to file")
