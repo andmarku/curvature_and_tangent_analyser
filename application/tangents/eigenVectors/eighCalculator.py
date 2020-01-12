@@ -18,8 +18,8 @@ def calculateWithEigh(GST):
             alternativeEigVals = np.delete(eigs, index)
             if(eigVal == alternativeEigVals[0]):
                 egVec = vecs[:, index]
-                alternativeEigVecs = np.delete(vecs, index)
-                altEgVec = alternativeEigVecs[0]
+                alternativeEigVecs = np.delete(vecs, index,1)
+                altEgVec = alternativeEigVecs[:,0]
 
                 # eigh returns normalized vectors, so dividing by norm is't needed
                 discrepancy =  1 - np.absolute(altEgVec.dot(egVec))
@@ -29,8 +29,8 @@ def calculateWithEigh(GST):
                     data[i,j,k,:] = vecs[:, index]
             elif(eigVal == alternativeEigVals[1]):
                 egVec = vecs[:, index]
-                alternativeEigVecs = np.delete(vecs, index)
-                altEgVec = alternativeEigVecs[1]
+                alternativeEigVecs = np.delete(vecs, index,1)
+                altEgVec = alternativeEigVecs[:,1]
 
                 # eigh returns normalized vectors, so dividing by norm is't needed
                 discrepancy =  1 - np.absolute(altEgVec.dot(egVec))
