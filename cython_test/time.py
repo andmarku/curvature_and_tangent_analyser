@@ -29,7 +29,7 @@ def testFcns(matrices,nrOfTests):
 
 if __name__ == '__main__':
     seedForRandom = 10
-    nrOfTests = 200*200*2
+    nrOfTests = 200*200*200 
     print("Running " + str(nrOfTests) + " iterations\n")
 
     print("create matrices")
