@@ -53,7 +53,7 @@ cdef double* calcEgVecByCrossProduct(double[9] arg, double[3] egVec):
     #   Then return the first nonzero vector
 
     # constant to protect from rounding of errors
-    cdef double cutOffConstant = 1e-15
+    cdef double cutOffConstant = 1e-25
 
     # prep
     cdef double[3] v1 = [arg[0], arg[1], arg[2]]

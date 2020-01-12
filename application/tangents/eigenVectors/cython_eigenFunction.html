@@ -576,8 +576,8 @@ static PyObject *__pyx_pf_20cython_eigenFunction_calculateTangent(CYTHON_UNUSED 
 <pre class="cython line score-0">&#xA0;<span class="">053</span>:     #   Then return the first nonzero vector</pre>
 <pre class="cython line score-0">&#xA0;<span class="">054</span>: </pre>
 <pre class="cython line score-0">&#xA0;<span class="">055</span>:     # constant to protect from rounding of errors</pre>
-<pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">056</span>:     cdef double cutOffConstant = 1e-15</pre>
-<pre class='cython code score-0 '>  __pyx_v_cutOffConstant = 1e-15;
+<pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">056</span>:     cdef double cutOffConstant = 1e-25</pre>
+<pre class='cython code score-0 '>  __pyx_v_cutOffConstant = 1e-25;
 </pre><pre class="cython line score-0">&#xA0;<span class="">057</span>: </pre>
 <pre class="cython line score-0">&#xA0;<span class="">058</span>:     # prep</pre>
 <pre class="cython line score-0" onclick="(function(s){s.display=s.display==='block'?'none':'block'})(this.nextElementSibling.style)">+<span class="">059</span>:     cdef double[3] v1 = [arg[0], arg[1], arg[2]]</pre>

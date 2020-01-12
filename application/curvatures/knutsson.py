@@ -12,7 +12,7 @@ Output is on the form:
 '''
 
 def knutssonMapping(eigenvector):
-    knutMap = np.outer(eigenvector,eigenvector)/np.linalg.norm(eigenvector)
+    knutMap = np.outer(eigenvector,eigenvector)
     return knutMap.flatten()
 
 def knutssonMapper(allEigenvectors):

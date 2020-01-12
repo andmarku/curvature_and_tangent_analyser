@@ -2132,11 +2132,11 @@ static double *__pyx_f_20cython_eigenFunction_calcEgVecByCrossProduct(double *__
   /* "cython_eigenFunction.pyx":56
  * 
  *     # constant to protect from rounding of errors
- *     cdef double cutOffConstant = 1e-15             # <<<<<<<<<<<<<<
+ *     cdef double cutOffConstant = 1e-25             # <<<<<<<<<<<<<<
  * 
  *     # prep
  */
-  __pyx_v_cutOffConstant = 1e-15;
+  __pyx_v_cutOffConstant = 1e-25;
 
   /* "cython_eigenFunction.pyx":59
  * 
