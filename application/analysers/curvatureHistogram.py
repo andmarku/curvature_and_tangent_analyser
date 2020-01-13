@@ -64,7 +64,7 @@ def createCurvatureHistogram(curvature, name_of_input, fiber_width, curvature_fi
         # True curvatures
         axs[1].hist(trueCurvatures, num_bins, density=1, facecolor='blue', alpha=0.5)
         axs[1].axvline(trueMean, c = 'red', lw = 3, label='True mean: ' + str(np.round(trueMean, 3)))
-        axs[1].axvline(median_curvature, c = 'green', ls = '--', lw = 2, label='Median: ' + str(np.round(trueMedian, 3)))
+        axs[1].axvline(trueMedian, c = 'green', ls = '--', lw = 2, label='Median: ' + str(np.round(trueMedian, 3)))
         axs[1].legend(prop={"size":20})
         title2 = 'Histogram of true curvature: figure ' + name_of_input + \
          r', fiber radius $=' + str(fiber_width) + r'$'
