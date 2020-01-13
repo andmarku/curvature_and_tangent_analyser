@@ -15,6 +15,7 @@ def createCurvatureHistogram(curvature, name_of_input, fiber_width, curvature_fi
     num_bins = 40
 
     mean_curvature = curvature.mean()
+    median_curvature = np.median(curvature)
 
     # If no validation file exist, only one plot will be shown
     if not curvature_filename:
@@ -22,7 +23,8 @@ def createCurvatureHistogram(curvature, name_of_input, fiber_width, curvature_fi
         plt.figure(figsize=(16, 9))
         n, bins, patches = plt.hist(curvature, num_bins, density=1, facecolor='blue', alpha=0.5)
 
-        plt.axvline(mean_curvature, c = 'red',label='Mean: ' + str(np.round(mean_curvature, 3)))
+        plt.axvline(mean_curvature, c = 'red', lw = 3, label='Mean: ' + str(np.round(mean_curvature, 3)))
+        plt.axvline(median_curvature, c = 'green', ls = '--', lw = 2, label='Median: ' + str(np.round(median_curvature, 3)))
         plt.legend(prop={"size":20})
         plt.xlabel('Curvature', size=16)
         plt.ylabel('Frequency', size=16)
@@ -38,11 +40,13 @@ def createCurvatureHistogram(curvature, name_of_input, fiber_width, curvature_fi
 
         trueCurvatures = np.loadtxt(fname = path)
         trueMean = np.mean(trueCurvatures)
+        trueMedian = np.median(trueCurvatures)
 
         # the histogram of the data
         fig, axs = plt.subplots(1, 2, sharey=False, tight_layout=True)
         n, bins, patches = axs[0].hist(curvature, num_bins, density=1, facecolor='blue', alpha=0.5)
-        axs[0].axvline(mean_curvature, c = 'red',label='Mean: ' + str(np.round(mean_curvature, 3)))
+        axs[0].axvline(mean_curvature, c = 'red', lw = 3, label='Mean: ' + str(np.round(mean_curvature, 3)))
+        axs[0].axvline(median_curvature, c = 'green', ls = '--', lw = 2, label='Median: ' + str(np.round(median_curvature, 3)))
         axs[0].legend(prop={"size":20})
         axs[0].set_xlabel('Curvature', size=16)
         axs[0].set_ylabel('Frequency', size=16)
@@ -52,7 +56,8 @@ def createCurvatureHistogram(curvature, name_of_input, fiber_width, curvature_fi
 
         # True curvatures
         axs[1].hist(trueCurvatures, num_bins, density=1, facecolor='blue', alpha=0.5)
-        axs[1].axvline(trueMean, c = 'red', label='True mean: ' + str(np.round(trueMean, 3)))
+        axs[1].axvline(trueMean, c = 'red', lw = 3, label='True mean: ' + str(np.round(trueMean, 3)))
+        axs[1].axvline(median_curvature, c = 'green', ls = '--', lw = 2, label='Median: ' + str(np.round(trueMedian, 3)))
         axs[1].legend(prop={"size":20})
         title2 = 'Histogram of true curvature: figure ' + name_of_input + \
          r', fiber radius $=' + str(fiber_width) + r'$'
