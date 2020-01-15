@@ -36,5 +36,13 @@ def plotTangentComponents(tensor_tangents, fiber_width, name_of_input):
 
     ax.quiver(x,y,z, xcomp, ycomp, zcomp, alpha=0.5)
     fig.set_size_inches(16, 9)
-    plt.savefig(str(name_of_input)+"Tangents.png")
+
+    # Save to file
+    saveName = ''
+    for char in name_of_input:
+        if char != '.':
+            saveName = saveName + char
+        else:
+            break
+    plt.savefig(str(saveName)+"Tangents.png")
     plt.show()
