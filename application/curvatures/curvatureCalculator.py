@@ -1,4 +1,5 @@
 import numpy as np
+import cython_calcCurvature as cython
 
 # define constant
 CONST_SQRT_OF_TWO = np.sqrt(2)
@@ -9,7 +10,11 @@ def calcCurvatureForAllVoxels(tensor_dmAlongTangent):
 
     # for each voxel, calculate the curvature
     for idx, _ in np.ndenumerate(tensor_curvatures):
-        tensor_curvatures[idx[0], idx[1], idx[2]] =  calcCurvature(tensor_dmAlongTangent[idx[0], idx[1], idx[2],:])
+
+        # cython optimization
+        tensor_curvatures[idx[0], idx[1], idx[2]] = cython.calcCurvature(tensor_dmAlongTangent[idx[0], idx[1], idx[2],:])
+
+        # tensor_curvatures[idx[0], idx[1], idx[2]] =  calcCurvature(tensor_dmAlongTangent[idx[0], idx[1], idx[2],:])
 
     return tensor_curvatures
 

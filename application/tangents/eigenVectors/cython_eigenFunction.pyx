@@ -15,6 +15,12 @@ cpdef cnp.ndarray[double, ndim=1] calculateTangent(cnp.ndarray arg):
        <double> arg[1][0], <double> arg[1][1], <double> arg[1][2] ,
        <double> arg[2][0], <double> arg[2][1], <double> arg[2][2]]
 
+    cdef double areAllZero= arg[0][0] * arg[0][0] + arg[1][0] * arg[1][0] + arg[2][0] * arg[2][0] + \
+      arg[1][1] * arg[1][1] + arg[2][1] * arg[2][1] + arg[2][2] * arg[2][2]
+
+    if(areAllZero == 0):
+      return np.array([0,0,0])
+
     # create the matrix (M - lambda I)
     cdef double smallestEgValue = calculateEigenValue(arg_as_array, arg)
 
@@ -53,7 +59,7 @@ cdef double* calcEgVecByCrossProduct(double[9] arg, double[3] egVec):
     #   Then return the first nonzero vector
 
     # constant to protect from rounding of errors
-    cdef double cutOffConstant = 1e-25
+    cdef double cutOffConstant = 1e-20
 
     # prep
     cdef double[3] v1 = [arg[0], arg[1], arg[2]]
