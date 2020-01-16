@@ -4,7 +4,7 @@ from vtk import vtkStructuredPointsReader
 from vtk.util import numpy_support as VN
 
 def readVTK(filename = 'input.vtk'):
-    path = './data/testfiles/' + filename
+    path = './inputData/' + filename
     reader = vtkStructuredPointsReader()
     reader.SetFileName(path)
     reader.ReadAllVectorsOn()

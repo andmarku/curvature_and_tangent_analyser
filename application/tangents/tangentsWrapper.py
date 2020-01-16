@@ -1,7 +1,7 @@
 import sys
 sys.path.append('./tangents/smoothing')
 sys.path.append('./tangents/gst')
-sys.path.append('./tangents/eigenVectors')
+sys.path.append('./tangents/eigenvectors')
 from GST0 import calculateGST0
 from gaussianSmoothing import convolution
 from eigenVectorWrapper import calculateEigenVectors

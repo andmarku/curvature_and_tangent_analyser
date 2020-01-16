@@ -1,11 +1,0 @@
-# vtk DataFile Version 4.2
-vtk output
-BINARY
-DATASET STRUCTURED_POINTS
-DIMENSIONS 3 3 3
-SPACING 1 1 1
-ORIGIN 0 0 0
-POINT_DATA 27
-FIELD FieldData 1
-unknown 1 27 float
-?KØ?jŠ˜?fL?5éŒ?3ö9?r©>‘€Ñ>-)†>‰À?)û?ç>Ö(>,W?4Ìü?Á>“]Š?.ãP?c¨?J˜=ÜÅU>ùx'=]d?s8>ïLø?Ñ:>úÉ`>‘ü

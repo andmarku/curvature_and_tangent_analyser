@@ -2,3 +2,11 @@
 **/__pycache__
 **/*.png
 **/*.prof
+**/*.prof
+**/curvatures.vtk
+**/tangents.vtk
+**/*.png
+**/*.html
+**/*.so
+**/*.c
+**/build
